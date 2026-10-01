@@ -1,0 +1,1732 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "performance",
+  "workload": "p6_full_bench",
+  "mode": "p6",
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": null,
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 13.6,
+    "torch_threads": null
+  },
+  "config": {
+    "rounds": 20,
+    "cipher_rounds": 20,
+    "layers": [
+      4,
+      8,
+      12
+    ],
+    "quick": false
+  },
+  "timestamp_utc": "2026-09-29T04:38:32Z",
+  "code_size": {
+    "crypto": {
+      "code": 789,
+      "comment": 21,
+      "blank": 182,
+      "files": 6
+    },
+    "protocol": {
+      "code": 1590,
+      "comment": 54,
+      "blank": 342,
+      "files": 7
+    },
+    "model": {
+      "code": 1181,
+      "comment": 36,
+      "blank": 247,
+      "files": 10
+    },
+    "nodes": {
+      "code": 746,
+      "comment": 18,
+      "blank": 125,
+      "files": 8
+    },
+    "common": {
+      "code": 422,
+      "comment": 6,
+      "blank": 75,
+      "files": 4
+    },
+    "benchmarks": {
+      "code": 1870,
+      "comment": 47,
+      "blank": 318,
+      "files": 16
+    },
+    "tests": {
+      "code": 3351,
+      "comment": 87,
+      "blank": 638,
+      "files": 34
+    },
+    "total": {
+      "code": 9949,
+      "comment": 269,
+      "blank": 1927,
+      "files": 85
+    }
+  },
+  "c3_ab": {
+    "d256": {
+      "diagonal_bsgs": {
+        "time_s": 2.603,
+        "rotations": 33,
+        "plain_mults": 256,
+        "max_abs_err": 9.759137226117431e-08
+      },
+      "rowsum": {
+        "time_s": 14.031,
+        "rotations": 256,
+        "plain_mults": 256,
+        "max_abs_err": 2.37651984191789e-06
+      },
+      "time_ratio_rowsum_over_diag": 5.39
+    },
+    "d512": {
+      "diagonal_bsgs": {
+        "time_s": 5.693,
+        "rotations": 45,
+        "plain_mults": 512,
+        "max_abs_err": 9.279213182833423e-07
+      },
+      "rowsum": {
+        "time_s": 29.236,
+        "rotations": 512,
+        "plain_mults": 512,
+        "max_abs_err": 2.1646212228221273e-06
+      },
+      "time_ratio_rowsum_over_diag": 5.14
+    },
+    "conclusion": "\u5bf9\u89d2\u7ebf+BSGS \u80dc\u51fa\uff08\u5b9e\u6d4b 5\u00d7 \u91cf\u7ea7\uff09\u2014\u2014P2 \u63a8\u6d4b\u300erow-sum \u6216\u5feb 1.3\u00d7\u300f\u88ab\u5426\u5b9a\uff1aBSGS \u5c06\u65cb\u8f6c\u538b\u5230 2\u221ad\uff0c\u800c row-sum \u7684 d \u6b21\u65cb\u8f6c\u5728 \u03c1\u22481.7 \u4e0b\u4e0d\u53ef\u56de\u6536\uff1b\u89e3\u6790\u5355\u4f4d\u6a21\u578b\u4f4e\u4f30\u4e86\u73af\u4e0a\u5168\u5bbd\u660e\u6587\u7f16\u7801\u6210\u672c\uff08P6 \u5b9e\u6d4b\u53e3\u5f84\uff09"
+  },
+  "tables": {
+    "tables_written": "benchmarks\\results\\p6_tables.md",
+    "sections": 5
+  },
+  "plaintext": {
+    "bert_latency_full12": {
+      "round_total": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 32.09438999983831,
+        "p50": 23.644849999982398,
+        "p95": 35.71145500391151,
+        "min": 21.585499998764135,
+        "max": 183.83080000057817
+      },
+      "segments": {
+        "detokenize": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.10050999917439185,
+          "p50": 0.05029999738326296,
+          "p95": 0.10300499561708493,
+          "min": 0.04720000288216397,
+          "max": 1.0550000006332994
+        },
+        "model_forward": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 31.543019999662647,
+          "p50": 23.251949998666532,
+          "p95": 35.16812500492971,
+          "min": 21.212899999227375,
+          "max": 180.20509999769274
+        },
+        "tokenize": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.40378500052611344,
+          "p50": 0.28915000075357966,
+          "p95": 0.4737699964607615,
+          "min": 0.2711000051931478,
+          "max": 2.494799999112729
+        }
+      },
+      "network": {
+        "bytes_sent_per_round": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "bytes_recv_per_round": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "bytes_sent_total": 0,
+        "bytes_recv_total": 0
+      },
+      "memory": {
+        "unit": "bytes",
+        "peak_delta_mean": 17525964.8,
+        "peak_delta_max": 346853376,
+        "note": "\u8fdb\u7a0b RSS \u76f8\u5bf9\u8f6e\u6b21\u57fa\u7ebf\u7684\u589e\u91cf\uff1b\u7edd\u5bf9\u5cf0\u503c\u53e6\u89c1 rounds \u8bb0\u5f55"
+      }
+    },
+    "bert_accuracy_full12_quantized": {
+      "n": 200,
+      "accuracy": 0.99,
+      "note": "\u6ee1\u914d 12 \u5c42 INT8 \u6743\u91cd + Q16 \u6fc0\u6d3b\uff08\u7cbe\u5ea6\u53e3\u5f84\uff0c\u4e0e\u622a\u65ad\u6027\u80fd\u5206\u8868\uff09"
+    },
+    "gpt2_latency": {
+      "round_total": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 679.3533449992537,
+        "p50": 677.1718499985582,
+        "p95": 722.9602549974516,
+        "min": 617.524900000717,
+        "max": 733.4094000034383
+      },
+      "segments": {
+        "decode_step": {
+          "n": 320,
+          "unit": "ms",
+          "mean": 42.28997750046801,
+          "p50": 43.228949998592725,
+          "p95": 50.16423500383099,
+          "min": 23.44989999983227,
+          "max": 55.79579999903217
+        },
+        "detokenize": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.1836949995777104,
+          "p50": 0.16109999705804512,
+          "p95": 0.3051249961572467,
+          "min": 0.15419999544974416,
+          "max": 0.35689999640453607
+        },
+        "tokenize": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.5220000006374903,
+          "p50": 0.46909999946365133,
+          "p95": 0.7962400020915086,
+          "min": 0.393000002077315,
+          "max": 1.068700003088452
+        }
+      },
+      "network": {
+        "bytes_sent_per_round": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "bytes_recv_per_round": {
+          "n": 20,
+          "unit": "ms",
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "bytes_sent_total": 0,
+        "bytes_recv_total": 0
+      },
+      "memory": {
+        "unit": "bytes",
+        "peak_delta_mean": 3713024.0,
+        "peak_delta_max": 19140608,
+        "note": "\u8fdb\u7a0b RSS \u76f8\u5bf9\u8f6e\u6b21\u57fa\u7ebf\u7684\u589e\u91cf\uff1b\u7edd\u5bf9\u5cf0\u503c\u53e6\u89c1 rounds \u8bb0\u5f55"
+      }
+    }
+  },
+  "traffic": {
+    "topology": "P0\u2194P1 / P0\u2194P2 / P1\u2194P2\uff08\u73a9\u5177 CKKS \u5168\u751f\u547d\u5468\u671f e2e\uff09",
+    "per_connection_bidirectional": {
+      "p0-p1/p0_client": {
+        "bytes_sent": 1714,
+        "bytes_recv": 1995,
+        "messages_sent": 4,
+        "messages_recv": 6
+      },
+      "p0-p2/p0_client": {
+        "bytes_sent": 1714,
+        "bytes_recv": 1999,
+        "messages_sent": 4,
+        "messages_recv": 6
+      },
+      "p0-p1/p1_keynode": {
+        "bytes_sent": 1995,
+        "bytes_recv": 1714,
+        "messages_sent": 6,
+        "messages_recv": 4
+      },
+      "p1-p2/p1_keynode": {
+        "bytes_sent": 1716,
+        "bytes_recv": 1999,
+        "messages_sent": 4,
+        "messages_recv": 6
+      },
+      "p0-p2/p2_infernode": {
+        "bytes_sent": 1999,
+        "bytes_recv": 1714,
+        "messages_sent": 6,
+        "messages_recv": 4
+      },
+      "p1-p2/p2_infernode": {
+        "bytes_sent": 1999,
+        "bytes_recv": 1716,
+        "messages_sent": 6,
+        "messages_recv": 4
+      }
+    },
+    "note": "\u5b57\u8282=\u901a\u9053\u5e27\u5c42\u7edf\u4e00\u8ba1\u6570\uff08\u542b\u534f\u8bae\u5934\uff0cF9\uff09\uff1b\u771f\u5b9e\u7ba1\u7ebf\u8f6c\u6362\u5b57\u8282\u53e6\u89c1 cipher_matrix \u5404\u8f6e mpc_comm_bytes/conversions"
+  },
+  "node_memory": {
+    "per_node_peak_rss": {
+      "p0_client": {
+        "peak_rss_bytes": 39931904,
+        "role": "auth/session \u7f16\u6392\u8282\u70b9\uff08\u4e0d\u542b CKKS \u8ba1\u7b97\u8d1f\u8f7d\uff09"
+      },
+      "p1_keynode": {
+        "peak_rss_bytes": 40468480,
+        "role": "auth/session \u7f16\u6392\u8282\u70b9\uff08\u4e0d\u542b CKKS \u8ba1\u7b97\u8d1f\u8f7d\uff09"
+      },
+      "p2_infernode": {
+        "peak_rss_bytes": 40013824,
+        "role": "auth/session \u7f16\u6392\u8282\u70b9\uff08\u4e0d\u542b CKKS \u8ba1\u7b97\u8d1f\u8f7d\uff09"
+      }
+    },
+    "note": "\u591a\u8fdb\u7a0b\u7f16\u6392\u4e09\u771f\u8fdb\u7a0b\u81ea\u91c7\u6837\uff08psutil 20ms\uff09\uff1b\u5bc6\u6587\u7ba1\u7ebf\u4e3a\u5355\u8fdb\u7a0bS8 \u53e3\u5f84\uff0c\u5176\u5cf0\u503c\u89c1 cipher_matrix \u7684 peak_delta_bytes"
+  },
+  "c2_selector": {
+    "default_q22": {
+      "token_agreement_vs_fp32": 1.0,
+      "latency": {
+        "mean": 907.4,
+        "p50": 915.3,
+        "unit": "ms",
+        "n": 10
+      },
+      "scheme_histogram": {
+        "q22": "\u5168\u90e8 Conv1D/Linear/Embedding"
+      },
+      "size_bytes": 497759232
+    },
+    "pure_int8": {
+      "token_agreement_vs_fp32": 0.8906,
+      "latency": {
+        "mean": 888.5,
+        "p50": 889.9,
+        "unit": "ms",
+        "n": 10
+      },
+      "scheme_histogram": {
+        "int8": 48
+      },
+      "size_bytes": 281144064
+    },
+    "adaptive": {
+      "token_agreement_vs_fp32": 0.8906,
+      "latency": {
+        "mean": 894.6,
+        "p50": 878.0,
+        "unit": "ms",
+        "n": 10
+      },
+      "scheme_histogram": {
+        "int8": 48
+      },
+      "size_bytes": 281144064
+    },
+    "ladder_per_layer": {
+      "token_agreement_vs_fp32": 0.8906,
+      "latency": {
+        "mean": 704.3,
+        "p50": 711.5,
+        "unit": "ms",
+        "n": 10
+      },
+      "size_bytes": 481870848,
+      "scheme_histogram": {
+        "int8": 0,
+        "fp16": 48
+      },
+      "upgrade_trace": [
+        {
+          "upgraded_layer": 0,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 1,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 2,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 3,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 4,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 5,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 6,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 7,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 8,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 9,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 10,
+          "agreement": 0.8906
+        },
+        {
+          "upgraded_layer": 11,
+          "agreement": 0.8906
+        }
+      ],
+      "note": "\u5c42\u7ea7\u7c92\u5ea6\u81ea\u9002\u5e94\uff1a\u6d45\u5c42\u2192\u6df1\u5c42\u9010\u5c42 fp16 \u5347\u7ea7\uff0c\u7aef\u5230\u7aef\u4e00\u81f4\u7387\u95f8\u95e8"
+    },
+    "finding": "\u9010\u5f20\u91cf 2% \u8bef\u5dee\u9608\u503c\u9009\u62e9\u5668\u5931\u6548\uff08adaptive=pure_int8=0.8906\uff0cint8 \u9010\u5f20\u91cf\u76f8\u5bf9\u8bef\u5dee\u666e\u904d <2% \u4f46\u7aef\u5230\u7aef\u6df7\u6c8c\u7ea7\u8054\u53d1\u6563\uff09\u2014\u2014\u53c2\u6570\u9009\u62e9\u5fc5\u987b\u4ee5\u7aef\u5230\u7aef\u4e00\u81f4\u7387\u4e3a\u95f8\u95e8\uff08P0 \u6df7\u6c8c\u654f\u611f\u6027\u53d1\u73b0\u7684\u5e94\u7528\uff09\uff1b\u5c42\u7ea7\u5347\u7ea7\u9009\u62e9\u5668\u4ee5\u66f4\u5c11\u4f53\u79ef\u8fbe\u5230 \u22650.95",
+    "conv_int8_emb_q22": {
+      "token_agreement_vs_fp32": 0.8906,
+      "latency": {
+        "mean": 680.7,
+        "p50": 686.4,
+        "unit": "ms",
+        "n": 10
+      },
+      "size_bytes": 242955264,
+      "scheme_histogram": {
+        "embedding": "q22",
+        "conv1d": "int8"
+      }
+    },
+    "conv_fp16_emb_q22": {
+      "token_agreement_vs_fp32": 1.0,
+      "latency": {
+        "mean": 709.7,
+        "p50": 698.9,
+        "unit": "ms",
+        "n": 10
+      },
+      "size_bytes": 327889920,
+      "scheme_histogram": {
+        "embedding": "q22",
+        "conv1d": "fp16"
+      }
+    },
+    "conv_q22_emb_fp16": {
+      "token_agreement_vs_fp32": 0.9437,
+      "latency": {
+        "mean": 681.2,
+        "p50": 684.6,
+        "unit": "ms",
+        "n": 10
+      },
+      "size_bytes": 418991616,
+      "scheme_histogram": {
+        "embedding": "fp16",
+        "conv1d": "q22"
+      }
+    },
+    "conv_q22_emb_int8": {
+      "token_agreement_vs_fp32": 0.3063,
+      "latency": {
+        "mean": 726.9,
+        "p50": 733.0,
+        "unit": "ms",
+        "n": 10
+      },
+      "size_bytes": 379607808,
+      "scheme_histogram": {
+        "embedding": "int8",
+        "conv1d": "q22"
+      }
+    },
+    "fp32_reference_size_bytes": 497759232,
+    "selection_rule": "per-tensor: int8 \u76f8\u5bf9\u8bef\u5dee \u22642% \u2192 int8\uff0c\u5426\u5219 fp16\uff1b\u5d4c\u5165/\u7ed1\u5b9a\u6743\u91cd\u4fdd\u6301 q22\uff08P0 \u5b9e\u6d4b\uff1a\u5d4c\u5165\u7cbe\u5ea6\u76f4\u63a5\u51b3\u5b9a logits\uff09\uff1b\u6fc0\u6d3b\u94a9\u5b50\u4e09\u914d\u7f6e\u4e00\u81f4 Q16",
+    "security_note": "\u91cf\u5316\u4ec5\u4f5c\u7528\u4e8e P0 \u672c\u5730\u660e\u6587\u57df\uff08\u6a21\u578b\u8f93\u5165\u51c6\u5907\uff09\uff0c\u4e0d\u6539\u53d8\u534f\u8bae/\u5bc6\u94a5/\u63a9\u7801\u4efb\u4f55\u5b89\u5168\u53c2\u6570\u2014\u2014\u5b89\u5168\u7ea6\u675f\u5206\u6790\u89c1 docs/05"
+  },
+  "cipher_matrix": {
+    "modeB_layer4": {
+      "n_layer": 4,
+      "seq_tokens": 2,
+      "rounds_target": 20,
+      "rounds_done": 20,
+      "wall_ms": {
+        "n": 20,
+        "mean": 121443.20040000002,
+        "p50": 121682.36940000008,
+        "p95": 133474.49135500003,
+        "min": 105603.41549999999,
+        "max": 136844.54519999996,
+        "unit": "ms"
+      },
+      "peak_delta_bytes": {
+        "n": 20,
+        "mean": 5039628697.6,
+        "p50": 5259964416.0,
+        "p95": 8297527500.8,
+        "min": 1625460736,
+        "max": 8750895104,
+        "unit": "bytes"
+      },
+      "conversions_per_round": 40,
+      "label_stability": false,
+      "records": [
+        {
+          "round": 0,
+          "wall_ms": 116214.77389999996,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6879799365997314,
+          "conversions": 40,
+          "mpc_gates": 205920,
+          "mpc_comm_bytes": 5803008,
+          "peak_delta_bytes": 8750895104,
+          "segments_ms": {
+            "encrypt": 135.96442500000686,
+            "compute_linear": 7042.671393749994,
+            "convert_mask_decrypt": 62.138891666665565,
+            "convert_share": 7.152420833326308,
+            "compute_nonlinear": 107.4963749999931,
+            "convert_recrypt": 144.93201874999784,
+            "threshold_decrypt": 158.75519999997323
+          }
+        },
+        {
+          "round": 1,
+          "wall_ms": 113454.52979999999,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6027888059616089,
+          "conversions": 40,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 5734387712,
+          "segments_ms": {
+            "encrypt": 135.26603333332332,
+            "compute_linear": 6871.903093749995,
+            "convert_mask_decrypt": 61.841854166679866,
+            "convert_share": 7.353566666665756,
+            "compute_nonlinear": 107.18381249998998,
+            "convert_recrypt": 145.52365624999553,
+            "threshold_decrypt": 163.4923000000299
+          }
+        },
+        {
+          "round": 2,
+          "wall_ms": 105603.41549999999,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6056535243988037,
+          "conversions": 40,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 3360247808,
+          "segments_ms": {
+            "encrypt": 134.4667166666511,
+            "compute_linear": 6382.376506250021,
+            "convert_mask_decrypt": 61.72182916667168,
+            "convert_share": 7.361120833332772,
+            "compute_nonlinear": 107.06956874999918,
+            "convert_recrypt": 144.21416249999197,
+            "threshold_decrypt": 156.5127000000075
+          }
+        },
+        {
+          "round": 3,
+          "wall_ms": 125339.28150000008,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6347671747207642,
+          "conversions": 40,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 3174559744,
+          "segments_ms": {
+            "encrypt": 145.95572500000267,
+            "compute_linear": 7591.489381250014,
+            "convert_mask_decrypt": 69.75875416668487,
+            "convert_share": 8.319733333323143,
+            "compute_nonlinear": 121.16088124999891,
+            "convert_recrypt": 159.61092499999552,
+            "threshold_decrypt": 182.8666000000112
+          }
+        },
+        {
+          "round": 4,
+          "wall_ms": 136844.54519999996,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6375186443328857,
+          "conversions": 40,
+          "mpc_gates": 1029600,
+          "mpc_comm_bytes": 29015040,
+          "peak_delta_bytes": 1625460736,
+          "segments_ms": {
+            "encrypt": 155.35704166666164,
+            "compute_linear": 8299.485887500006,
+            "convert_mask_decrypt": 72.25496666665758,
+            "convert_share": 8.790449999992234,
+            "compute_nonlinear": 125.88623125001419,
+            "convert_recrypt": 165.5035125000026,
+            "threshold_decrypt": 171.3291000000936
+          }
+        },
+        {
+          "round": 5,
+          "wall_ms": 124755.47930000005,
+          "label": "\u8d1f\u9762",
+          "prob": 0.564868152141571,
+          "conversions": 40,
+          "mpc_gates": 205920,
+          "mpc_comm_bytes": 5803008,
+          "peak_delta_bytes": 7797309440,
+          "segments_ms": {
+            "encrypt": 146.17936666665324,
+            "compute_linear": 7558.186468749973,
+            "convert_mask_decrypt": 67.27710416670145,
+            "convert_share": 8.163112500019073,
+            "compute_nonlinear": 117.0147312500518,
+            "convert_recrypt": 155.12385625000036,
+            "threshold_decrypt": 181.92790000011883
+          }
+        },
+        {
+          "round": 6,
+          "wall_ms": 118399.52080000011,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5196829438209534,
+          "conversions": 40,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 5262315520,
+          "segments_ms": {
+            "encrypt": 146.70476666666823,
+            "compute_linear": 7164.048712499978,
+            "convert_mask_decrypt": 66.62557916664014,
+            "convert_share": 8.208408333312414,
+            "compute_nonlinear": 115.93453124996245,
+            "convert_recrypt": 155.64089999999453,
+            "threshold_decrypt": 156.7993999999544
+          }
+        },
+        {
+          "round": 7,
+          "wall_ms": 115765.55919999987,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6067519187927246,
+          "conversions": 40,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 4309147648,
+          "segments_ms": {
+            "encrypt": 146.93956666669314,
+            "compute_linear": 6997.826356250045,
+            "convert_mask_decrypt": 67.11768750002989,
+            "convert_share": 8.107020833364231,
+            "compute_nonlinear": 116.83277500003442,
+            "convert_recrypt": 156.86249999997415,
+            "threshold_decrypt": 165.1924999998755
+          }
+        },
+        {
+          "round": 8,
+          "wall_ms": 129264.40200000002,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5693617463111877,
+          "conversions": 40,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 6211289088,
+          "segments_ms": {
+            "encrypt": 146.51597499998084,
+            "compute_linear": 7838.519843749992,
+            "convert_mask_decrypt": 69.01273750001262,
+            "convert_share": 8.431204166669204,
+            "compute_nonlinear": 120.07682500001238,
+            "convert_recrypt": 156.84181875001002,
+            "threshold_decrypt": 165.7703999999285
+          }
+        },
+        {
+          "round": 9,
+          "wall_ms": 127939.206,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5455794334411621,
+          "conversions": 40,
+          "mpc_gates": 1029600,
+          "mpc_comm_bytes": 29015040,
+          "peak_delta_bytes": 2076585984,
+          "segments_ms": {
+            "encrypt": 149.82094166668958,
+            "compute_linear": 7750.388456250008,
+            "convert_mask_decrypt": 70.38481249996191,
+            "convert_share": 8.615824999973634,
+            "compute_nonlinear": 122.53716249996671,
+            "convert_recrypt": 161.27850625002793,
+            "threshold_decrypt": 171.82079999997768
+          }
+        },
+        {
+          "round": 10,
+          "wall_ms": 122829.82169999991,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6183953285217285,
+          "conversions": 40,
+          "mpc_gates": 205920,
+          "mpc_comm_bytes": 5803008,
+          "peak_delta_bytes": 7321632768,
+          "segments_ms": {
+            "encrypt": 148.1044083333245,
+            "compute_linear": 7438.105050000004,
+            "convert_mask_decrypt": 66.53979166662793,
+            "convert_share": 8.26283749997477,
+            "compute_nonlinear": 116.12661875000185,
+            "convert_recrypt": 157.40896875001908,
+            "threshold_decrypt": 168.7973000000511
+          }
+        },
+        {
+          "round": 11,
+          "wall_ms": 116719.23970000012,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5820012092590332,
+          "conversions": 40,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 5260763136,
+          "segments_ms": {
+            "encrypt": 144.88726666674742,
+            "compute_linear": 7060.316381249975,
+            "convert_mask_decrypt": 65.65273749999771,
+            "convert_share": 8.244112499985098,
+            "compute_nonlinear": 114.56031250000365,
+            "convert_recrypt": 156.42009375001464,
+            "threshold_decrypt": 179.940600000009
+          }
+        },
+        {
+          "round": 12,
+          "wall_ms": 111184.90769999972,
+          "label": "\u6b63\u9762",
+          "prob": 0.5169017910957336,
+          "conversions": 40,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 3359105024,
+          "segments_ms": {
+            "encrypt": 144.98389166671663,
+            "compute_linear": 6714.016443750012,
+            "convert_mask_decrypt": 66.6311833333187,
+            "convert_share": 8.069654166699062,
+            "compute_nonlinear": 115.84884999996348,
+            "convert_recrypt": 155.5138812500303,
+            "threshold_decrypt": 164.2775000000256
+          }
+        },
+        {
+          "round": 13,
+          "wall_ms": 130650.40339999995,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6249529123306274,
+          "conversions": 40,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 7163510784,
+          "segments_ms": {
+            "encrypt": 147.11174166666297,
+            "compute_linear": 7926.4183125000045,
+            "convert_mask_decrypt": 67.51147083326714,
+            "convert_share": 8.533191666704928,
+            "compute_nonlinear": 118.11749374996339,
+            "convert_recrypt": 157.3958249999805,
+            "threshold_decrypt": 169.76029999977982
+          }
+        },
+        {
+          "round": 14,
+          "wall_ms": 127542.14110000021,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6396728157997131,
+          "conversions": 40,
+          "mpc_gates": 1029600,
+          "mpc_comm_bytes": 29015040,
+          "peak_delta_bytes": 2903994368,
+          "segments_ms": {
+            "encrypt": 150.7288583333851,
+            "compute_linear": 7726.65439375001,
+            "convert_mask_decrypt": 69.42979583328679,
+            "convert_share": 8.4286999999487,
+            "compute_nonlinear": 120.78260000001251,
+            "convert_recrypt": 160.45307499993555,
+            "threshold_decrypt": 171.65690000001632
+          }
+        },
+        {
+          "round": 15,
+          "wall_ms": 124326.65600000019,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5496709942817688,
+          "conversions": 40,
+          "mpc_gates": 205920,
+          "mpc_comm_bytes": 5803008,
+          "peak_delta_bytes": 8273666048,
+          "segments_ms": {
+            "encrypt": 146.861324999918,
+            "compute_linear": 7531.192150000012,
+            "convert_mask_decrypt": 67.37391666668675,
+            "convert_share": 8.037979166677664,
+            "compute_nonlinear": 117.18915625004911,
+            "convert_recrypt": 156.55278750000434,
+            "threshold_decrypt": 174.05959999996412
+          }
+        },
+        {
+          "round": 16,
+          "wall_ms": 120534.91710000025,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5930470824241638,
+          "conversions": 40,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 6209404928,
+          "segments_ms": {
+            "encrypt": 151.42106666663344,
+            "compute_linear": 7292.159531250035,
+            "convert_mask_decrypt": 67.93796250010094,
+            "convert_share": 7.795187499918181,
+            "compute_nonlinear": 117.35699375000763,
+            "convert_recrypt": 158.60381249999023,
+            "threshold_decrypt": 162.84859999996115
+          }
+        },
+        {
+          "round": 17,
+          "wall_ms": 112903.22849999984,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5474814176559448,
+          "conversions": 40,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 4311080960,
+          "segments_ms": {
+            "encrypt": 150.53134166665436,
+            "compute_linear": 6816.075712500037,
+            "convert_mask_decrypt": 67.0599708333081,
+            "convert_share": 8.15948333331562,
+            "compute_nonlinear": 116.76587500005553,
+            "convert_recrypt": 160.02095624992307,
+            "threshold_decrypt": 168.81549999970957
+          }
+        },
+        {
+          "round": 18,
+          "wall_ms": 115294.85950000025,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5865662693977356,
+          "conversions": 40,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 5259165696,
+          "segments_ms": {
+            "encrypt": 143.40773333333345,
+            "compute_linear": 6971.935181250018,
+            "convert_mask_decrypt": 66.90747916661621,
+            "convert_share": 7.964262500043636,
+            "compute_nonlinear": 116.26578124997877,
+            "convert_recrypt": 154.48346250002487,
+            "threshold_decrypt": 160.1778000003833
+          }
+        },
+        {
+          "round": 19,
+          "wall_ms": 133297.12010000003,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6991242170333862,
+          "conversions": 40,
+          "mpc_gates": 1029600,
+          "mpc_comm_bytes": 29015040,
+          "peak_delta_bytes": 2428051456,
+          "segments_ms": {
+            "encrypt": 148.48013333338864,
+            "compute_linear": 8090.48827500004,
+            "convert_mask_decrypt": 68.24318333328468,
+            "convert_share": 8.255520833358787,
+            "compute_nonlinear": 118.69558749992848,
+            "convert_recrypt": 157.66696874993613,
+            "threshold_decrypt": 165.57419999980993
+          }
+        }
+      ]
+    },
+    "modeA": {
+      "status": "N/A\uff08\u672c\u6808\u4e0d\u53ef\u5b9e\u4f8b\u5316\uff09",
+      "reason": "SEAL \u6821\u9a8c\u4e0a\u9650 2^15\uff1b\u6a21\u5f0f A \u9700 2^17/84 \u5c42\u6df1\u94fe\uff08docs/01 \u00a75.3\uff09\uff0c\u4ec5\u7406\u8bba\u63a8\u6f14\uff0c\u4e0d\u505a\u6a21\u62df\u5192\u5145"
+    },
+    "task_gpt2_cipher": {
+      "status": "\u672a\u5b9e\u73b0\uff08\u5982\u5b9e\u7533\u62a5\uff09",
+      "reason": "\u5bc6\u6587\u7ba1\u7ebf\u5f53\u524d\u5b9e\u73b0 BERT \u60c5\u611f\u5206\u7c7b\uff1bGPT-2 \u751f\u6210\u4ec5\u6709\u660e\u6587/\u91cf\u5316\u57fa\u7ebf"
+    },
+    "modeB_layer8": {
+      "n_layer": 8,
+      "seq_tokens": 2,
+      "rounds_target": 20,
+      "rounds_done": 20,
+      "wall_ms": {
+        "n": 20,
+        "mean": 270878.8850650001,
+        "p50": 237684.49680000002,
+        "p95": 438229.0353000001,
+        "min": 201501.95209999947,
+        "max": 445499.7672000004,
+        "unit": "ms"
+      },
+      "peak_delta_bytes": {
+        "n": 20,
+        "mean": 5850354278.4,
+        "p50": 4667938816.0,
+        "p95": 11649585356.800001,
+        "min": 489148416,
+        "max": 11934969856,
+        "unit": "bytes"
+      },
+      "conversions_per_round": 80,
+      "label_stability": false,
+      "records": [
+        {
+          "round": 0,
+          "wall_ms": 225625.85630000013,
+          "label": "\u6b63\u9762",
+          "prob": 0.5112514495849609,
+          "conversions": 80,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 11160354816,
+          "segments_ms": {
+            "encrypt": 145.4257583332416,
+            "compute_linear": 6823.333709374979,
+            "convert_mask_decrypt": 64.67085000003674,
+            "convert_share": 8.0002895833123,
+            "compute_nonlinear": 112.79188437498533,
+            "convert_recrypt": 149.99267187502596,
+            "threshold_decrypt": 161.4663999998811
+          }
+        },
+        {
+          "round": 1,
+          "wall_ms": 227983.48030000034,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6238416433334351,
+          "conversions": 80,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 9555484672,
+          "segments_ms": {
+            "encrypt": 150.29242499997508,
+            "compute_linear": 6889.296224999994,
+            "convert_mask_decrypt": 66.77227916671313,
+            "convert_share": 8.50688124997608,
+            "compute_nonlinear": 116.75806249996867,
+            "convert_recrypt": 155.79567500000735,
+            "threshold_decrypt": 178.80689999992683
+          }
+        },
+        {
+          "round": 2,
+          "wall_ms": 240932.74740000017,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6465383768081665,
+          "conversions": 80,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 5511319552,
+          "segments_ms": {
+            "encrypt": 151.82855833330677,
+            "compute_linear": 7291.43367500002,
+            "convert_mask_decrypt": 67.6784562500643,
+            "convert_share": 8.484579166633921,
+            "compute_nonlinear": 118.30098437501135,
+            "convert_recrypt": 156.08657499998912,
+            "threshold_decrypt": 173.03709999987404
+          }
+        },
+        {
+          "round": 3,
+          "wall_ms": 252331.72079999986,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6395824551582336,
+          "conversions": 80,
+          "mpc_gates": 1647360,
+          "mpc_comm_bytes": 46424064,
+          "peak_delta_bytes": 2619367424,
+          "segments_ms": {
+            "encrypt": 154.23553750004734,
+            "compute_linear": 7641.922575000008,
+            "convert_mask_decrypt": 69.32424374996533,
+            "convert_share": 9.012889583317474,
+            "compute_nonlinear": 121.93853124999521,
+            "convert_recrypt": 159.57680000001062,
+            "threshold_decrypt": 180.27859999983775
+          }
+        },
+        {
+          "round": 4,
+          "wall_ms": 445499.7672000004,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7178909182548523,
+          "conversions": 80,
+          "mpc_gates": 2059200,
+          "mpc_comm_bytes": 58030080,
+          "peak_delta_bytes": 992350208,
+          "segments_ms": {
+            "encrypt": 156.68660416677463,
+            "compute_linear": 13668.27073749988,
+            "convert_mask_decrypt": 72.77229791660034,
+            "convert_share": 9.091306250117745,
+            "compute_nonlinear": 129.04263437495445,
+            "convert_recrypt": 163.33888749998948,
+            "threshold_decrypt": 194.72940000014205
+          }
+        },
+        {
+          "round": 5,
+          "wall_ms": 228757.9695000004,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6362819671630859,
+          "conversions": 80,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 11634241536,
+          "segments_ms": {
+            "encrypt": 148.7053166667541,
+            "compute_linear": 6914.577009374968,
+            "convert_mask_decrypt": 67.1684520832893,
+            "convert_share": 8.259145833297529,
+            "compute_nonlinear": 116.95767187498518,
+            "convert_recrypt": 153.3013500000493,
+            "threshold_decrypt": 161.81219999998575
+          }
+        },
+        {
+          "round": 6,
+          "wall_ms": 224885.3478000001,
+          "label": "\u8d1f\u9762",
+          "prob": 0.621965765953064,
+          "conversions": 80,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 10034077696,
+          "segments_ms": {
+            "encrypt": 149.51556249999007,
+            "compute_linear": 6795.014778124907,
+            "convert_mask_decrypt": 66.14137291658533,
+            "convert_share": 8.218775000007858,
+            "compute_nonlinear": 115.19679062499222,
+            "convert_recrypt": 153.54182499993385,
+            "threshold_decrypt": 166.98059999998804
+          }
+        },
+        {
+          "round": 7,
+          "wall_ms": 239714.79439999984,
+          "label": "\u8d1f\u9762",
+          "prob": 0.55535489320755,
+          "conversions": 80,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 4903673856,
+          "segments_ms": {
+            "encrypt": 149.56815416667268,
+            "compute_linear": 7254.085871874992,
+            "convert_mask_decrypt": 67.619212499892,
+            "convert_share": 8.129862499989335,
+            "compute_nonlinear": 118.30294687493392,
+            "convert_recrypt": 153.91472812493134,
+            "threshold_decrypt": 184.93120000039198
+          }
+        },
+        {
+          "round": 8,
+          "wall_ms": 263942.90050000016,
+          "label": "\u8d1f\u9762",
+          "prob": 0.599714994430542,
+          "conversions": 80,
+          "mpc_gates": 1647360,
+          "mpc_comm_bytes": 46424064,
+          "peak_delta_bytes": 968400896,
+          "segments_ms": {
+            "encrypt": 155.65333333339973,
+            "compute_linear": 8003.327668750018,
+            "convert_mask_decrypt": 70.29870833330658,
+            "convert_share": 8.31737916670742,
+            "compute_nonlinear": 122.47506562502508,
+            "convert_recrypt": 159.09850937498504,
+            "threshold_decrypt": 166.13299999971787
+          }
+        },
+        {
+          "round": 9,
+          "wall_ms": 431368.85840000014,
+          "label": "\u8d1f\u9762",
+          "prob": 0.584959864616394,
+          "conversions": 80,
+          "mpc_gates": 2059200,
+          "mpc_comm_bytes": 58030080,
+          "peak_delta_bytes": 978169856,
+          "segments_ms": {
+            "encrypt": 161.65630000004208,
+            "compute_linear": 13221.866571875067,
+            "convert_mask_decrypt": 74.00032500008062,
+            "convert_share": 9.125589583353152,
+            "compute_nonlinear": 130.8179968749812,
+            "convert_recrypt": 166.08072812493901,
+            "threshold_decrypt": 176.58019999998942
+          }
+        },
+        {
+          "round": 10,
+          "wall_ms": 228463.3130000002,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5893054604530334,
+          "conversions": 80,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 11634565120,
+          "segments_ms": {
+            "encrypt": 146.95975833319608,
+            "compute_linear": 6907.280728125017,
+            "convert_mask_decrypt": 67.44100208332308,
+            "convert_share": 7.779583333369071,
+            "compute_nonlinear": 116.56668750001131,
+            "convert_recrypt": 151.8056874999445,
+            "threshold_decrypt": 153.2697000002372
+          }
+        },
+        {
+          "round": 11,
+          "wall_ms": 230989.72390000016,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6148788928985596,
+          "conversions": 80,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 10499710976,
+          "segments_ms": {
+            "encrypt": 149.9677833333332,
+            "compute_linear": 6983.6202781251295,
+            "convert_mask_decrypt": 67.44424583329571,
+            "convert_share": 7.867264583353517,
+            "compute_nonlinear": 116.77453749999245,
+            "convert_recrypt": 154.98380625001573,
+            "threshold_decrypt": 174.4034000003012
+          }
+        },
+        {
+          "round": 12,
+          "wall_ms": 242584.17550000013,
+          "label": "\u6b63\u9762",
+          "prob": 0.5369558334350586,
+          "conversions": 80,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 3796652032,
+          "segments_ms": {
+            "encrypt": 153.3885916667638,
+            "compute_linear": 7341.512474999974,
+            "convert_mask_decrypt": 68.21970624993885,
+            "convert_share": 8.303916666648092,
+            "compute_nonlinear": 118.76069687488666,
+            "convert_recrypt": 156.95370000000253,
+            "threshold_decrypt": 166.63890000018
+          }
+        },
+        {
+          "round": 13,
+          "wall_ms": 248531.14149999965,
+          "label": "\u6b63\u9762",
+          "prob": 0.5250512361526489,
+          "conversions": 80,
+          "mpc_gates": 1647360,
+          "mpc_comm_bytes": 46424064,
+          "peak_delta_bytes": 780791808,
+          "segments_ms": {
+            "encrypt": 155.44913749992398,
+            "compute_linear": 7521.584528125032,
+            "convert_mask_decrypt": 70.28816874983097,
+            "convert_share": 8.645554166643402,
+            "compute_nonlinear": 123.1772843749468,
+            "convert_recrypt": 159.41933437508737,
+            "threshold_decrypt": 159.57260000050155
+          }
+        },
+        {
+          "round": 14,
+          "wall_ms": 437846.36520000006,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5805501937866211,
+          "conversions": 80,
+          "mpc_gates": 2059200,
+          "mpc_comm_bytes": 58030080,
+          "peak_delta_bytes": 489148416,
+          "segments_ms": {
+            "encrypt": 156.30866666655643,
+            "compute_linear": 13431.45114687502,
+            "convert_mask_decrypt": 72.33161666662606,
+            "convert_share": 8.569450000057563,
+            "compute_nonlinear": 127.07261562508165,
+            "convert_recrypt": 162.60562500002607,
+            "threshold_decrypt": 192.54349999937403
+          }
+        },
+        {
+          "round": 15,
+          "wall_ms": 201501.95209999947,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5868133306503296,
+          "conversions": 80,
+          "mpc_gates": 411840,
+          "mpc_comm_bytes": 11606016,
+          "peak_delta_bytes": 10209013760,
+          "segments_ms": {
+            "encrypt": 138.19451250011147,
+            "compute_linear": 6082.511359374963,
+            "convert_mask_decrypt": 61.03711874995573,
+            "convert_share": 7.05060833333467,
+            "compute_nonlinear": 105.41514062492752,
+            "convert_recrypt": 142.38054062505512,
+            "threshold_decrypt": 153.86039999975765
+          }
+        },
+        {
+          "round": 16,
+          "wall_ms": 207770.41590000043,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6411023139953613,
+          "conversions": 80,
+          "mpc_gates": 823680,
+          "mpc_comm_bytes": 23212032,
+          "peak_delta_bytes": 11934969856,
+          "segments_ms": {
+            "encrypt": 139.41188333334745,
+            "compute_linear": 6277.986940625169,
+            "convert_mask_decrypt": 61.140622916695975,
+            "convert_share": 6.867877083398828,
+            "compute_nonlinear": 105.30378437476884,
+            "convert_recrypt": 143.4212281251348,
+            "threshold_decrypt": 155.83839999999327
+          }
+        },
+        {
+          "round": 17,
+          "wall_ms": 216227.19929999948,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6093606352806091,
+          "conversions": 80,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 4432203776,
+          "segments_ms": {
+            "encrypt": 140.37674166676575,
+            "compute_linear": 6540.068428125152,
+            "convert_mask_decrypt": 61.62770000018251,
+            "convert_share": 7.118047916568078,
+            "compute_nonlinear": 106.63056250012914,
+            "convert_recrypt": 144.82874062503015,
+            "threshold_decrypt": 155.68490000077873
+          }
+        },
+        {
+          "round": 18,
+          "wall_ms": 235654.1992000002,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6313738822937012,
+          "conversions": 80,
+          "mpc_gates": 1647360,
+          "mpc_comm_bytes": 46424064,
+          "peak_delta_bytes": 1147838464,
+          "segments_ms": {
+            "encrypt": 142.4099875001351,
+            "compute_linear": 7141.456793749967,
+            "convert_mask_decrypt": 63.7851895832758,
+            "convert_share": 7.37336041644691,
+            "compute_nonlinear": 110.8137281252084,
+            "convert_recrypt": 146.2999781251142,
+            "threshold_decrypt": 153.2446000001073
+          }
+        },
+        {
+          "round": 19,
+          "wall_ms": 386965.7731000007,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5839122533798218,
+          "conversions": 80,
+          "mpc_gates": 2059200,
+          "mpc_comm_bytes": 58030080,
+          "peak_delta_bytes": 3724750848,
+          "segments_ms": {
+            "encrypt": 146.19622083311393,
+            "compute_linear": 11859.588709374862,
+            "convert_mask_decrypt": 67.09586666689422,
+            "convert_share": 7.972047916609881,
+            "compute_nonlinear": 117.77526875010835,
+            "convert_recrypt": 151.6205593748623,
+            "threshold_decrypt": 150.84860000024491
+          }
+        }
+      ]
+    },
+    "modeB_layer12": {
+      "n_layer": 12,
+      "seq_tokens": 2,
+      "rounds_target": 20,
+      "rounds_done": 20,
+      "wall_ms": {
+        "n": 20,
+        "mean": 474456.8741,
+        "p50": 371811.51049999974,
+        "p95": 628940.0480649997,
+        "min": 299018.939399999,
+        "max": 1981552.5211999994,
+        "unit": "ms"
+      },
+      "peak_delta_bytes": {
+        "n": 20,
+        "mean": 7527439155.2,
+        "p50": 5592279040.0,
+        "p95": 15973320704.0,
+        "min": 785977344,
+        "max": 16432209920,
+        "unit": "bytes"
+      },
+      "conversions_per_round": 120,
+      "label_stability": true,
+      "records": [
+        {
+          "round": 0,
+          "wall_ms": 299018.939399999,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6348631978034973,
+          "conversions": 120,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 13565714432,
+          "segments_ms": {
+            "encrypt": 139.74258888881903,
+            "compute_linear": 6014.530385416908,
+            "convert_mask_decrypt": 61.81877083324454,
+            "convert_share": 6.9588597223173565,
+            "compute_nonlinear": 106.50490625016573,
+            "convert_recrypt": 142.09973541672602,
+            "threshold_decrypt": 160.6408999996347
+          }
+        },
+        {
+          "round": 1,
+          "wall_ms": 315987.3044000014,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7142300605773926,
+          "conversions": 120,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 13580181504,
+          "segments_ms": {
+            "encrypt": 141.9758972222351,
+            "compute_linear": 6364.148922916532,
+            "convert_mask_decrypt": 62.858350000043274,
+            "convert_share": 7.36006527798357,
+            "compute_nonlinear": 108.9187249999668,
+            "convert_recrypt": 144.30798124991875,
+            "threshold_decrypt": 161.4620999989711
+          }
+        },
+        {
+          "round": 2,
+          "wall_ms": 331436.1912000004,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6268768906593323,
+          "conversions": 120,
+          "mpc_gates": 1853280,
+          "mpc_comm_bytes": 52227072,
+          "peak_delta_bytes": 2615844864,
+          "segments_ms": {
+            "encrypt": 146.0586472221621,
+            "compute_linear": 6679.242377083369,
+            "convert_mask_decrypt": 64.82430555557686,
+            "convert_share": 7.453383333363996,
+            "compute_nonlinear": 112.67925416662668,
+            "convert_recrypt": 147.8628020833336,
+            "threshold_decrypt": 157.53199999926437
+          }
+        },
+        {
+          "round": 3,
+          "wall_ms": 497356.46570000064,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7107375264167786,
+          "conversions": 120,
+          "mpc_gates": 2471040,
+          "mpc_comm_bytes": 69636096,
+          "peak_delta_bytes": 4344762368,
+          "segments_ms": {
+            "encrypt": 149.35356388878063,
+            "compute_linear": 10126.278204166661,
+            "convert_mask_decrypt": 68.12251249991479,
+            "convert_share": 7.935513888797788,
+            "compute_nonlinear": 119.12710833322156,
+            "convert_recrypt": 152.0642458333441,
+            "threshold_decrypt": 173.09360000035667
+          }
+        },
+        {
+          "round": 4,
+          "wall_ms": 348014.46399999986,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6514095067977905,
+          "conversions": 120,
+          "mpc_gates": 3088800,
+          "mpc_comm_bytes": 87045120,
+          "peak_delta_bytes": 11585212416,
+          "segments_ms": {
+            "encrypt": 149.8999472222143,
+            "compute_linear": 7016.850087500112,
+            "convert_mask_decrypt": 66.8768777777839,
+            "convert_share": 8.045069444455699,
+            "compute_nonlinear": 117.15550624993891,
+            "convert_recrypt": 152.209866666567,
+            "threshold_decrypt": 171.80000000007567
+          }
+        },
+        {
+          "round": 5,
+          "wall_ms": 557749.9178999987,
+          "label": "\u8d1f\u9762",
+          "prob": 0.652320384979248,
+          "conversions": 120,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 15000686592,
+          "segments_ms": {
+            "encrypt": 240.81361944430077,
+            "compute_linear": 11259.165937500182,
+            "convert_mask_decrypt": 100.78782777784707,
+            "convert_share": 12.556420833283887,
+            "compute_nonlinear": 176.28941041671928,
+            "convert_recrypt": 242.39969166675715,
+            "threshold_decrypt": 157.38079999937327
+          }
+        },
+        {
+          "round": 6,
+          "wall_ms": 410315.4412999993,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6925044655799866,
+          "conversions": 120,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 8691900416,
+          "segments_ms": {
+            "encrypt": 175.01063055543557,
+            "compute_linear": 8285.422279166747,
+            "convert_mask_decrypt": 73.12904305551153,
+            "convert_share": 9.130450000005416,
+            "compute_nonlinear": 127.89834375003768,
+            "convert_recrypt": 175.43754999985595,
+            "threshold_decrypt": 165.47449999961827
+          }
+        },
+        {
+          "round": 7,
+          "wall_ms": 355284.8109000006,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7037408351898193,
+          "conversions": 120,
+          "mpc_gates": 1853280,
+          "mpc_comm_bytes": 52227072,
+          "peak_delta_bytes": 1105956864,
+          "segments_ms": {
+            "encrypt": 154.9559222221938,
+            "compute_linear": 7159.651206249918,
+            "convert_mask_decrypt": 69.93467916655997,
+            "convert_share": 8.468148611048795,
+            "compute_nonlinear": 122.16712916665529,
+            "convert_recrypt": 157.72991041664378,
+            "threshold_decrypt": 169.24549999930605
+          }
+        },
+        {
+          "round": 8,
+          "wall_ms": 1981552.5211999994,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6819684505462646,
+          "conversions": 120,
+          "mpc_gates": 2471040,
+          "mpc_comm_bytes": 69636096,
+          "peak_delta_bytes": 5483610112,
+          "segments_ms": {
+            "encrypt": 202.07415555574295,
+            "compute_linear": 40962.81770000003,
+            "convert_mask_decrypt": 80.82555833326903,
+            "convert_share": 9.968322222372686,
+            "compute_nonlinear": 149.61478125007943,
+            "convert_recrypt": 195.82183125002453,
+            "threshold_decrypt": 416.01010000158567
+          }
+        },
+        {
+          "round": 9,
+          "wall_ms": 409233.23039999924,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7210081815719604,
+          "conversions": 120,
+          "mpc_gates": 3088800,
+          "mpc_comm_bytes": 87045120,
+          "peak_delta_bytes": 13281390592,
+          "segments_ms": {
+            "encrypt": 172.50549166652087,
+            "compute_linear": 8245.025312500198,
+            "convert_mask_decrypt": 78.5577444445001,
+            "convert_share": 9.709125000073174,
+            "compute_nonlinear": 138.44070208339568,
+            "convert_recrypt": 178.86197708317772,
+            "threshold_decrypt": 358.53880000104255
+          }
+        },
+        {
+          "round": 10,
+          "wall_ms": 340122.602200001,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5892841219902039,
+          "conversions": 120,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 16432209920,
+          "segments_ms": {
+            "encrypt": 144.17677222197906,
+            "compute_linear": 6859.888504166706,
+            "convert_mask_decrypt": 66.0900486111081,
+            "convert_share": 7.65765972225078,
+            "compute_nonlinear": 114.26607708324354,
+            "convert_recrypt": 148.30108958343166,
+            "threshold_decrypt": 149.4014000018069
+          }
+        },
+        {
+          "round": 11,
+          "wall_ms": 334758.4635999992,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7017328143119812,
+          "conversions": 120,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 8171233280,
+          "segments_ms": {
+            "encrypt": 144.66409722212524,
+            "compute_linear": 6750.114843750074,
+            "convert_mask_decrypt": 64.48279027790704,
+            "convert_share": 7.675486111161768,
+            "compute_nonlinear": 111.92603541682426,
+            "convert_recrypt": 147.40542916683808,
+            "threshold_decrypt": 167.63970000101835
+          }
+        },
+        {
+          "round": 12,
+          "wall_ms": 361677.1771999993,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6772624850273132,
+          "conversions": 120,
+          "mpc_gates": 1853280,
+          "mpc_comm_bytes": 52227072,
+          "peak_delta_bytes": 785977344,
+          "segments_ms": {
+            "encrypt": 149.316488888164,
+            "compute_linear": 7303.842595833582,
+            "convert_mask_decrypt": 65.99269305555329,
+            "convert_share": 8.130379166737434,
+            "compute_nonlinear": 115.4082937500031,
+            "convert_recrypt": 151.08039583310529,
+            "threshold_decrypt": 170.95490000065183
+          }
+        },
+        {
+          "round": 13,
+          "wall_ms": 530069.9572000012,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5829290747642517,
+          "conversions": 120,
+          "mpc_gates": 2471040,
+          "mpc_comm_bytes": 69636096,
+          "peak_delta_bytes": 2378080256,
+          "segments_ms": {
+            "encrypt": 150.04193888934321,
+            "compute_linear": 10807.429233332943,
+            "convert_mask_decrypt": 66.59679305524453,
+            "convert_share": 8.908676388930164,
+            "compute_nonlinear": 118.80997916682645,
+            "convert_recrypt": 152.08999791646724,
+            "threshold_decrypt": 172.22249999758787
+          }
+        },
+        {
+          "round": 14,
+          "wall_ms": 381945.84380000015,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6625908613204956,
+          "conversions": 120,
+          "mpc_gates": 3088800,
+          "mpc_comm_bytes": 87045120,
+          "peak_delta_bytes": 4309094400,
+          "segments_ms": {
+            "encrypt": 156.77756388847936,
+            "compute_linear": 7711.209195833059,
+            "convert_mask_decrypt": 69.84127083327014,
+            "convert_share": 8.960399999978108,
+            "compute_nonlinear": 123.4291041665377,
+            "convert_recrypt": 157.9615979164828,
+            "threshold_decrypt": 191.1924000014551
+          }
+        },
+        {
+          "round": 15,
+          "wall_ms": 320769.62439999986,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6654766201972961,
+          "conversions": 120,
+          "mpc_gates": 617760,
+          "mpc_comm_bytes": 17409024,
+          "peak_delta_bytes": 15949168640,
+          "segments_ms": {
+            "encrypt": 144.09921111099618,
+            "compute_linear": 6464.300204166498,
+            "convert_mask_decrypt": 61.70332916649891,
+            "convert_share": 7.329116666470428,
+            "compute_nonlinear": 107.06772499997896,
+            "convert_recrypt": 146.26528125010432,
+            "threshold_decrypt": 149.85860000160756
+          }
+        },
+        {
+          "round": 16,
+          "wall_ms": 358063.75340000156,
+          "label": "\u8d1f\u9762",
+          "prob": 0.6064023375511169,
+          "conversions": 120,
+          "mpc_gates": 1235520,
+          "mpc_comm_bytes": 34818048,
+          "peak_delta_bytes": 5700947968,
+          "segments_ms": {
+            "encrypt": 148.35345555568185,
+            "compute_linear": 7230.451635416784,
+            "convert_mask_decrypt": 65.11108750020058,
+            "convert_share": 7.883201388974864,
+            "compute_nonlinear": 113.64014166671647,
+            "convert_recrypt": 151.52603333331172,
+            "threshold_decrypt": 169.7887999980594
+          }
+        },
+        {
+          "round": 17,
+          "wall_ms": 552526.9235000014,
+          "label": "\u8d1f\u9762",
+          "prob": 0.7400885820388794,
+          "conversions": 120,
+          "mpc_gates": 1853280,
+          "mpc_comm_bytes": 52227072,
+          "peak_delta_bytes": 1964523520,
+          "segments_ms": {
+            "encrypt": 153.90124722206463,
+            "compute_linear": 11267.834466666653,
+            "convert_mask_decrypt": 69.74216944450342,
+            "convert_share": 8.471372221972867,
+            "compute_nonlinear": 122.45834374956151,
+            "convert_recrypt": 157.29287708306097,
+            "threshold_decrypt": 203.21550000153366
+          }
+        },
+        {
+          "round": 18,
+          "wall_ms": 410562.3839,
+          "label": "\u8d1f\u9762",
+          "prob": 0.67603999376297,
+          "conversions": 120,
+          "mpc_gates": 2471040,
+          "mpc_comm_bytes": 69636096,
+          "peak_delta_bytes": 1598099456,
+          "segments_ms": {
+            "encrypt": 171.40530833330558,
+            "compute_linear": 8285.609675000238,
+            "convert_mask_decrypt": 76.1006819447074,
+            "convert_share": 9.886247222109684,
+            "compute_nonlinear": 135.2185645832833,
+            "convert_recrypt": 174.5871208332422,
+            "threshold_decrypt": 174.05240000152844
+          }
+        },
+        {
+          "round": 19,
+          "wall_ms": 392691.4663999996,
+          "label": "\u8d1f\u9762",
+          "prob": 0.5720877647399902,
+          "conversions": 120,
+          "mpc_gates": 3088800,
+          "mpc_comm_bytes": 87045120,
+          "peak_delta_bytes": 4004188160,
+          "segments_ms": {
+            "encrypt": 162.12831944418818,
+            "compute_linear": 7928.641877083389,
+            "convert_mask_decrypt": 72.02038194448808,
+            "convert_share": 9.131838888657107,
+            "compute_nonlinear": 127.02130208329739,
+            "convert_recrypt": 163.8965812500525,
+            "threshold_decrypt": 175.16380000233767
+          }
+        }
+      ]
+    }
+  }
+}

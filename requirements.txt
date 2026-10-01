@@ -1,0 +1,14 @@
+# A1-22 面向大模型隐私保护的密码方案 —— 依赖清单（锁定）
+# Python 3.10.4 / Windows x64 / CPU-only 推理
+# numpy 锁定 1.x：TenSEAL 0.3.14 的 Windows 轮子基于 numpy 1.x ABI 构建
+numpy==1.26.4
+torch==2.6.0
+transformers==4.49.0
+tokenizers>=0.21
+tenseal==0.3.14
+gmssl==3.2.2
+psutil==7.0.0
+fastapi==0.115.12
+uvicorn==0.34.2
+pytest==8.3.5
+huggingface_hub>=0.30

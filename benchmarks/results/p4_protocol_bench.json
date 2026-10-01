@@ -1,0 +1,165 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "performance",
+  "workload": "p4_protocol_lifecycle",
+  "mode": "p4",
+  "config": {
+    "rounds": 5,
+    "ratchet": {
+      "mode": "messages",
+      "threshold": 4
+    }
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": null,
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 5.8,
+    "torch_threads": null
+  },
+  "timestamp_utc": "2026-09-26T21:14:01Z",
+  "establish": {
+    "note": "\u5355\u94fe\u8def establish \u5168\u7a0b\u5899\u949f\uff08\u53cc\u5411\u8ba4\u8bc1 + SM2DH + KDF \u6d3e\u751f\uff0c\u53cc\u7ebf\u7a0b\u5e76\u53d1\uff09\uff1b\u8ba4\u8bc1/\u534f\u5546\u5206\u6bb5\u7ec6\u5206\u89c1 tests/unit/test_session",
+    "establish_total": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 6268.98366000969,
+      "p50": 315.64619997516274,
+      "p95": 24143.231959990222,
+      "min": 298.6532000359148,
+      "max": 30100.045199971646
+    }
+  },
+  "channel_roundtrip": {
+    "payload_1024B": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 21.768840006552637,
+      "p50": 16.096399980597198,
+      "p95": 35.06195996887982,
+      "min": 15.212300000712276,
+      "max": 37.7698999363929
+    },
+    "payload_65536B": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 653.9684800198302,
+      "p50": 809.5891000702977,
+      "p95": 837.3839600244537,
+      "min": 389.3640000605956,
+      "max": 839.2293000360951
+    }
+  },
+  "ratchet_note": "\u8f6e\u6362\u8ba1\u65f6\u53e3\u5f84\uff1a\u89e6\u53d1\u9608\u503c\u540e\u7684\u6574\u8f6e\uff08KEY_ROTATE \u5e27 + \u65b0\u94a5\u4e1a\u52a1\u5e27 + \u63a5\u6536\u4fa7\u524d\u5411\u6d3e\u751f\uff09\u5899\u949f\uff1b\u89e6\u53d1\u524d\u76844 \u6761\u8ba1\u6570\u6d88\u606f\u4e0d\u8ba1\u5165",
+  "ratchet_epoch": {
+    "send": 11,
+    "recv": 10
+  },
+  "ratchet_round": {
+    "n": 5,
+    "unit": "ms",
+    "mean": 11.932819988578558,
+    "p50": 14.739500009454787,
+    "p95": 20.279339980334044,
+    "min": 2.22219992429018,
+    "max": 20.34399996045977
+  },
+  "audit_chain_1000": {
+    "append_total_ms": 474.3825999321416,
+    "verify_total_ms": 441.83679996058345,
+    "verify_ok": true,
+    "events": 1000
+  },
+  "conversion_mode_b_full_slot": {
+    "params": "mode-b-segment",
+    "slots": 16384,
+    "entry_make_masked_ct": {
+      "n": 3,
+      "unit": "ms",
+      "mean": 34.57616665400565,
+      "p50": 33.40850002132356,
+      "p95": 37.528339959681034,
+      "min": 32.333899987861514,
+      "max": 37.986099952831864
+    },
+    "exit_keynode_prepare": {
+      "n": 3,
+      "unit": "ms",
+      "mean": 42.288333332786955,
+      "p50": 44.388400041498244,
+      "p95": 44.72887001466006,
+      "min": 37.70989994518459,
+      "max": 44.76670001167804
+    },
+    "entry_wire_bytes_approx": 1446395,
+    "exit_wire_bytes_approx": 1315522,
+    "exit_reconstruct_max_err": 2.6250244894443497e-08,
+    "policy": {
+      "value_bound": 16777216,
+      "entry_mask_hi": 562949953421312,
+      "exit_window": [
+        33554432,
+        68719476736
+      ]
+    },
+    "note": "\u5165\u53e3\u542b Enc(r) \u52a0\u5bc6+mod_switch+\u540c\u6001\u52a0\uff1b\u51fa\u53e3\u542b Enc(s) \u52a0\u5bc6+\u5bc6\u6587\u57df\u5408\u6210\u3002\u5355\u5bc6\u6587\u9010\u6b21\u53e3\u5f84\uff1b\u6279\u91cf\u5408\u5e76\u6536\u76ca\u89c1\u5de5\u4f5c\u8bb0\u5f55 [I] \u9879"
+  },
+  "conversion_toy": {
+    "params": "p4-protocol-toy",
+    "slots": 2048,
+    "entry_make_masked_ct": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 5.38886000867933,
+      "p50": 5.447500036098063,
+      "p95": 5.483820009976625,
+      "min": 5.237099947407842,
+      "max": 5.489900009706616
+    },
+    "exit_keynode_prepare": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 13.605239964090288,
+      "p50": 13.206499977968633,
+      "p95": 16.43151994794607,
+      "min": 11.443499941378832,
+      "max": 17.208199948072433
+    },
+    "entry_wire_bytes_approx": 88253,
+    "exit_wire_bytes_approx": 72018,
+    "exit_reconstruct_max_err": 1.5624740745678878e-06,
+    "policy": {
+      "value_bound": 16777216,
+      "entry_mask_hi": 1099511627776,
+      "exit_window": [
+        33554432,
+        1099494850560
+      ]
+    },
+    "note": "\u5165\u53e3\u542b Enc(r) \u52a0\u5bc6+mod_switch+\u540c\u6001\u52a0\uff1b\u51fa\u53e3\u542b Enc(s) \u52a0\u5bc6+\u5bc6\u6587\u57df\u5408\u6210\u3002\u5355\u5bc6\u6587\u9010\u6b21\u53e3\u5f84\uff1b\u6279\u91cf\u5408\u5e76\u6536\u76ca\u89c1\u5de5\u4f5c\u8bb0\u5f55 [I] \u9879"
+  },
+  "destroy": {
+    "destroy_total_ms": 0.11789996642619371,
+    "keys_destroyed": 15,
+    "all_zeroed": true
+  }
+}

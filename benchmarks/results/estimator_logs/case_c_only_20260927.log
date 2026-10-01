@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/d/safetensors/密码技术竞赛/a122-llm-privacy/benchmarks/security_estimator.py", line 93, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/mnt/d/safetensors/密码技术竞赛/a122-llm-privacy/benchmarks/security_estimator.py", line 67, in main
+    Xs=LWE.Ternary(),                      # 保守：均匀三元组
+       ^^^^^^^^^^^
+AttributeError: module 'estimator.lwe' has no attribute 'Ternary'

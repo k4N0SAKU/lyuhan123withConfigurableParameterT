@@ -1,0 +1,631 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "performance",
+  "workload": "bert",
+  "mode": "plaintext-baseline",
+  "config": {
+    "rounds": 20,
+    "model": "bert-base-chinese-sentiment",
+    "task": "sentiment-classification",
+    "eval_source": "data/sentiment/eval.tsv (\u524d20\u6761)",
+    "precision": "fp32"
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": null,
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 8.2,
+    "torch_threads": null
+  },
+  "timestamp_utc": "2026-09-26T07:53:42Z",
+  "rounds_completed": 20,
+  "summary": {
+    "round_total": {
+      "n": 20,
+      "unit": "ms",
+      "mean": 28.95821500569582,
+      "p50": 25.524850061628968,
+      "p95": 33.28663501306441,
+      "min": 22.37219992093742,
+      "max": 87.92750001884997
+    },
+    "segments": {
+      "detokenize": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.061685004038736224,
+        "p50": 0.05644996417686343,
+        "p95": 0.08410005248151721,
+        "min": 0.052600051276385784,
+        "max": 0.1050001010298729
+      },
+      "model_forward": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 28.47941998625174,
+        "p50": 25.098349957261235,
+        "p95": 32.77450496098031,
+        "min": 21.91419992595911,
+        "max": 86.81629993952811
+      },
+      "tokenize": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.350120005896315,
+        "p50": 0.32015005126595497,
+        "p95": 0.4563650174532089,
+        "min": 0.2861000830307603,
+        "max": 0.9420999558642507
+      }
+    },
+    "network": {
+      "bytes_sent_per_round": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_recv_per_round": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_sent_total": 0,
+      "bytes_recv_total": 0
+    },
+    "memory": {
+      "unit": "bytes",
+      "peak_delta_mean": 17532108.8,
+      "peak_delta_max": 347197440,
+      "note": "\u8fdb\u7a0b RSS \u76f8\u5bf9\u8f6e\u6b21\u57fa\u7ebf\u7684\u589e\u91cf\uff1b\u7edd\u5bf9\u5cf0\u503c\u53e6\u89c1 rounds \u8bb0\u5f55"
+    }
+  },
+  "rounds": [
+    {
+      "index": 0,
+      "round_total_ms": 87.92750001884997,
+      "segments_ms": {
+        "tokenize": [
+          0.9420999558642507
+        ],
+        "model_forward": [
+          86.81629993952811
+        ],
+        "detokenize": [
+          0.1050001010298729
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 270487552,
+        "peak_rss_bytes": 617684992,
+        "peak_delta_bytes": 347197440
+      }
+    },
+    {
+      "index": 1,
+      "round_total_ms": 24.37250001821667,
+      "segments_ms": {
+        "tokenize": [
+          0.2874999772757292
+        ],
+        "model_forward": [
+          23.72499997727573
+        ],
+        "detokenize": [
+          0.05519995465874672
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 617738240,
+        "peak_rss_bytes": 618196992,
+        "peak_delta_bytes": 458752
+      }
+    },
+    {
+      "index": 2,
+      "round_total_ms": 24.652000050991774,
+      "segments_ms": {
+        "tokenize": [
+          0.3120000474154949
+        ],
+        "model_forward": [
+          24.21089995186776
+        ],
+        "detokenize": [
+          0.07209996692836285
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 618196992,
+        "peak_rss_bytes": 618262528,
+        "peak_delta_bytes": 65536
+      }
+    },
+    {
+      "index": 3,
+      "round_total_ms": 24.238000041805208,
+      "segments_ms": {
+        "tokenize": [
+          0.31860009767115116
+        ],
+        "model_forward": [
+          23.81829998921603
+        ],
+        "detokenize": [
+          0.05410006269812584
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 618250240,
+        "peak_rss_bytes": 618352640,
+        "peak_delta_bytes": 102400
+      }
+    },
+    {
+      "index": 4,
+      "round_total_ms": 25.19039995968342,
+      "segments_ms": {
+        "tokenize": [
+          0.2978999400511384
+        ],
+        "model_forward": [
+          24.79149994906038
+        ],
+        "detokenize": [
+          0.053699943237006664
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 618332160,
+        "peak_rss_bytes": 618926080,
+        "peak_delta_bytes": 593920
+      }
+    },
+    {
+      "index": 5,
+      "round_total_ms": 24.912100052461028,
+      "segments_ms": {
+        "tokenize": [
+          0.3234000178053975
+        ],
+        "model_forward": [
+          24.481400032527745
+        ],
+        "detokenize": [
+          0.05929998587816954
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 618913792,
+        "peak_rss_bytes": 619012096,
+        "peak_delta_bytes": 98304
+      }
+    },
+    {
+      "index": 6,
+      "round_total_ms": 24.09399999305606,
+      "segments_ms": {
+        "tokenize": [
+          0.3360999980941415
+        ],
+        "model_forward": [
+          23.649599985219538
+        ],
+        "detokenize": [
+          0.053699943237006664
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 618991616,
+        "peak_rss_bytes": 619073536,
+        "peak_delta_bytes": 81920
+      }
+    },
+    {
+      "index": 7,
+      "round_total_ms": 25.665200082585216,
+      "segments_ms": {
+        "tokenize": [
+          0.43080002069473267
+        ],
+        "model_forward": [
+          25.108199915848672
+        ],
+        "detokenize": [
+          0.06559991743415594
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 619073536,
+        "peak_rss_bytes": 619139072,
+        "peak_delta_bytes": 65536
+      }
+    },
+    {
+      "index": 8,
+      "round_total_ms": 24.86729994416237,
+      "segments_ms": {
+        "tokenize": [
+          0.30880002304911613
+        ],
+        "model_forward": [
+          24.453700054436922
+        ],
+        "detokenize": [
+          0.054900068789720535
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 619118592,
+        "peak_rss_bytes": 619225088,
+        "peak_delta_bytes": 106496
+      }
+    },
+    {
+      "index": 9,
+      "round_total_ms": 28.948599938303232,
+      "segments_ms": {
+        "tokenize": [
+          0.3276999341323972
+        ],
+        "model_forward": [
+          28.504699934273958
+        ],
+        "detokenize": [
+          0.05870009772479534
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 619204608,
+        "peak_rss_bytes": 619651072,
+        "peak_delta_bytes": 446464
+      }
+    },
+    {
+      "index": 10,
+      "round_total_ms": 26.60049998667091,
+      "segments_ms": {
+        "tokenize": [
+          0.2908000024035573
+        ],
+        "model_forward": [
+          26.206100010313094
+        ],
+        "detokenize": [
+          0.052600051276385784
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 619638784,
+        "peak_rss_bytes": 620019712,
+        "peak_delta_bytes": 380928
+      }
+    },
+    {
+      "index": 11,
+      "round_total_ms": 27.69099990837276,
+      "segments_ms": {
+        "tokenize": [
+          0.32410002313554287
+        ],
+        "model_forward": [
+          27.26000000257045
+        ],
+        "detokenize": [
+          0.054900068789720535
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620007424,
+        "peak_rss_bytes": 620249088,
+        "peak_delta_bytes": 241664
+      }
+    },
+    {
+      "index": 12,
+      "round_total_ms": 25.490500032901764,
+      "segments_ms": {
+        "tokenize": [
+          0.29720005113631487
+        ],
+        "model_forward": [
+          25.088499998673797
+        ],
+        "detokenize": [
+          0.05350005812942982
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620236800,
+        "peak_rss_bytes": 620298240,
+        "peak_delta_bytes": 61440
+      }
+    },
+    {
+      "index": 13,
+      "round_total_ms": 25.610200013034046,
+      "segments_ms": {
+        "tokenize": [
+          0.2883999841287732
+        ],
+        "model_forward": [
+          25.2127000130713
+        ],
+        "detokenize": [
+          0.05549995694309473
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620285952,
+        "peak_rss_bytes": 620326912,
+        "peak_delta_bytes": 40960
+      }
+    },
+    {
+      "index": 14,
+      "round_total_ms": 25.55920009035617,
+      "segments_ms": {
+        "tokenize": [
+          0.3252999158576131
+        ],
+        "model_forward": [
+          25.12360003311187
+        ],
+        "detokenize": [
+          0.05859998054802418
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620326912,
+        "peak_rss_bytes": 620326912,
+        "peak_delta_bytes": 0
+      }
+    },
+    {
+      "index": 15,
+      "round_total_ms": 25.88510001078248,
+      "segments_ms": {
+        "tokenize": [
+          0.3217000048607588
+        ],
+        "model_forward": [
+          25.43149993289262
+        ],
+        "detokenize": [
+          0.0724999699741602
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620077056,
+        "peak_rss_bytes": 620171264,
+        "peak_delta_bytes": 94208
+      }
+    },
+    {
+      "index": 16,
+      "round_total_ms": 30.410800012759864,
+      "segments_ms": {
+        "tokenize": [
+          0.328000052832067
+        ],
+        "model_forward": [
+          29.930199962109327
+        ],
+        "detokenize": [
+          0.08300004992634058
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620171264,
+        "peak_rss_bytes": 620351488,
+        "peak_delta_bytes": 180224
+      }
+    },
+    {
+      "index": 17,
+      "round_total_ms": 22.37219992093742,
+      "segments_ms": {
+        "tokenize": [
+          0.3458999563008547
+        ],
+        "model_forward": [
+          21.91419992595911
+        ],
+        "detokenize": [
+          0.057399971410632133
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620331008,
+        "peak_rss_bytes": 620376064,
+        "peak_delta_bytes": 45056
+      }
+    },
+    {
+      "index": 18,
+      "round_total_ms": 25.119600002653897,
+      "segments_ms": {
+        "tokenize": [
+          0.3100000321865082
+        ],
+        "model_forward": [
+          24.69560003373772
+        ],
+        "detokenize": [
+          0.058699981309473515
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620376064,
+        "peak_rss_bytes": 620740608,
+        "peak_delta_bytes": 364544
+      }
+    },
+    {
+      "index": 19,
+      "round_total_ms": 29.557600035332143,
+      "segments_ms": {
+        "tokenize": [
+          0.2861000830307603
+        ],
+        "model_forward": [
+          29.166400083340704
+        ],
+        "detokenize": [
+          0.054699950851500034
+        ]
+      },
+      "network": {
+        "bytes_sent": 0,
+        "bytes_recv": 0,
+        "messages_sent": 0,
+        "messages_recv": 0
+      },
+      "memory": {
+        "baseline_rss_bytes": 620740608,
+        "peak_rss_bytes": 620756992,
+        "peak_delta_bytes": 16384
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "security-estimator",
+  "workload": "lattice-estimator (malb) @ SageMath 10.x (WSL conda-forge)",
+  "model": "LWE, Xs=Ternary(单例), Xe=DiscreteGaussian(3.2)",
+  "provenance": {
+    "first_run_log": "benchmarks/results/estimator_logs/first_run_20260927.log（estimator 原生输出存档）",
+    "note": "本 JSON 数值从原生日志解析（estimator 自身输出）。提取代码历经 4 次修复——根因实证：Cost 是 collections.UserDict 子类（非 dict），isinstance 恒 False；且不可行攻击 rop=+Infinity 需过滤。修复已入脚本（security_estimator.py）并经 smoke 端到端验证（113bit）。",
+    "incident_chain": "五次事故链：①P3 盲写 API（LWE.Ternary 不存在）→②P4 首跑提取空（isinstance 误滤）→③P5-R1 修复未实证→④P6-R2 smoke覆盖决策 JSON（单 OUT 路径设计）→⑤本文件由修复后脚本从存档日志重新解析恢复。教训已入 P6 记录 §7b/§7c。",
+    "restore": "2026-09-29 从 first_run 日志重新解析写入（P6-R2 第 1 项修复指令）"
+  },
+  "A_modeb_2p15_200bit": {
+    "n": 32768,
+    "chain_bits": 200,
+    "attacks_observed_in_log": {
+      "bdd_hybrid": 8666.4,
+      "bdd_mitm_hybrid": 5868.4
+    },
+    "best_rop_log10_2": 5868.4,
+    "completeness": "部分（存档日志仅含 bdd_hybrid/bdd_mitm_hybrid；usvp/bdd/dual 未捕获——决策非必需：A 链短于 C 的方向性证据 + SEAL TC128 锚定）"
+  },
+  "C_decision_2p16_1720bit": {
+    "n": 65536,
+    "chain_bits": 1720,
+    "attacks_observed_in_log": {
+      "usvp": 130.2,
+      "bdd": 130.2,
+      "dual": 131.0,
+      "dual_hybrid": 131.3
+    },
+    "best_rop_log10_2": 130.2,
+    "completeness": "完整（usvp/bdd/dual/dual_hybrid 全在存档日志）",
+    "meets_128bit_classical": true
+  },
+  "decision_note": "C(2^16/1720bit) best=2^130.2 ≥ 2^128 classical ⇒ 切换判据满足（P3 评审预案：切 2^16——转换减半、L=16 单密文；代价=密文 3.3MB+SEC_LEVEL_NONE 显式声明+最小步长 Galois 集 68s 已实测）。团队终裁（P6 评审）：默认提交 2^15；2^16 为报告书验证路径。"
+}

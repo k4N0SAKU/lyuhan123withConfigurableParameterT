@@ -1,0 +1,78 @@
+{
+  "schema": "a122-pipeline-accuracy/1",
+  "kind": "pipeline_accuracy",
+  "timestamp_utc": "2026-09-26T06:40:14Z",
+  "config": {
+    "seq_tokens": 8,
+    "n_layers": [
+      1,
+      2
+    ],
+    "eval_rows_total": 200,
+    "cipher_subset": 20,
+    "torch_threads": 8,
+    "stability_protocol": "\u7ebf\u7a0b\u9501\u5b9a+\u56fa\u5b9a seed\uff08P6 \u534f\u8bae\u5148\u884c\u6761\u6b3e\uff09"
+  },
+  "thresholds": {
+    "max_drop_pp_vs_fp32_truncated": 3.0
+  },
+  "fp32_full_12layer": {
+    "n": 200,
+    "accuracy": 0.77,
+    "wall_s": 11.4
+  },
+  "fp32_truncated": {
+    "1": {
+      "n": 200,
+      "accuracy": 0.5
+    },
+    "2": {
+      "n": 200,
+      "accuracy": 0.5
+    }
+  },
+  "q16_truncated": {
+    "1": {
+      "n": 200,
+      "accuracy": 0.5
+    },
+    "2": {
+      "n": 200,
+      "accuracy": 0.5
+    }
+  },
+  "gelu_order_curve": {
+    "deg15": {
+      "n": 200,
+      "accuracy": 0.5
+    },
+    "deg9": {
+      "n": 200,
+      "accuracy": 0.5
+    }
+  },
+  "pipeline_cipher": {
+    "1": {
+      "n": 20,
+      "accuracy": 0.45,
+      "drop_pp_vs_fp32_truncated": 5.0,
+      "wall_s_mean": 47.9,
+      "conversions_mean": 94.5,
+      "mpc_gates_mean": 2960496,
+      "pass": false
+    },
+    "2": {
+      "n": 20,
+      "accuracy": 0.5,
+      "drop_pp_vs_fp32_truncated": 0.0,
+      "wall_s_mean": 61.0,
+      "conversions_mean": 199.5,
+      "mpc_gates_mean": 5920992,
+      "pass": true
+    }
+  },
+  "verdict": {
+    "pass": false,
+    "max_drop_pp": 3.0
+  }
+}

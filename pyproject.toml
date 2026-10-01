@@ -1,0 +1,16 @@
+[project]
+name = "a122-llm-privacy"
+version = "0.1.0"
+description = "第十一届全国密码技术竞赛复赛 A1-22：面向大模型隐私保护的密码方案软件设计实现"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "slow: 需要已下载模型或较长时间的端到端测试",
+]
+addopts = "-m 'not slow'"
+
+[tool.coverage.run]
+source = ["src"]

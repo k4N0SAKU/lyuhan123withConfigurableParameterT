@@ -1,0 +1,301 @@
+{
+  "schema": "a122-attack/1",
+  "kind": "attack-verdicts",
+  "timestamp_utc": "2026-09-29T10:27:04Z",
+  "environment": {
+    "python": "3.10.4"
+  },
+  "verdicts": [
+    {
+      "attack": "F8-\u6a21\u5f0fA",
+      "case": "\u79c1\u94a5\u7f3a\u5931\uff08\u7ed3\u6784\u6027\uff09",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "secret_key_holders": [
+          "P0"
+        ],
+        "coalition_ctx": "public_only"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fA",
+      "case": "\u660e\u6587\u91cf\u7ea7\u626b\u63cf",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "activation_scale_values_in_view": 0,
+        "note": "\u89c6\u56fe\u4ec5\u542b\u5bc6\u6587\u5bf9\u8c61/\u516c\u94a5/\u6a21\u578b\u6743\u91cd\u77e9\u9635"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fA",
+      "case": "\u5df2\u77e5\u660e\u6587\u533a\u5206\u653b\u51fb",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "byte_match_rates": {
+          "true": 0.0036,
+          "decoy1": 0.0098,
+          "decoy2": 0.0116,
+          "random": 0.0053
+        },
+        "note": "\u5168\u90e8\u5019\u9009 \u2248 1/256\uff08\u968f\u673a\u5316\u52a0\u5bc6 IND-CPA\uff09"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fA",
+      "case": "\u7efc\u5408\u7ed3\u8bba\uff08t=2\uff09",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "input_recovered": false,
+        "basis": "CKKS IND-CPA + \u5408\u8c0b\u89c6\u56fe\u65e0\u94a5/\u65e0\u660e\u6587\u91cf\u7ea7\u503c"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fB",
+      "case": "\u94a9\u5b50\uff1a\u8f93\u5165\u4ec5\u5728 P0 \u5185\u5b58",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "p1_view_token_hits": 0,
+        "p2_view_token_hits": 0,
+        "raw_text_in_p1p2": false,
+        "note": "\u89c6\u56fe=\u89d2\u8272\u5168\u5b57\u6bb5\u53d6\u8bc1\uff08collect_view\uff0chex \u7f16\u7801\uff09"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fB",
+      "case": "P1 \u5355\u72ec\uff08t=1\uff09",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "corr_with_true_plaintext": -0.0514,
+        "residual_window_test": "true/decoy \u843d\u7a97\u7387\u5dee <0.01",
+        "basis": "OTP\uff1ar \u7531 P2 os.urandom fresh \u91c7\u6837"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fB",
+      "case": "P2 \u5355\u72ec\uff08t=1\uff09",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "key_material": "public_only\uff08OpNotAllowedError\uff09",
+        "corr_share_vs_plaintext": 0.0514
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fB",
+      "case": "P1+P2 \u5408\u8c0b\uff08t=2\uff09",
+      "verdict": "\u8fb9\u754c\u6f14\u793a",
+      "evidence": {
+        "intermediate_recovered": true,
+        "max_abs_err": 0.000722,
+        "token0_recovered": 101,
+        "decoded_text": "[CLS]",
+        "declaration": "docs/02 \u00a73.3 t=2 \u5931\u6548\u9762\uff08\u63a9\u7801\u5206\u4eab\u6784\u9020\u56fa\u6709\u8fb9\u754c\uff09\uff1b\u6a21\u5f0f B \u8f93\u5165\u9690\u79c1\u6b62\u4e8e t=1"
+      }
+    },
+    {
+      "attack": "F8-\u6a21\u5f0fB",
+      "case": "\u7efc\u5408\u7ed3\u8bba",
+      "verdict": "\u8fb9\u754c\u6f14\u793a",
+      "evidence": {
+        "t1": "P1/P2 \u5355\u72ec\u5747\u4e0d\u53ef\u6062\u590d\uff08\u81ea\u52a8\u5316\u7edf\u8ba1\u65ad\u8a00\uff09",
+        "t2": "\u4e2d\u95f4\u6001+\u8f93\u5165 token \u53ef\u91cd\u6784\uff08docs/02 \u00a73.3 \u4e00\u81f4\uff09",
+        "mitigation": "\u6a21\u5f0f A \u5168\u5bc6\u6587\uff08F8-\u6a21\u5f0fA \u9632\u5fa1\u6210\u529f\uff09/ 2-of-3 \u95e8\u9650\uff08\u6269\u5c55\u65b9\u5411\uff09"
+      }
+    },
+    {
+      "attack": "F7-1",
+      "case": "\u660e\u6587\u6a21\u5f0f\u626b\u63cf",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "wire_bytes": 353538,
+        "patterns": [
+          "utf-8 \u6587\u672c",
+          "gbk \u6587\u672c",
+          "token id 8B",
+          "Q16 \u5b9a\u70b9\u79d8\u5bc6\u503c"
+        ],
+        "hits": 0
+      }
+    },
+    {
+      "attack": "F7-1",
+      "case": "\u7ed3\u6784\u89e3\u6790",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "gcm_frames": 3,
+        "metadata_boundary": "msg_type/\u957f\u5ea6/\u65f6\u5e8f\u53ef\u89c1\uff08docs/02 \u00a77\uff09"
+      }
+    },
+    {
+      "attack": "F7-1",
+      "case": "\u9891\u7387\u5206\u6790",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "ct_sample_bytes": 353358,
+        "chi2": 272.8,
+        "note": "\u5747\u5300\u5206\u5e03\u671f\u671b\u2248255\uff08\u81ea\u7531\u5ea6\uff09\uff0c\u9608\u503c 400"
+      }
+    },
+    {
+      "attack": "F7-1",
+      "case": "\u5df2\u77e5\u660e\u6587\u76f8\u5173\u5206\u6790",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "candidates": 5,
+        "max_abs_pearson": 0.2,
+        "note": "OTP \u63a9\u7801\u4f7f\u7ebf\u7f06\u5206\u4eab\u4e0e\u4efb\u4f55\u5019\u9009\u660e\u6587\u7edf\u8ba1\u72ec\u7acb"
+      }
+    },
+    {
+      "attack": "F7-1",
+      "case": "\u7efc\u5408\u7ed3\u8bba",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "recoveries": 0,
+        "scope": "\u88ab\u52a8\u7a83\u542c\uff08Dolev-Yao \u88ab\u52a8\uff09\uff1b\u4e3b\u52a8\u653b\u51fb\u89c1 F7-2/3/4"
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u5192\u5145 P0\u2192P1",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "result": "rejected: AuthError",
+        "alerts": 1
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u5192\u5145 P1\u2192P0",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "result": "rejected: AuthError",
+        "alerts": 1
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u5192\u5145 P2\u2192P0",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "result": "rejected: AuthError",
+        "alerts": 1
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u5f02 CA \u6839\u8bc1\u4e66",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "result": "rejected: AuthError"
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u53cc\u5411\u4e2d\u7ee7\uff08\u4e24\u7aef\u4f2a\u9020\uff09",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "p0_view": "rejected: AuthError",
+        "p1_view": "rejected: AuthError",
+        "alerts_total": 2
+      }
+    },
+    {
+      "attack": "F7-2",
+      "case": "\u8bda\u5b9e\u63e1\u624b\u5bf9\u7167",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "result": "ACTIVE/ACTIVE"
+      }
+    },
+    {
+      "attack": "F7-4",
+      "case": "\u540c\u4f1a\u8bdd\u91cd\u653e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "error_code": 5,
+        "check": "seq \u5355\u8c03\uff08\u5148\u4e8e\u89e3\u5bc6\uff09"
+      }
+    },
+    {
+      "attack": "F7-4",
+      "case": "\u591a\u4efd\u8fde\u7eed\u91cd\u653e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "rejected": 3
+      }
+    },
+    {
+      "attack": "F7-4",
+      "case": "\u8de8\u4f1a\u8bdd\u91cd\u653e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "error_code": 4,
+        "defense": "nonce=SM3(sid\u2016sender)\u2016seq \u7ed1\u5b9a"
+      }
+    },
+    {
+      "attack": "F7-4",
+      "case": "ratchet \u540e\u65e7\u5e27\u91cd\u653e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "rejected": 2,
+        "defense": "seq \u5355\u8c03 + \u65e7\u7eaa\u5143\u5bc6\u94a5\u7a97\u53e3\u5916\u9500\u6bc1"
+      }
+    },
+    {
+      "attack": "F7-4",
+      "case": "\u6539 seq \u91cd\u653e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "error_code": 4,
+        "defense": "header \u53d7 AAD \u8986\u76d6\uff0c\u6539 seq \u5373 tag \u5931\u8d25"
+      }
+    },
+    {
+      "attack": "F7-3",
+      "case": "\u7be1\u6539\u8f93\u51fa\u5bc6\u6587",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "sig_verify": false,
+        "client_action": "\u62d2\u7edd"
+      }
+    },
+    {
+      "attack": "F7-3",
+      "case": "\u7be1\u6539\u7b7e\u540d",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "sig_verify": false
+      }
+    },
+    {
+      "attack": "F7-3",
+      "case": "\u7be1\u6539\u5143\u6570\u636e",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "sig_verify": false
+      }
+    },
+    {
+      "attack": "F7-3",
+      "case": "\u65e0\u94a5\u4f2a\u9020\u6574\u5e27",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "sig_verify": false
+      }
+    },
+    {
+      "attack": "F7-3",
+      "case": "\u8bda\u5b9e\u7ed3\u679c\u5bf9\u7167",
+      "verdict": "\u9632\u5fa1\u6210\u529f",
+      "evidence": {
+        "sig_verify": true
+      }
+    }
+  ],
+  "summary": {
+    "defended": 28,
+    "demonstrated_boundary": 2,
+    "failed": 0
+  }
+}

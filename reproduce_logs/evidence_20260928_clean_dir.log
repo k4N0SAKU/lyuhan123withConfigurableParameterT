@@ -1,0 +1,35 @@
+=== A1-22 复现开始 2026-09-28T06:03:43Z ===
+repo: /tmp/a122_repro_clean
+[STEP 1][OK] venv 创建: /tmp/a122_repro_clean/.venv-repro
+pip install（约 3-10 分钟，取决于缓存）...
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.org', port=443): Read timed out. (read timeout=15)")': /simple/numpy/
+[STEP 2][OK] 依赖安装 + 导入自检
+[STEP 3][OK] 复用本地模型目录: D:\safetensors\密码技术竞赛\a122-llm-privacy\data\models（含情感微调检查点——数据复用，见 docs/06 §2）
+=== part plaintext ===
+=== part plaintext done in 35.8s ===
+written -> benchmarks\results\p6_full_bench.json
+BERT 明文 P50 = 232.0 ms；GPT-2 明文 P50 = 1535.2 ms
+[STEP 4][OK] 明文基线（冒烟口径，1 轮/任务）
+provisioned -> C:/Users/27471/AppData/Local/Temp/a122_repro_RW0n
+  nodes: ['p0_client', 'p1_keynode', 'p2_infernode']
+  ckks: {'name': 'p4-toy', 'poly': 4096, 'chain': [30, 30, 40]}
+audit_chain_verified: {'p0_client': True, 'p1_keynode': True, 'p2_infernode': True}
+inference max_abs_err: 0.000e+00
+生命周期 e2e：审计链三节点核验通过；密态往返 max_abs_err = 0.0
+[STEP 5][OK] 密态推理（认证→会话→GCM 推理往返→ratchet→销毁→审计核验）
+......................................                                   [100%]
+=== 攻击判定汇总 → {"defended": 28, "demonstrated_boundary": 2, "failed": 0} ===
+
+38 passed in 303.76s (0:05:03)
+[STEP 6][OK] 攻击测试（默认口径：窃听/中间人/篡改/重放/合谋-模式A）
+===============================================================
+复现成功 2026-09-28T06:17:02Z——共 6 步全部通过
+- 明文基线：benchmarks/results/p6_full_bench.json :: plaintext
+- 密态推理：report_repro.json（audit_chain_verified 全 True）
+- 攻击判定：benchmarks/results/attack_verdicts.json
+扩展：python -m benchmarks.run_full_bench --parts cipher_matrix \
+  --cipher-rounds 20   # 密文矩阵（4/8/12 层 × 20 轮，~4h）
+      python -m pytest tests/attack -o addopts=  # 攻击全套（含模式 B 合谋）
+逐步日志：/tmp/a122_repro_clean/reproduce_logs
+===============================================================
+EXIT=0

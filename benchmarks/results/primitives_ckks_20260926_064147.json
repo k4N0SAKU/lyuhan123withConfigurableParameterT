@@ -1,0 +1,129 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "performance",
+  "workload": "ckks-primitives",
+  "mode": "micro-bench",
+  "config": {
+    "params": "mode-b-segment",
+    "poly_modulus_degree": 32768,
+    "elements": 256,
+    "scale_log2": 40
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": {
+      "available": false,
+      "note": "torch \u62a5\u544a\u65e0 CUDA \u8bbe\u5907\uff0cCPU \u63a8\u7406"
+    },
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 49.1,
+    "torch_threads": 16
+  },
+  "timestamp_utc": "2026-09-26T06:41:47Z",
+  "rounds_completed": 20,
+  "summary": {
+    "round_total": {
+      "n": 20,
+      "unit": "ms",
+      "mean": 90.1139699970372,
+      "p50": 90.03384999232367,
+      "p95": 94.961025059456,
+      "min": 85.95069998409599,
+      "max": 100.68810009397566
+    },
+    "segments": {
+      "ckks_decrypt_256floats": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 6.9837599992752075,
+        "p50": 6.884650036226958,
+        "p95": 7.6655849697999665,
+        "min": 6.189199979417026,
+        "max": 9.018099983222783
+      },
+      "ckks_encrypt_256floats": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 31.153775012353435,
+        "p50": 29.91144999396056,
+        "p95": 36.30376004148275,
+        "min": 28.343699988909066,
+        "max": 36.94140003062785
+      },
+      "ckks_multiply_ct_256": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 24.142479995498434,
+        "p50": 23.9397999830544,
+        "p95": 27.860620035789907,
+        "min": 21.25359990168363,
+        "max": 28.430999955162406
+      },
+      "ckks_multiply_plain_256": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 10.541645000921562,
+        "p50": 10.386999987531453,
+        "p95": 11.94391001481563,
+        "min": 9.24970000050962,
+        "max": 14.007500023581088
+      },
+      "ckks_rotate_256": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 17.159214994171634,
+        "p50": 16.68484992114827,
+        "p95": 19.58601000951603,
+        "min": 14.908200013451278,
+        "max": 21.623000036925077
+      }
+    },
+    "network": {
+      "bytes_sent_per_round": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_recv_per_round": {
+        "n": 20,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_sent_total": 0,
+      "bytes_recv_total": 0
+    },
+    "memory": {
+      "unit": "bytes",
+      "peak_delta_mean": 516505.6,
+      "peak_delta_max": 10223616,
+      "note": "\u8fdb\u7a0b RSS \u76f8\u5bf9\u8f6e\u6b21\u57fa\u7ebf\u7684\u589e\u91cf\uff1b\u7edd\u5bf9\u5cf0\u503c\u53e6\u89c1 rounds \u8bb0\u5f55"
+    }
+  }
+}

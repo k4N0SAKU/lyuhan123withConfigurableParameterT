@@ -1,0 +1,9 @@
+bdd_hybrid           :: rop: ≈2^8666.4, red: ≈2^965.0, svp: ≈2^8666.4, β: 1755, η: 1755, ζ: ≈2^12.2, |S|: ≈2^inf, d: 53824, prob: ≈2^-434.4, ↻: ≈2^436.6, tag: hybrid
+bdd_mitm_hybrid      :: rop: ≈2^5868.4, red: ≈2^734.0, svp: ≈2^5868.4, β: 1755, η: 2, ζ: ≈2^12.8, |S|: ≈2^inf, d: 51621, prob: ≈2^-203.5, ↻: ≈2^205.7, tag: hybrid
+A_modeb_2p15_200bit: FAILED ValueError('min() iterable argument is empty')
+usvp                 :: rop: ≈2^130.2, red: ≈2^130.2, δ: 1.004552, β: 329, d: 127618, tag: usvp
+bdd                  :: rop: ≈2^130.2, red: ≈2^130.2, svp: ≈2^123.7, β: 329, η: 366, d: 126989, tag: bdd
+dual                 :: rop: ≈2^131.0, mem: 333, m: ≈2^16.0, β: 332, d: 131491, ↻: 1, tag: dual
+dual_hybrid          :: rop: ≈2^131.3, red: ≈2^131.3, guess: ≈2^108.4, β: 329, p: 2, ζ: 10, t: 70, β': 363, N: ≈2^69.9, m: ≈2^16.0
+C_decision_2p16_1720bit: FAILED ValueError('min() iterable argument is empty')
+-> /mnt/d/safetensors/密码技术竞赛/a122-llm-privacy/benchmarks/results/security_estimator.json

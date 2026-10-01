@@ -1,0 +1,103 @@
+{
+  "schema": "a122-perf/1",
+  "kind": "performance",
+  "workload": "packing-linear",
+  "mode": "micro-bench",
+  "config": {
+    "spec": "d=768 gap=2 slots=2^14",
+    "tokens": 2,
+    "bsgs_rotations": 54,
+    "plaintext_mults": 768,
+    "rounds_exemption": "5 \u8f6e\uff08\u6162\u57fa\u51c6\u8c41\u514d 20 \u8f6e\u6807\u51c6\uff0c\u5355\u8f6e 4.15s\uff09"
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": {
+      "available": false,
+      "note": "torch \u62a5\u544a\u65e0 CUDA \u8bbe\u5907\uff0cCPU \u63a8\u7406"
+    },
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 74.7,
+    "torch_threads": 16
+  },
+  "timestamp_utc": "2026-09-26T06:42:31Z",
+  "rounds_completed": 5,
+  "summary": {
+    "round_total": {
+      "n": 5,
+      "unit": "ms",
+      "mean": 7655.38871998433,
+      "p50": 7550.122800050303,
+      "p95": 8106.258699973114,
+      "min": 7373.311100061983,
+      "max": 8230.749899987131
+    },
+    "segments": {
+      "decrypt_output_1536slots": {
+        "n": 5,
+        "unit": "ms",
+        "mean": 4.496259964071214,
+        "p50": 4.274899954907596,
+        "p95": 5.558099946938455,
+        "min": 3.643800038844347,
+        "max": 5.726099945604801
+      },
+      "packing_linear_768x768_L2": {
+        "n": 5,
+        "unit": "ms",
+        "mean": 7650.790040008724,
+        "p50": 7545.795700047165,
+        "p95": 8101.890419959091,
+        "min": 7369.603099999949,
+        "max": 8226.525299949571
+      }
+    },
+    "network": {
+      "bytes_sent_per_round": {
+        "n": 5,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_recv_per_round": {
+        "n": 5,
+        "unit": "ms",
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "bytes_sent_total": 0,
+      "bytes_recv_total": 0
+    },
+    "memory": {
+      "unit": "bytes",
+      "peak_delta_mean": 45730201.6,
+      "peak_delta_max": 125767680,
+      "note": "\u8fdb\u7a0b RSS \u76f8\u5bf9\u8f6e\u6b21\u57fa\u7ebf\u7684\u589e\u91cf\uff1b\u7edd\u5bf9\u5cf0\u503c\u53e6\u89c1 rounds \u8bb0\u5f55"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+=== part cipher_matrix ===
+Traceback (most recent call last):
+  File "C:\Users\27471\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\27471\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\benchmarks\run_full_bench.py", line 702, in <module>
+    raise SystemExit(main())
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\benchmarks\run_full_bench.py", line 680, in main
+    report["cipher_matrix"] = part_cipher_matrix(
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\benchmarks\run_full_bench.py", line 162, in part_cipher_matrix
+    r = pipe.classify(SENTENCE)
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\src\model\pipeline.py", line 286, in classify
+    x_vals = self._layer(x_ct, x_vals, li, ctx)
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\src\model\pipeline.py", line 257, in _layer
+    diagonals=self._diags(W_ffn2)),
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\src\model\pipeline.py", line 97, in _diags
+    self._diag_cache[key] = build_diagonal_plaintexts(W, self.spec)
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\src\model\ops\packing.py", line 95, in build_diagonal_plaintexts
+    diag = np.diag(np.roll(W, -k, axis=1))
+  File "D:\safetensors\密码技术竞赛\a122-llm-privacy\.venv\lib\site-packages\numpy\core\numeric.py", line 1228, in roll
+    result = empty_like(a)
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 4.50 MiB for an array with shape (768, 768) and data type float64

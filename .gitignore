@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 虚拟环境
+.venv/
+
+# 模型与缓存（体积大，可经 python -m benchmarks.download_models 一键复现）
+data/models/
+.hf_cache/
+
+# 运行产物（results/ 中的正式报告保留，临时文件忽略）
+benchmarks/results/*.tmp.json

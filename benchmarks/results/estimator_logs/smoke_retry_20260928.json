@@ -1,0 +1,17 @@
+{
+  "note": "\u7ba1\u7ebf\u9a8c\u8bc1/\u73a9\u5177\u53c2\u6570\u2014\u2014\u4ec5\u8bc1\u660e\u63d0\u53d6\u4fee\u590d\u540e\u53ef\u4ea7\u51fa\u53ef\u9a8c\u8bc1 JSON\uff1b113-bit \u4e3a\u8be5\u73a9\u5177\u53c2\u6570\u7ec4\uff08n=2048/q=2^60\uff09\u7684\u5b89\u5168\u6c34\u5e73\uff0c\u975e A1-22 \u65b9\u6848\u53c2\u6570\u7684\u5b89\u5168\u4e3b\u5f20\uff08\u65b9\u6848\u53c2\u6570 A/C \u89c1 --quick\uff09",
+  "SMOKE_n2048_q60": {
+    "n": 2048,
+    "chain_bits": 60,
+    "security_bits": 113,
+    "wall_s": 62.3,
+    "detail": {
+      "usvp": "         rop: \u22482^113.9\n         red: \u22482^113.9\n           \u03b4: 1.004964\n           \u03b2:      289\n           d:     3889\n         tag:     usvp",
+      "bdd": "         rop: \u22482^113.0\n         red: \u22482^112.9\n         svp: \u22482^109.3\n           \u03b2:      285\n           \u03b7:      314\n           d:     4007\n         tag:      bdd",
+      "bdd_hybrid": "         rop: \u22482^113.0\n         red: \u22482^112.9\n         svp: \u22482^109.3\n           \u03b2:      285\n           \u03b7:      314\n           \u03b6:        0\n         |S|:        1\n           d:     4061\n        prob:      1.0\n           \u21bb:        1\n         tag:   hybrid",
+      "bdd_mitm_hybrid": "         rop: \u22482^159.1\n         red: \u22482^157.5\n         svp: \u22482^158.6\n           \u03b2:      289\n           \u03b7:        2\n           \u03b6:      115\n         |S|: \u22482^182.3\n           d:     3963\n        prob: \u22482^-41.3\n           \u21bb: \u22482^43.5\n         tag:   hybrid",
+      "dual": "         rop: \u22482^115.6\n         mem: \u22482^72.6\n           m:     2041\n           \u03b2:      291\n           d:     4089\n           \u21bb:        1\n         tag:     dual",
+      "dual_hybrid": "         rop: \u22482^113.6\n         red: \u22482^113.6\n       guess: \u22482^101.6\n           \u03b2:      284\n           p:        3\n           \u03b6:       10\n           t:       40\n          \u03b2':      303\n           N: \u22482^60.6\n           m: \u22482^11.0"
+    }
+  }
+}

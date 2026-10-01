@@ -1,0 +1,85 @@
+{
+  "schema": "a122-quantize-eval/1",
+  "kind": "quantize_precision",
+  "timestamp_utc": "2026-09-26T06:46:30Z",
+  "environment": {
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python_version": "3.10.4",
+    "cpu": {
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "physical_cores": 16,
+      "logical_cores": 22
+    },
+    "ram_total_gb": 31.61,
+    "gpu": null,
+    "packages": {
+      "torch": "2.6.0",
+      "transformers": "4.49.0",
+      "tokenizers": "0.21.4",
+      "tenseal": "0.3.14",
+      "gmssl": "3.2.2",
+      "numpy": "1.26.4",
+      "psutil": "7.0.0",
+      "fastapi": "0.115.12",
+      "uvicorn": "0.34.2",
+      "pytest": "8.3.5"
+    },
+    "network_topology": "loopback-same-machine",
+    "cpu_load_percent_at_collect": 26.9,
+    "torch_threads": 16
+  },
+  "config": {
+    "scheme": "GPT-2 weights Q22 fixed-point + BERT weights per-channel INT8; activations fixed-point Q/DQ",
+    "activation_frac_bits": 16,
+    "gpt2_weight_scheme": "q22 (linear & tied embedding/lm_head)",
+    "bert_weight_scheme": "int8 per-channel",
+    "activation_boundaries": "encoder layer outputs + final LN + lm_head/logits",
+    "max_new_tokens": 16,
+    "eval_set": "data/sentiment/eval.tsv",
+    "prompt_file": "prompts_200.txt",
+    "n_prompts": 220
+  },
+  "thresholds": {
+    "min_token_agreement": 0.95,
+    "max_drop_pp": 1.5
+  },
+  "gpt2": {
+    "n_prompts": 220,
+    "total_new_tokens": 3520,
+    "token_agreement": 1.0,
+    "sequence_agreement": 1.0,
+    "examples": [
+      {
+        "prompt": "The old librarian carefully documented every fragile manuscript before the rain arrived.",
+        "fp32_output": "The old librarian carefully documented every fragile manuscript before the rain arrived.\n\n\"I'm not sure what to do,\" she said. \"I",
+        "quantized_output": "The old librarian carefully documented every fragile manuscript before the rain arrived.\n\n\"I'm not sure what to do,\" she said. \"I",
+        "sequence_identical": true
+      },
+      {
+        "prompt": "The old librarian carefully documented every fragile manuscript during the quiet afternoon.",
+        "fp32_output": "The old librarian carefully documented every fragile manuscript during the quiet afternoon.\n\n\"I'm not sure what you're talking about,\" she said.",
+        "quantized_output": "The old librarian carefully documented every fragile manuscript during the quiet afternoon.\n\n\"I'm not sure what you're talking about,\" she said.",
+        "sequence_identical": true
+      },
+      {
+        "prompt": "The old librarian carefully documented every fragile manuscript after the long meeting.",
+        "fp32_output": "The old librarian carefully documented every fragile manuscript after the long meeting.\n\n\"I'm not sure what you're talking about,\" she said.",
+        "quantized_output": "The old librarian carefully documented every fragile manuscript after the long meeting.\n\n\"I'm not sure what you're talking about,\" she said.",
+        "sequence_identical": true
+      }
+    ]
+  },
+  "bert": {
+    "n_eval": 200,
+    "fp32_acc": 0.99,
+    "quantized_acc": 0.99,
+    "drop_pp": 0.0,
+    "n_flipped": 0,
+    "flipped_examples": []
+  },
+  "verdict": {
+    "gpt2_pass": true,
+    "bert_pass": true,
+    "pass": true
+  }
+}

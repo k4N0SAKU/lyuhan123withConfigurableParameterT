@@ -1,0 +1,471 @@
+{
+  "generated_utc": "2026-09-29T08:39:31Z",
+  "note": "数据字典——00~06 文档头条数字的单一权威来源（P7 陷阱 3）；source=file::dot.path（含 derived 的计算式）；校验：python scripts/check_docs_consistency.py",
+  "entries": {
+    "code_size.code_lines": {
+      "value": 9949,
+      "unit": "lines",
+      "source": "benchmarks/results/p6_full_bench.json::code_size.total.code"
+    },
+    "code_size.files": {
+      "value": 85,
+      "unit": "files",
+      "source": "benchmarks/results/p6_full_bench.json::code_size.total.files"
+    },
+    "code_size.comment_lines": {
+      "value": 269,
+      "unit": "lines",
+      "source": "benchmarks/results/p6_full_bench.json::code_size.total.comment"
+    },
+    "matrix.layer4.rounds": {
+      "value": 20,
+      "unit": "rounds",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.rounds_done"
+    },
+    "matrix.layer4.wall_p50_ms": {
+      "value": 121682,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.wall_ms.p50"
+    },
+    "matrix.layer4.wall_p95_ms": {
+      "value": 133474,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.wall_ms.p95"
+    },
+    "matrix.layer4.wall_max_ms": {
+      "value": 136845,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.records[max(wall_ms)]"
+    },
+    "matrix.layer4.mem_p50_mib": {
+      "value": 5016.3,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.peak_delta_bytes.p50/2^20"
+    },
+    "matrix.layer4.mem_max_mib": {
+      "value": 8345.5,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.records[max(peak_delta_bytes)]/2^20"
+    },
+    "matrix.layer4.conversions_per_round": {
+      "value": 40,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer4.conversions_per_round"
+    },
+    "matrix.layer8.rounds": {
+      "value": 20,
+      "unit": "rounds",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.rounds_done"
+    },
+    "matrix.layer8.wall_p50_ms": {
+      "value": 237684,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.wall_ms.p50"
+    },
+    "matrix.layer8.wall_p95_ms": {
+      "value": 438229,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.wall_ms.p95"
+    },
+    "matrix.layer8.wall_max_ms": {
+      "value": 445500,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.records[max(wall_ms)]"
+    },
+    "matrix.layer8.mem_p50_mib": {
+      "value": 4451.7,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.peak_delta_bytes.p50/2^20"
+    },
+    "matrix.layer8.mem_max_mib": {
+      "value": 11382.1,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.records[max(peak_delta_bytes)]/2^20"
+    },
+    "matrix.layer8.conversions_per_round": {
+      "value": 80,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer8.conversions_per_round"
+    },
+    "matrix.layer12.rounds": {
+      "value": 20,
+      "unit": "rounds",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.rounds_done"
+    },
+    "matrix.layer12.wall_p50_ms": {
+      "value": 371812,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.wall_ms.p50"
+    },
+    "matrix.layer12.wall_p95_ms": {
+      "value": 628940,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.wall_ms.p95"
+    },
+    "matrix.layer12.wall_max_ms": {
+      "value": 1981553,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.records[max(wall_ms)]"
+    },
+    "matrix.layer12.mem_p50_mib": {
+      "value": 5333.2,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.peak_delta_bytes.p50/2^20"
+    },
+    "matrix.layer12.mem_max_mib": {
+      "value": 15671.0,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.records[max(peak_delta_bytes)]/2^20"
+    },
+    "matrix.layer12.conversions_per_round": {
+      "value": 120,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::cipher_matrix.modeB_layer12.conversions_per_round"
+    },
+    "plaintext.bert.p50_ms": {
+      "value": 23.6,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::plaintext.bert_latency_full12.round_total.p50"
+    },
+    "plaintext.bert.p95_ms": {
+      "value": 35.7,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::plaintext.bert_latency_full12.round_total.p95"
+    },
+    "plaintext.gpt2.p50_ms": {
+      "value": 677.2,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::plaintext.gpt2_latency.round_total.p50"
+    },
+    "plaintext.gpt2.p95_ms": {
+      "value": 723.0,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::plaintext.gpt2_latency.round_total.p95"
+    },
+    "plaintext.bert_acc_full12_quantized": {
+      "value": 99.0,
+      "unit": "%",
+      "source": "benchmarks/results/p6_full_bench.json::plaintext.bert_accuracy_full12_quantized.accuracy*100"
+    },
+    "baseline.bert_authoritative.p50_ms": {
+      "value": 25.5,
+      "unit": "ms",
+      "source": "benchmarks/results/bert_plaintext_baseline_20260926_075342.json::summary.round_total.p50"
+    },
+    "baseline.bert_authoritative.p95_ms": {
+      "value": 33.3,
+      "unit": "ms",
+      "source": "benchmarks/results/bert_plaintext_baseline_20260926_075342.json::summary.round_total.p95"
+    },
+    "baseline.gpt2_authoritative.p50_ms": {
+      "value": 514.1,
+      "unit": "ms",
+      "source": "benchmarks/results/gpt2_plaintext_baseline_20260926_075336.json::summary.round_total.p50"
+    },
+    "baseline.gpt2_authoritative.p95_ms": {
+      "value": 567.8,
+      "unit": "ms",
+      "source": "benchmarks/results/gpt2_plaintext_baseline_20260926_075336.json::summary.round_total.p95"
+    },
+    "quantize.gpt2_token_agreement": {
+      "value": 1.0,
+      "unit": "ratio",
+      "source": "benchmarks/results/quantize_eval_20260926_064630.json::gpt2.token_agreement"
+    },
+    "quantize.bert_drop_pp": {
+      "value": 0.0,
+      "unit": "pp",
+      "source": "benchmarks/results/quantize_eval_20260926_064630.json::bert.drop_pp"
+    },
+    "quantize.bert_fp32_acc": {
+      "value": 99.0,
+      "unit": "%",
+      "source": "benchmarks/results/quantize_eval_20260926_064630.json::bert.fp32_acc*100"
+    },
+    "quantize.bert_quantized_acc": {
+      "value": 99.0,
+      "unit": "%",
+      "source": "benchmarks/results/quantize_eval_20260926_064630.json::bert.quantized_acc*100"
+    },
+    "accuracy.fp32_full_12layer": {
+      "value": 77.0,
+      "unit": "%",
+      "source": "benchmarks/results/pipeline_accuracy_20260926_071727.json::fp32_full_12layer.accuracy*100"
+    },
+    "c2.default_q22.agreement": {
+      "value": 1.0,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.default_q22.token_agreement_vs_fp32"
+    },
+    "c2.default_q22.size_mib": {
+      "value": 474.7,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.default_q22.size_bytes/2^20"
+    },
+    "c2.default_q22.p50_ms": {
+      "value": 915,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.default_q22.latency.p50"
+    },
+    "c2.pure_int8.agreement": {
+      "value": 0.8906,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.pure_int8.token_agreement_vs_fp32"
+    },
+    "c2.pure_int8.size_mib": {
+      "value": 268.1,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.pure_int8.size_bytes/2^20"
+    },
+    "c2.pure_int8.p50_ms": {
+      "value": 890,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.pure_int8.latency.p50"
+    },
+    "c2.adaptive.agreement": {
+      "value": 0.8906,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.adaptive.token_agreement_vs_fp32"
+    },
+    "c2.adaptive.size_mib": {
+      "value": 268.1,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.adaptive.size_bytes/2^20"
+    },
+    "c2.adaptive.p50_ms": {
+      "value": 878,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.adaptive.latency.p50"
+    },
+    "c2.ladder_per_layer.agreement": {
+      "value": 0.8906,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.ladder_per_layer.token_agreement_vs_fp32"
+    },
+    "c2.ladder_per_layer.size_mib": {
+      "value": 459.5,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.ladder_per_layer.size_bytes/2^20"
+    },
+    "c2.ladder_per_layer.p50_ms": {
+      "value": 712,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.ladder_per_layer.latency.p50"
+    },
+    "c2.conv_int8_emb_q22.agreement": {
+      "value": 0.8906,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_int8_emb_q22.token_agreement_vs_fp32"
+    },
+    "c2.conv_int8_emb_q22.size_mib": {
+      "value": 231.7,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_int8_emb_q22.size_bytes/2^20"
+    },
+    "c2.conv_int8_emb_q22.p50_ms": {
+      "value": 686,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_int8_emb_q22.latency.p50"
+    },
+    "c2.conv_fp16_emb_q22.agreement": {
+      "value": 1.0,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_fp16_emb_q22.token_agreement_vs_fp32"
+    },
+    "c2.conv_fp16_emb_q22.size_mib": {
+      "value": 312.7,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_fp16_emb_q22.size_bytes/2^20"
+    },
+    "c2.conv_fp16_emb_q22.p50_ms": {
+      "value": 699,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_fp16_emb_q22.latency.p50"
+    },
+    "c2.conv_q22_emb_fp16.agreement": {
+      "value": 0.9437,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_fp16.token_agreement_vs_fp32"
+    },
+    "c2.conv_q22_emb_fp16.size_mib": {
+      "value": 399.6,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_fp16.size_bytes/2^20"
+    },
+    "c2.conv_q22_emb_fp16.p50_ms": {
+      "value": 685,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_fp16.latency.p50"
+    },
+    "c2.conv_q22_emb_int8.agreement": {
+      "value": 0.3063,
+      "unit": "ratio",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_int8.token_agreement_vs_fp32"
+    },
+    "c2.conv_q22_emb_int8.size_mib": {
+      "value": 362.0,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_int8.size_bytes/2^20"
+    },
+    "c2.conv_q22_emb_int8.p50_ms": {
+      "value": 733,
+      "unit": "ms",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.conv_q22_emb_int8.latency.p50"
+    },
+    "c2.fp32_ref_size_mib": {
+      "value": 474.7,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::c2_selector.fp32_reference_size_bytes/2^20"
+    },
+    "c3.d256.diagonal_bsgs.time_s": {
+      "value": 2.603,
+      "unit": "s",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d256.diagonal_bsgs.time_s"
+    },
+    "c3.d256.diagonal_bsgs.rotations": {
+      "value": 33,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d256.diagonal_bsgs.rotations"
+    },
+    "c3.d256.rowsum.time_s": {
+      "value": 14.031,
+      "unit": "s",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d256.rowsum.time_s"
+    },
+    "c3.d256.rowsum.rotations": {
+      "value": 256,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d256.rowsum.rotations"
+    },
+    "c3.d256.ratio_rowsum_over_diag": {
+      "value": 5.39,
+      "unit": "x",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d256.*(rowsum.time_s/diagonal.time_s)"
+    },
+    "c3.d512.diagonal_bsgs.time_s": {
+      "value": 5.693,
+      "unit": "s",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d512.diagonal_bsgs.time_s"
+    },
+    "c3.d512.diagonal_bsgs.rotations": {
+      "value": 45,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d512.diagonal_bsgs.rotations"
+    },
+    "c3.d512.rowsum.time_s": {
+      "value": 29.236,
+      "unit": "s",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d512.rowsum.time_s"
+    },
+    "c3.d512.rowsum.rotations": {
+      "value": 512,
+      "unit": "count",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d512.rowsum.rotations"
+    },
+    "c3.d512.ratio_rowsum_over_diag": {
+      "value": 5.14,
+      "unit": "x",
+      "source": "benchmarks/results/p6_full_bench.json::c3_ab.d512.*(rowsum.time_s/diagonal.time_s)"
+    },
+    "traffic.p0-p1_p0_client.bytes_sent": {
+      "value": 1714,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p0-p1/p0_client.bytes_sent"
+    },
+    "traffic.p0-p2_p0_client.bytes_sent": {
+      "value": 1714,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p0-p2/p0_client.bytes_sent"
+    },
+    "traffic.p0-p1_p1_keynode.bytes_sent": {
+      "value": 1995,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p0-p1/p1_keynode.bytes_sent"
+    },
+    "traffic.p1-p2_p1_keynode.bytes_sent": {
+      "value": 1716,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p1-p2/p1_keynode.bytes_sent"
+    },
+    "traffic.p0-p2_p2_infernode.bytes_sent": {
+      "value": 1999,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p0-p2/p2_infernode.bytes_sent"
+    },
+    "traffic.p1-p2_p2_infernode.bytes_sent": {
+      "value": 1999,
+      "unit": "bytes",
+      "source": "benchmarks/results/p6_full_bench.json::traffic.per_connection_bidirectional.p1-p2/p2_infernode.bytes_sent"
+    },
+    "node_memory.p0_client.peak_rss_mib": {
+      "value": 38.1,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::node_memory.per_node_peak_rss.p0_client.peak_rss_bytes/2^20"
+    },
+    "node_memory.p1_keynode.peak_rss_mib": {
+      "value": 38.6,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::node_memory.per_node_peak_rss.p1_keynode.peak_rss_bytes/2^20"
+    },
+    "node_memory.p2_infernode.peak_rss_mib": {
+      "value": 38.2,
+      "unit": "MiB",
+      "source": "benchmarks/results/p6_full_bench.json::node_memory.per_node_peak_rss.p2_infernode.peak_rss_bytes/2^20"
+    },
+    "attacks.defended": {
+      "value": 28,
+      "unit": "count",
+      "source": "benchmarks/results/attack_verdicts.json::summary.defended"
+    },
+    "attacks.demonstrated_boundary": {
+      "value": 2,
+      "unit": "count",
+      "source": "benchmarks/results/attack_verdicts.json::summary.demonstrated_boundary"
+    },
+    "attacks.failed": {
+      "value": 0,
+      "unit": "count",
+      "source": "benchmarks/results/attack_verdicts.json::summary.failed"
+    },
+    "attacks.total_cases": {
+      "value": 30,
+      "unit": "count",
+      "source": "benchmarks/results/attack_verdicts.json::summary(sum)"
+    },
+    "p4.establish_p50_ms": {
+      "value": 316,
+      "unit": "ms",
+      "source": "benchmarks/results/p4_protocol_bench.json::establish.establish_total.p50"
+    },
+    "p4.roundtrip_64k_p50_ms": {
+      "value": 810,
+      "unit": "ms",
+      "source": "benchmarks/results/p4_protocol_bench.json::channel_roundtrip.payload_65536B.p50"
+    },
+    "p4.modeb_entry_p50_ms": {
+      "value": 33,
+      "unit": "ms",
+      "source": "benchmarks/results/p4_protocol_bench.json::conversion_mode_b_full_slot.entry_make_masked_ct.p50"
+    },
+    "estimator.C_2p16_best_rop_log2": {
+      "value": 130.2,
+      "unit": "log2",
+      "source": "benchmarks/results/security_estimator.json::C_decision_2p16_1720bit.best_rop_log10_2"
+    },
+    "estimator.C_meets_128bit": {
+      "value": true,
+      "unit": "bool",
+      "source": "benchmarks/results/security_estimator.json::C_decision_2p16_1720bit.meets_128bit_classical"
+    },
+    "overhead.12L_vs_plaintext_p6anchor": {
+      "value": 15725,
+      "unit": "x",
+      "source": "derived: p6 matrix.layer12.wall_p50 / plaintext.bert.p50(23.644849999982398ms)"
+    },
+    "overhead.12L_vs_plaintext_authoritative": {
+      "value": 14567,
+      "unit": "x",
+      "source": "derived: p6 matrix.layer12.wall_p50 / P0 权威 baseline(25.524850061628968ms)"
+    }
+  }
+}

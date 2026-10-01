@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>A1-22 · 面向大模型隐私保护的密码方案演示</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#8b949e;
+  --ok:#3fb950; --warn:#d29922; --err:#f85149; --acc:#58a6ff; --chip:#21262d;
+}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.55 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+header{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+header h1{font-size:16px;margin:0;font-weight:600}
+.badge{background:#3a1d1d;color:#ffa198;border:1px solid #f85149;border-radius:99px;padding:2px 10px;font-size:12px}
+.badge.blue{background:#0d2a4a;color:#79c0ff;border-color:#1f6feb}
+.ver{color:var(--dim);font-size:12px;margin-left:auto}
+main{display:grid;grid-template-columns:340px 1fr;gap:14px;padding:14px 18px;max-width:1400px;margin:0 auto}
+@media(max-width:960px){main{grid-template-columns:1fr}}
+section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+h2{font-size:13px;margin:0 0 10px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+label{display:block;font-size:12px;color:var(--dim);margin:8px 0 3px}
+select,textarea,input[type=number],input[type=text]{width:100%;background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font-size:13px}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:8px}
+.btn{flex:1;padding:9px 10px;border-radius:8px;border:1px solid #388bfd;background:#1f6feb;color:#fff;font-size:14px;cursor:pointer;font-weight:600}
+.btn.stop{background:#21262d;border-color:var(--line);color:var(--dim)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.modes{display:flex;gap:8px;margin-top:6px}
+.mode{flex:1;padding:8px;border:1px solid var(--line);border-radius:8px;background:#0d1117;color:var(--dim);cursor:pointer;font-size:13px;text-align:center}
+.mode.active{border-color:var(--acc);color:var(--acc);background:#0d2a4a}
+.topo{display:flex;justify-content:space-between;gap:6px;margin:4px 0 12px}
+.node{flex:1;text-align:center;background:#0d1117;border:1px solid var(--line);border-radius:10px;padding:10px 4px}
+.node .id{font-weight:700;font-size:13px}
+.node .role{font-size:11px;color:var(--dim)}
+.node .st{margin-top:6px;font-size:11px;padding:3px 6px;border-radius:99px;background:var(--chip);color:var(--dim);display:inline-block}
+.node .st.on{background:#12351f;color:var(--ok)}
+.node .st.busy{background:#3a2e12;color:var(--warn)}
+.arrow{align-self:center;color:var(--dim);font-size:18px}
+.timeline{display:flex;flex-wrap:wrap;gap:6px;font-size:11px}
+.tl{padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--dim)}
+.tl.done{border-color:var(--ok);color:var(--ok)}
+.tl.cur{border-color:var(--warn);color:var(--warn);font-weight:700}
+.tl.fail{border-color:var(--err);color:var(--err)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.metric{background:#0d1117;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.metric .k{font-size:11px;color:var(--dim)}
+.metric .v{font-size:17px;font-weight:700;margin-top:2px}
+.metric .s{font-size:10px;color:var(--dim)}
+.light{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:#0d1117;margin-top:10px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--dim);flex:none}
+.dot.ok{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.dot.err{background:var(--err);box-shadow:0 0 8px var(--err)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--dim);font-weight:500;font-size:12px}
+#logbox{max-height:170px;overflow:auto;font:11px/1.5 Consolas,monospace;background:#0d1117;border:1px solid var(--line);border-radius:8px;padding:8px;color:var(--dim);white-space:pre-wrap}
+#banner{display:none;padding:10px 12px;border-radius:8px;margin-bottom:10px;font-size:13px}
+#banner.err{display:block;background:#3d1418;border:1px solid var(--err);color:#ffa198}
+#banner.warn{display:block;background:#33270d;border:1px solid var(--warn);color:#e3b341}
+#banner.info{display:block;background:#0d2a4a;border:1px solid #1f6feb;color:#79c0ff}
+footer{color:var(--dim);font-size:11px;padding:8px 18px 20px;text-align:center}
+.mono{font-family:Consolas,monospace}
+.dim{color:var(--dim)}
+.okc{color:var(--ok)} .errc{color:var(--err)} .warnc{color:var(--warn)}
+</style>
+</head>
+<body>
+<header>
+  <h1>A1-22 · 面向大模型隐私保护的密码方案演示系统</h1>
+  <span class="badge">模拟数据 · 同机回环（S8）</span>
+  <span class="badge blue">国密 SM2/SM3/SM4-GCM 全链控制面</span>
+  <span class="ver">v1.0 · 指标与 p6_full_bench.json 同源 · docs/data_dict.json</span>
+</header>
+
+<main>
+<!-- ============ 左：输入区 ============ -->
+<div>
+<section>
+  <h2>① 演示输入（敏感字段为模拟数据）</h2>
+  <div id="simnote" class="dim" style="font-size:12px;margin-bottom:8px"></div>
+  <label>业务场景</label>
+  <select id="scenario"></select>
+  <label>样例（一键填充）</label>
+  <select id="sample"></select>
+  <div id="fields"></div>
+  <label>送入模型的文本内容</label>
+  <textarea id="content" placeholder="可编辑；为空则用样例"></textarea>
+
+  <label>模式切换</label>
+  <div class="modes">
+    <button class="mode active" id="modeB">模式 B · 混合密文</button>
+    <button class="mode" id="modeA">模式 A · 全密文</button>
+  </div>
+  <div class="dim" id="modehint" style="font-size:11px;margin-top:4px"></div>
+
+  <label>演示轮数（稳定性验收 = 10）</label>
+  <input type="number" id="rounds" value="3" min="1" max="20">
+
+  <div class="row" style="margin-top:12px">
+    <button class="btn" id="btnStart">▶ 开始演示</button>
+    <button class="btn stop" id="btnStop" disabled>■ 停止</button>
+  </div>
+</section>
+
+<section style="margin-top:14px">
+  <h2>② 运行日志</h2>
+  <div id="logbox">等待开始…</div>
+</section>
+</div>
+
+<!-- ============ 右：拓扑/状态/指标 ============ -->
+<div>
+<div id="banner"></div>
+
+<section>
+  <h2>③ 参与方拓扑与状态</h2>
+  <div class="topo">
+    <div class="node"><div class="id">P0 · 客户端</div><div class="role">数据属主 · 持 CKKS 私钥</div><div class="st" id="nP0">待机</div></div>
+    <div class="arrow">──SM4-GCM──▶</div>
+    <div class="node"><div class="id">P1 · 密钥服务</div><div class="role">认证中枢 · 无密文私钥</div><div class="st" id="nP1">待机</div></div>
+    <div class="arrow">──SM4-GCM──▶</div>
+    <div class="node"><div class="id">P2 · 推理服务</div><div class="role">密文计算 · 无密文私钥</div><div class="st" id="nP2">待机</div></div>
+  </div>
+  <div class="timeline" id="timeline"></div>
+  <div class="dim" style="font-size:11px;margin-top:8px" id="phaseNote"></div>
+</section>
+
+<section style="margin-top:14px">
+  <h2>④ 实时指标条（perf 统计模块直读）</h2>
+  <div class="metrics">
+    <div class="metric"><div class="k">端到端 P50 / P95</div><div class="v" id="mWall">—</div><div class="s" id="mWallS"></div></div>
+    <div class="metric"><div class="k">明文基线 P50（对照）</div><div class="v" id="mBase">—</div><div class="s" id="mBaseS">p6_full_bench.json</div></div>
+    <div class="metric"><div class="k">累计流量（转换发 / 通道发+收）</div><div class="v" id="mNet">—</div><div class="s" id="mNetS"></div></div>
+    <div class="metric"><div class="k">轮内存增量 P50 / max</div><div class="v" id="mMem">—</div><div class="s">MiB（MemoryTracker）</div></div>
+    <div class="metric"><div class="k">转换次数 / 轮</div><div class="v" id="mConv">—</div><div class="s">期望 10n=20（结构守恒）</div></div>
+    <div class="metric"><div class="k">MPC 门数（累计）</div><div class="v" id="mGates">—</div><div class="s">MpcEnv 记账</div></div>
+  </div>
+  <div class="dim" style="font-size:11px;margin-top:8px" id="segLine"></div>
+
+  <div class="light">
+    <div class="dot" id="lightDot"></div>
+    <div>
+      <b>「明文不出本地」指示灯</b>
+      <div class="dim" style="font-size:11px" id="lightText">未开始——每轮对 P1/P2 全字段内存视图做明文扫描（F2 钩子）</div>
+    </div>
+  </div>
+</section>
+
+<section style="margin-top:14px">
+  <h2>⑤ 轮次结果（业务语义为情感映射示例）</h2>
+  <table>
+    <thead><tr><th>轮</th><th>模型标签</th><th>业务映射</th><th>置信度</th><th>耗时 (s)</th><th>白名单解密</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="6" class="dim">暂无</td></tr></tbody>
+  </table>
+</section>
+
+<section id="modeABox" style="margin-top:14px;display:none">
+  <h2>模式 A 状态（如实申报）</h2>
+  <div class="errc" style="font-size:13px">模式 A（全密文本）在本实现栈不可实例化。</div>
+  <div class="dim" style="font-size:12px;margin-top:6px">
+    原因：SEAL 参数校验对 poly_modulus_degree ≥ 2^16 一律
+    invalid_parameters_insecure；模式 A 需 2^17/84 层深链
+    （docs/01 §5.3 表 7）。团队决策：保留理论推演章节，不做模拟冒充；
+    演示与全部实测数据均为模式 B。
+  </div>
+</section>
+</div>
+</main>
+
+<footer>
+  演示数据全部为模拟（姓名/证件号虚构）；指标口径见 <span class="mono">benchmarks/results/p6_full_bench.json</span>
+  与 <span class="mono">docs/data_dict.json</span>（校验：python scripts/check_docs_consistency.py）。
+  截断演示管线 n_layer=2/L=8——精度主张以满配口径为准（docs/04 §6）。
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let mode="B", scen=null, timer=null;
+
+function fmtB(b){ if(b==null) return "—"; return (b/1048576).toFixed(1)+" MiB"; }
+function fmtMs(v){ return v==null?"—":(v>=10000?(v/1000).toFixed(1)+" s":Math.round(v)+" ms"); }
+
+async function loadScenarios(){
+  const d=await (await fetch("/api/scenarios")).json();
+  scen=d.scenarios;
+  $("simnote").textContent=d.simulated_note;
+  $("scenario").innerHTML=scen.map(s=>`<option value="${s.id}">${s.name}</option>`).join("");
+  fillScenario();
+  $("modehint").textContent="模式 A："+d.modes.find(m=>m.id==="A").reason;
+  if(d.baseline&&d.baseline.bert_p50_ms!=null){
+    $("mBase").textContent=d.baseline.bert_p50_ms+" ms";
+    $("mBaseS").textContent="同机明文 20 轮 · "+d.baseline.source;
+  }
+}
+function curScen(){ return scen.find(s=>s.id===$("scenario").value)||scen[0]; }
+function fillScenario(){
+  const s=curScen();
+  $("sample").innerHTML=s.samples.map((t,i)=>`<option value="${i}">样例 ${i+1}</option>`).join("");
+  const f=s.fields.find(x=>x.key==="content");
+  $("content").value=s.samples[0];
+  $("fields").innerHTML=s.fields.filter(x=>x.key!=="content").map(x=>
+    `<label>${x.label}<span class="warnc"> （模拟）</span></label>
+     <input type="text" data-key="${x.key}" value="${x.simulated}">`).join("");
+}
+function refreshRows(){
+  const st=window.__st||{}; const s=curScen();
+  const rows=(st.rounds||[]).map(r=>`<tr>
+    <td>${r.round}</td><td><b>${r.label}</b></td>
+    <td class="dim">${s.label_map[r.label]||""}</td>
+    <td>${(r.prob*100).toFixed(1)}%</td>
+    <td>${(r.wall_ms/1000).toFixed(1)}</td>
+    <td>${r.final_decrypt_ok?'<span class="okc">✓ 白名单②</span>':'<span class="warnc">…</span>'}</td>
+  </tr>`).join("");
+  $("rows").innerHTML=rows||'<tr><td colspan="6" class="dim">暂无</td></tr>';
+}
+const TL=["PROVISION","AUTHENTICATING","SESSION_READY","INFERRING","DECRYPTING","DESTROYING","DONE"];
+function refreshTimeline(st){
+  const idx=TL.indexOf(st.phase);
+  const fail=st.phase==="FAILED", ma=st.phase==="MODE_A_UNAVAILABLE";
+  $("timeline").innerHTML=TL.map((p,i)=>{
+    let cls="tl";
+    if(fail&&i>=1) cls+=" fail";
+    else if(i<idx) cls+=" done";
+    else if(i===idx) cls+=" cur";
+    return `<span class="${cls}">${p==="INFERRING"?"密文推理中":p==="AUTHENTICATING"?"认证中":p==="SESSION_READY"?"会话建立":p==="DECRYPTING"?"结果解密":p==="DESTROYING"?"销毁+审计":p}</span>`;
+  }).join("");
+  $("phaseNote").textContent=(st.phase_label||"待机")+(st.current_round?`　·　第 ${st.current_round}/${st.rounds_total} 轮`:"");
+  const map=st.nodes||{};
+  for(const n of ["P0","P1","P2"]){
+    const el=$("n"+n); const v=map[n]||"待机";
+    el.textContent=v;
+    el.className="st"+(v==="密文推理中"?" busy":(v==="待机"?"":" on"));
+  }
+  if(ma){ $("banner").className=""; $("banner").className="warn";
+    $("banner").textContent="模式 A 不可用（如实申报）：本栈 SEAL 上限 2^15，需 84 层深链——理论推演见 docs/01 §5.3。"; }
+  else if(fail){ $("banner").className="err";
+    $("banner").textContent="演示失败/超时："+(st.error||"未知错误")+"（详见下方日志）"; }
+  else if(st.phase==="DONE"){ $("banner").className="info";
+    $("banner").textContent=`演示完成：${(st.rounds||[]).length} 轮无故障 · 审计链核验 ${st.audit_chain_ok?"通过 ✓":"失败 ✗"} · 销毁清零 ${Object.values(st.destroy||{}).every(x=>Object.values(x).every(Boolean))?"✓":""}`; }
+  else $("banner").className="";
+}
+function refreshMetrics(st){
+  if(st.wall_stats){ $("mWall").textContent=fmtMs(st.wall_stats.p50)+" / "+fmtMs(st.wall_stats.p95);
+    $("mWallS").textContent=`n=${st.wall_stats.n} · 均值 ${fmtMs(st.wall_stats.mean)}（_stats_block）`; }
+  if(st.traffic){ $("mNet").textContent=fmtB(st.traffic.bytes_sent)+" / "+fmtB(st.traffic.bytes_recv);
+    $("mNetS").textContent="转换字节；通道帧 "+fmtB((st.traffic.channel_bytes_sent||0)+(st.traffic.channel_bytes_recv||0)); }
+  if(st.memory){ $("mMem").textContent=((st.memory.peak_delta_bytes_p50||0)/1048576).toFixed(1)+" / "+((st.memory.peak_delta_bytes_max||0)/1048576).toFixed(1); }
+  const rounds=st.rounds||[];
+  if(rounds.length){ $("mConv").textContent=rounds[rounds.length-1].conversions;
+    $("mGates").textContent=rounds.reduce((a,r)=>a+r.mpc_gates,0).toLocaleString(); }
+  const ss=st.segment_stats||{};
+  $("segLine").textContent="分段 P50："+Object.entries(ss).map(([k,v])=>`${k}=${fmtMs(v.p50)}`).join("　")||"";
+  const pl=st.plaintext;
+  if(pl){ const d=$("lightDot"); d.className="dot "+(pl.ok?"ok":"err");
+    $("lightText").textContent=(pl.ok?"✓ 每轮 P1/P2 视图明文 0 命中":"✗ 发现明文泄漏 "+JSON.stringify(pl.hits))+"　|　"+pl.evidence; }
+}
+async function poll(){
+  try{
+    const st=await (await fetch("/api/status")).json();
+    window.__st=st;
+    refreshTimeline(st); refreshMetrics(st); refreshRows();
+    $("logbox").textContent=(st.log||[]).map(l=>`[${new Date(l.ts*1000).toLocaleTimeString()}] ${l.msg}`).join("\n")||"—";
+    $("logbox").scrollTop=$("logbox").scrollHeight;
+    if(!st.busy&&["DONE","FAILED","INIT","MODE_A_UNAVAILABLE"].includes(st.phase)){
+      clearInterval(timer); timer=null;
+      $("btnStart").disabled=false; $("btnStop").disabled=true;
+    }
+  }catch(e){ /* 服务重启窗口内忽略 */ }
+}
+async function start(){
+  const body={scenario:curScen().id, sample:+($("sample").value||0),
+    rounds:+$("rounds").value, mode:mode, content:$("content").value.trim()||null};
+  document.querySelectorAll("#fields input").forEach(i=>body[i.dataset.key]=i.value);
+  $("btnStart").disabled=true; $("btnStop").disabled=false;
+  $("banner").className=""; $("lightDot").className="dot";
+  $("lightText").textContent="运行中——每轮扫描 P1/P2 内存视图…";
+  const r=await fetch("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(!r.ok){ const e=await r.json(); $("banner").className="err"; $("banner").textContent="启动失败："+(e.detail||e.error||r.status);
+    $("btnStart").disabled=false; $("btnStop").disabled=true; return; }
+  if(!timer) timer=setInterval(poll,1000); poll();
+}
+async function stop(){ await fetch("/api/stop",{method:"POST"}); $("btnStop").disabled=true; }
+
+$("scenario").addEventListener("change",fillScenario);
+$("sample").addEventListener("change",()=>{ const s=curScen(); $("content").value=s.samples[+$("sample").value]; });
+$("modeB").addEventListener("click",()=>{ mode="B"; $("modeB").classList.add("active"); $("modeA").classList.remove("active"); $("modeABox").style.display="none"; });
+$("modeA").addEventListener("click",()=>{ mode="A"; $("modeA").classList.add("active"); $("modeB").classList.remove("active"); $("modeABox").style.display="block"; });
+$("btnStart").addEventListener("click",start);
+$("btnStop").addEventListener("click",stop);
+loadScenarios().then(()=>setInterval(poll,2000));
+</script>
+</body>
+</html>
