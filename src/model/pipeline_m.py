@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import os
 import tempfile
+from dataclasses import dataclass
 from typing import List, Optional
 
 from src.common.perf import RoundContext
@@ -31,6 +32,7 @@ from src.protocol.conversion import (ClientRole, policy_for, to_fixed)
 from src.protocol.conversion_m import ComputePartyRole, check_m, exit_compose_m
 
 
+@dataclass
 class PipelineConfigM(PipelineConfig):
     """m 方管线配置：n_compute = 计算方数 m（P1..Pm），t = m−1。"""
 
