@@ -1,7 +1,7 @@
 {
   "schema": "a122-attack/1",
   "kind": "attack-verdicts",
-  "timestamp_utc": "2026-09-29T10:27:04Z",
+  "timestamp_utc": "2026-10-01T17:55:33Z",
   "environment": {
     "python": "3.10.4"
   },
@@ -32,10 +32,10 @@
       "verdict": "\u9632\u5fa1\u6210\u529f",
       "evidence": {
         "byte_match_rates": {
-          "true": 0.0036,
-          "decoy1": 0.0098,
-          "decoy2": 0.0116,
-          "random": 0.0053
+          "true": 0.0071,
+          "decoy1": 0.0071,
+          "decoy2": 0.0053,
+          "random": 0.0045
         },
         "note": "\u5168\u90e8\u5019\u9009 \u2248 1/256\uff08\u968f\u673a\u5316\u52a0\u5bc6 IND-CPA\uff09"
       }
@@ -65,7 +65,7 @@
       "case": "P1 \u5355\u72ec\uff08t=1\uff09",
       "verdict": "\u9632\u5fa1\u6210\u529f",
       "evidence": {
-        "corr_with_true_plaintext": -0.0514,
+        "corr_with_true_plaintext": 0.0225,
         "residual_window_test": "true/decoy \u843d\u7a97\u7387\u5dee <0.01",
         "basis": "OTP\uff1ar \u7531 P2 os.urandom fresh \u91c7\u6837"
       }
@@ -76,7 +76,7 @@
       "verdict": "\u9632\u5fa1\u6210\u529f",
       "evidence": {
         "key_material": "public_only\uff08OpNotAllowedError\uff09",
-        "corr_share_vs_plaintext": 0.0514
+        "corr_share_vs_plaintext": -0.0225
       }
     },
     {
@@ -85,7 +85,7 @@
       "verdict": "\u8fb9\u754c\u6f14\u793a",
       "evidence": {
         "intermediate_recovered": true,
-        "max_abs_err": 0.000722,
+        "max_abs_err": 0.003983,
         "token0_recovered": 101,
         "decoded_text": "[CLS]",
         "declaration": "docs/02 \u00a73.3 t=2 \u5931\u6548\u9762\uff08\u63a9\u7801\u5206\u4eab\u6784\u9020\u56fa\u6709\u8fb9\u754c\uff09\uff1b\u6a21\u5f0f B \u8f93\u5165\u9690\u79c1\u6b62\u4e8e t=1"
@@ -106,7 +106,7 @@
       "case": "\u660e\u6587\u6a21\u5f0f\u626b\u63cf",
       "verdict": "\u9632\u5fa1\u6210\u529f",
       "evidence": {
-        "wire_bytes": 353538,
+        "wire_bytes": 353844,
         "patterns": [
           "utf-8 \u6587\u672c",
           "gbk \u6587\u672c",
@@ -130,8 +130,8 @@
       "case": "\u9891\u7387\u5206\u6790",
       "verdict": "\u9632\u5fa1\u6210\u529f",
       "evidence": {
-        "ct_sample_bytes": 353358,
-        "chi2": 272.8,
+        "ct_sample_bytes": 353664,
+        "chi2": 260.2,
         "note": "\u5747\u5300\u5206\u5e03\u671f\u671b\u2248255\uff08\u81ea\u7531\u5ea6\uff09\uff0c\u9608\u503c 400"
       }
     },
