@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-29T08:39:31Z",
+  "generated_utc": "2026-10-02T04:05:50Z",
   "note": "数据字典——00~06 文档头条数字的单一权威来源（P7 陷阱 3）；source=file::dot.path（含 derived 的计算式）；校验：python scripts/check_docs_consistency.py",
   "entries": {
     "code_size.code_lines": {
