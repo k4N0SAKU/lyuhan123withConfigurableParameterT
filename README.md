@@ -236,7 +236,7 @@ P0 虽然持有唯一私钥，但解密被约束在**白名单**内：①域转�
 | 密文矩阵耗时 | 4/8/12 层 P50 **121.7 / 237.7 / 371.8s** | 20/20×3 配置，L=2 回环 CPU，截断层性能口径（m=2 拓扑） | `p6_full_bench.json::cipher_matrix` |
 | **m 方转换代价曲线（P8）** | m=2~15：转换往返 p50 **1131 → 8766 ms**、**6.6 → 40.9 MiB**/轮，随 m 近线性 | mode-b 全槽 16384，每 m 3 轮全槽断言（±4 ulp 红线内）；出口翻转率 0% | `mparty_sweep_m2_15.json` |
 | **m 方稳定性（P8）** | m=3 × 10 轮转换往返全部红线内；m=3 真实通道生命周期 **max_abs_err ≤ 4/2¹⁶** | 玩具参数端到端（5 链路） | 生命周期 e2e + `mparty_cost_curve.json` |
-| **合谋矩阵（P8）** | m=3 全部 6 视角 + m=4（t=3）最坏组合：**精确恢复成功率 0** | 半诚实计算参与方，30 试验/视角 | `tests/attack/test_collusion_mparty.py` |
+| **合谋矩阵（P8）** | **t∈{1..14} 全域实测闭环**：m=3 全 6 视角枚举、m=4 代表 6 视角、m=5~15 每档 3 个最坏 size-(m−1) 组合——精确恢复成功率 **0** | 半诚实计算参与方，30 试验/视角 | `tests/attack/test_collusion_mparty*.py` |
 | C2 模型瘦身选型（创新点） | 模型体积**省 34.1%**（474.7→312.7 MiB），瘦身前后预测结果**一字不差**（一致率 1.000） | 最优组合=卷积/线性权重存 fp16 + 嵌入层 22 位定点；判据=端到端预测一致（白话版见下） | `p6_full_bench.json::c2_selector` |
 | C3 密文矩阵乘同题竞赛（创新点） | "行和"算法**慢 5.39×/5.14×**（向量维度 256/512），对角线+BSGS 胜出 | 早期预估行和法快 1.3×，实测被推翻——**如实入报告的负结果**（白话版见下） | `p6_full_bench.json::c3_ab` |
 | 攻击判定 | **28 防御成功 + 2 边界演示 + 0 失败** | 五类攻击 30 项判定（原口径）+ m 方合谋矩阵 | `attack_verdicts.json` |
@@ -272,7 +272,7 @@ BumbleBee，含"不可比因素"说明列）见 [docs/04](docs/04-性能与基�
 - **模式 A 防御**：CKKS IND-CPA + 重加密——同明文重加密字节重合率 ≈1/256
   （随机性实证）。
 
-五类攻击自动化测试（`tests/attack/`，40 项用例 → 30 项判定 + m 方合谋矩阵）：
+五类攻击自动化测试（`tests/attack/`，51 项用例 → 30 项判定 + m 方合谋矩阵）：
 
 | 攻击类型 | 攻击者动作 | 结果 |
 |---|---|---|
@@ -347,7 +347,7 @@ python -m benchmarks.bench_mparty --m-min 2 --m-max 15 --rounds 3
 
 ```bash
 python -m pytest -q                        # 默认口径：297 passed + 18 deselected + 3 xfailed
-python -m pytest tests/attack -o addopts=  # 攻击套件 40 项（~6 分钟；单次会话落盘 attack_verdicts.json）
+python -m pytest tests/attack -o addopts=  # 攻击套件 51 项（~10 分钟；单次会话落盘 attack_verdicts.json）
 python -m pytest -m slow -q                # 演示稳定性 10 轮 / 管线等价 / m=15 边界等慢速项（~40 分钟）
 ```
 
