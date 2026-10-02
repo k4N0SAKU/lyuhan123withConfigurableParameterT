@@ -19,6 +19,7 @@ import argparse
 import json
 import os
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -109,8 +110,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=None, help="输出 JSON（默认 results 固定名）")
     args = ap.parse_args(argv)
 
-    keys_dir = os.path.join("build", "bench_mparty_keys")
-    os.makedirs(keys_dir, exist_ok=True)
+    keys_dir = tempfile.mkdtemp(prefix="a122_bench_keys_")   # 系统临时目录——不入仓库
     full = CKKSContext(PARAMS_MODE_B)
     full.save_keys(keys_dir, with_secret=True)
     del full
