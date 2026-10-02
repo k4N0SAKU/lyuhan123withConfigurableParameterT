@@ -456,6 +456,7 @@ MANIFEST + sha256）+ 阶段报告，评审通过后进入下一阶段；P8（�
 | [docs/glossary.md](docs/glossary.md) | 术语表 |
 | [docs/code-walkthrough.md](docs/code-walkthrough.md) | 模块代码导读（按模块讲"这段代码在干嘛"） |
 | [docs/project-overview.md](docs/project-overview.md) | 项目详细介绍与全过程 |
+| [docs/项目解释书.md](docs/项目解释书.md) | 项目解释书（记号约定/架构边界/逐阶段实现/结果口径导航/报告书写作建议）★ |
 | [docs/phases/P8-阶段提案.md](docs/phases/P8-阶段提案.md) | 门限可配置化提案（威胁模型重申报 + 验收标准）★ |
 | [docs/phases/P8-工作记录.md](docs/phases/P8-工作记录.md) | P8 实现全记录（含精度口径校准发现）★ |
 | [docs/phases/](docs/phases) | P0~P7 工作记录 + 项目总结报告 + 阶段任务登记 |
