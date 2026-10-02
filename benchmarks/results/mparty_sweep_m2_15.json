@@ -1,0 +1,1081 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "mparty-cost-curve",
+ "workload": "conversion-round-trip (entry chain + exit compose)",
+ "config": {
+  "params": "mode-b-segment",
+  "slots": 16384,
+  "rounds_per_m": 3,
+  "m_list": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15
+  ],
+  "policy": "mode-b-segment",
+  "entry_window": "[0, 562949953421312)",
+  "exit_window": "[33554432, 68719476736)",
+  "m_cap": 15
+ },
+ "environment": {
+  "python": "3.10.4",
+  "platform": "win32",
+  "note": "CPU-only；fresh 掩码/密文每轮独立；逐轮精确断言"
+ },
+ "results": {
+  "2": {
+   "rounds": [
+    {
+     "entry_ms": 319.67910000821576,
+     "exit_ms": 891.566000005696,
+     "round_ms": 1211.2451000139117,
+     "entry_bytes": 2762902,
+     "exit_bytes": 4209303,
+     "masked_ct_bytes": 1315915,
+     "fresh_ct_bytes": 1316167,
+     "entry_flip_rate": 0.10772705078125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 264.7217999910936,
+     "exit_ms": 800.9934999863617,
+     "round_ms": 1065.7152999774553,
+     "entry_bytes": 2763806,
+     "exit_bytes": 4210826,
+     "masked_ct_bytes": 1316367,
+     "fresh_ct_bytes": 1316156,
+     "entry_flip_rate": 0.1083984375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 399.4177999556996,
+     "exit_ms": 731.9171000272036,
+     "round_ms": 1131.3348999829032,
+     "entry_bytes": 2763194,
+     "exit_bytes": 4209280,
+     "masked_ct_bytes": 1316061,
+     "fresh_ct_bytes": 1315776,
+     "entry_flip_rate": 0.11224365234375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1136.0984333247568,
+    "p50": 1131.3348999829032,
+    "max": 1211.2451000139117,
+    "min": 1065.7152999774553
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 327.9395666516696,
+    "p50": 319.67910000821576,
+    "max": 399.4177999556996,
+    "min": 264.7217999910936
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 808.1588666730871,
+    "p50": 800.9934999863617,
+    "max": 891.566000005696,
+    "min": 731.9171000272036
+   },
+   "entry_bytes": 2762902,
+   "exit_bytes": 4209303,
+   "bytes_per_round": 6972205,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.10945638020833333,
+   "exit_flip_rate": 0.0
+  },
+  "3": {
+   "rounds": [
+    {
+     "entry_ms": 465.60759999556467,
+     "exit_ms": 1319.0543000237085,
+     "round_ms": 1784.6619000192732,
+     "entry_bytes": 4077245,
+     "exit_bytes": 5657768,
+     "masked_ct_bytes": 1315391,
+     "fresh_ct_bytes": 1315349,
+     "entry_flip_rate": 0.14105224609375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 364.05789997661486,
+     "exit_ms": 1360.496899986174,
+     "round_ms": 1724.5547999627888,
+     "entry_bytes": 4080002,
+     "exit_bytes": 5657240,
+     "masked_ct_bytes": 1316310,
+     "fresh_ct_bytes": 1315349,
+     "entry_flip_rate": 0.14154052734375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 414.49809999903664,
+     "exit_ms": 1355.1317999954335,
+     "round_ms": 1769.6298999944702,
+     "entry_bytes": 4080005,
+     "exit_bytes": 5656233,
+     "masked_ct_bytes": 1316311,
+     "fresh_ct_bytes": 1316346,
+     "entry_flip_rate": 0.1483154296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1759.6155333255108,
+    "p50": 1769.6298999944702,
+    "max": 1784.6619000192732,
+    "min": 1724.5547999627888
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 414.7211999904054,
+    "p50": 414.49809999903664,
+    "max": 465.60759999556467,
+    "min": 364.05789997661486
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1344.8943333351053,
+    "p50": 1355.1317999954335,
+    "max": 1360.496899986174,
+    "min": 1319.0543000237085
+   },
+   "entry_bytes": 4077245,
+   "exit_bytes": 5657768,
+   "bytes_per_round": 9735013,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.14363606770833334,
+   "exit_flip_rate": 0.0
+  },
+  "4": {
+   "rounds": [
+    {
+     "entry_ms": 619.8498000157997,
+     "exit_ms": 1702.9839999740943,
+     "round_ms": 2322.833799989894,
+     "entry_bytes": 5394196,
+     "exit_bytes": 7105001,
+     "masked_ct_bytes": 1315781,
+     "fresh_ct_bytes": 1316105,
+     "entry_flip_rate": 0.2108154296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 596.735599974636,
+     "exit_ms": 1513.0838000332005,
+     "round_ms": 2109.8194000078365,
+     "entry_bytes": 5395700,
+     "exit_bytes": 7101210,
+     "masked_ct_bytes": 1316157,
+     "fresh_ct_bytes": 1315390,
+     "entry_flip_rate": 0.201416015625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 579.0674000163563,
+     "exit_ms": 1486.2569000106305,
+     "round_ms": 2065.3243000269867,
+     "entry_bytes": 5395812,
+     "exit_bytes": 7105180,
+     "masked_ct_bytes": 1316185,
+     "fresh_ct_bytes": 1315976,
+     "entry_flip_rate": 0.2186279296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2165.992500008239,
+    "p50": 2109.8194000078365,
+    "max": 2322.833799989894,
+    "min": 2065.3243000269867
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 598.5509333355973,
+    "p50": 596.735599974636,
+    "max": 619.8498000157997,
+    "min": 579.0674000163563
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1567.4415666726418,
+    "p50": 1513.0838000332005,
+    "max": 1702.9839999740943,
+    "min": 1486.2569000106305
+   },
+   "entry_bytes": 5394196,
+   "exit_bytes": 7105001,
+   "bytes_per_round": 12499197,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.21028645833333334,
+   "exit_flip_rate": 0.0
+  },
+  "5": {
+   "rounds": [
+    {
+     "entry_ms": 641.5012000361457,
+     "exit_ms": 1906.272899999749,
+     "round_ms": 2547.7741000358947,
+     "entry_bytes": 6711472,
+     "exit_bytes": 8547427,
+     "masked_ct_bytes": 1316080,
+     "fresh_ct_bytes": 1316207,
+     "entry_flip_rate": 0.26312255859375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 713.57080002781,
+     "exit_ms": 1564.4761999719776,
+     "round_ms": 2278.0469999997877,
+     "entry_bytes": 6710722,
+     "exit_bytes": 8549358,
+     "masked_ct_bytes": 1315930,
+     "fresh_ct_bytes": 1316043,
+     "entry_flip_rate": 0.2686767578125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 710.7609999948181,
+     "exit_ms": 1983.8051999686286,
+     "round_ms": 2694.5661999634467,
+     "entry_bytes": 6710417,
+     "exit_bytes": 8552887,
+     "masked_ct_bytes": 1315869,
+     "fresh_ct_bytes": 1316172,
+     "entry_flip_rate": 0.2537841796875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2506.7957666663765,
+    "p50": 2547.7741000358947,
+    "max": 2694.5661999634467,
+    "min": 2278.0469999997877
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 688.6110000195913,
+    "p50": 710.7609999948181,
+    "max": 713.57080002781,
+    "min": 641.5012000361457
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1818.184766646785,
+    "p50": 1906.272899999749,
+    "max": 1983.8051999686286,
+    "min": 1564.4761999719776
+   },
+   "entry_bytes": 6711472,
+   "exit_bytes": 8547427,
+   "bytes_per_round": 15258899,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.2618611653645833,
+   "exit_flip_rate": 0.0
+  },
+  "6": {
+   "rounds": [
+    {
+     "entry_ms": 681.1172000016086,
+     "exit_ms": 2366.317599953618,
+     "round_ms": 3047.4347999552265,
+     "entry_bytes": 8028416,
+     "exit_bytes": 9993974,
+     "masked_ct_bytes": 1316224,
+     "fresh_ct_bytes": 1315376,
+     "entry_flip_rate": 0.28765869140625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 793.4029000462033,
+     "exit_ms": 2264.765400032047,
+     "round_ms": 3058.1683000782505,
+     "entry_bytes": 8023196,
+     "exit_bytes": 9999247,
+     "masked_ct_bytes": 1315354,
+     "fresh_ct_bytes": 1315195,
+     "entry_flip_rate": 0.25421142578125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 714.2211999744177,
+     "exit_ms": 2478.3727999893017,
+     "round_ms": 3192.5939999637194,
+     "entry_bytes": 8021702,
+     "exit_bytes": 9994980,
+     "masked_ct_bytes": 1315105,
+     "fresh_ct_bytes": 1315440,
+     "entry_flip_rate": 0.25201416015625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 3099.3990333323986,
+    "p50": 3058.1683000782505,
+    "max": 3192.5939999637194,
+    "min": 3047.4347999552265
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 729.5804333407432,
+    "p50": 714.2211999744177,
+    "max": 793.4029000462033,
+    "min": 681.1172000016086
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2369.8185999916554,
+    "p50": 2366.317599953618,
+    "max": 2478.3727999893017,
+    "min": 2264.765400032047
+   },
+   "entry_bytes": 8028416,
+   "exit_bytes": 9993974,
+   "bytes_per_round": 18022390,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.2646280924479167,
+   "exit_flip_rate": 0.0
+  },
+  "7": {
+   "rounds": [
+    {
+     "entry_ms": 995.9689999814145,
+     "exit_ms": 2815.434099989943,
+     "round_ms": 3811.4030999713577,
+     "entry_bytes": 9339768,
+     "exit_bytes": 11445603,
+     "masked_ct_bytes": 1315528,
+     "fresh_ct_bytes": 1314720,
+     "entry_flip_rate": 0.28851318359375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1102.3179999901913,
+     "exit_ms": 2806.409500015434,
+     "round_ms": 3908.727500005625,
+     "entry_bytes": 9339103,
+     "exit_bytes": 11443541,
+     "masked_ct_bytes": 1315433,
+     "fresh_ct_bytes": 1315318,
+     "entry_flip_rate": 0.28277587890625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 895.3091999865137,
+     "exit_ms": 2339.904199994635,
+     "round_ms": 3235.2133999811485,
+     "entry_bytes": 9342407,
+     "exit_bytes": 11442004,
+     "masked_ct_bytes": 1315905,
+     "fresh_ct_bytes": 1315342,
+     "entry_flip_rate": 0.27642822265625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 3651.781333319377,
+    "p50": 3811.4030999713577,
+    "max": 3908.727500005625,
+    "min": 3235.2133999811485
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 997.8653999860398,
+    "p50": 995.9689999814145,
+    "max": 1102.3179999901913,
+    "min": 895.3091999865137
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2653.9159333333373,
+    "p50": 2806.409500015434,
+    "max": 2815.434099989943,
+    "min": 2339.904199994635
+   },
+   "entry_bytes": 9339768,
+   "exit_bytes": 11445603,
+   "bytes_per_round": 20785371,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.2825724283854167,
+   "exit_flip_rate": 0.0
+  },
+  "8": {
+   "rounds": [
+    {
+     "entry_ms": 597.740099998191,
+     "exit_ms": 1974.4809999829158,
+     "round_ms": 2572.221099981107,
+     "entry_bytes": 10655352,
+     "exit_bytes": 12889997,
+     "masked_ct_bytes": 1315535,
+     "fresh_ct_bytes": 1315845,
+     "entry_flip_rate": 0.369384765625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 599.0893999696709,
+     "exit_ms": 3108.4318999783136,
+     "round_ms": 3707.5212999479845,
+     "entry_bytes": 10659584,
+     "exit_bytes": 12886728,
+     "masked_ct_bytes": 1316064,
+     "fresh_ct_bytes": 1315208,
+     "entry_flip_rate": 0.38665771484375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1206.8319999962114,
+     "exit_ms": 3709.6668999874964,
+     "round_ms": 4916.498899983708,
+     "entry_bytes": 10661856,
+     "exit_bytes": 12887573,
+     "masked_ct_bytes": 1316348,
+     "fresh_ct_bytes": 1316301,
+     "entry_flip_rate": 0.40478515625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 3732.0804333042665,
+    "p50": 3707.5212999479845,
+    "max": 4916.498899983708,
+    "min": 2572.221099981107
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 801.2204999880245,
+    "p50": 599.0893999696709,
+    "max": 1206.8319999962114,
+    "min": 597.740099998191
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2930.859933316242,
+    "p50": 3108.4318999783136,
+    "max": 3709.6668999874964,
+    "min": 1974.4809999829158
+   },
+   "entry_bytes": 10655352,
+   "exit_bytes": 12889997,
+   "bytes_per_round": 23545349,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.3869425455729167,
+   "exit_flip_rate": 0.0
+  },
+  "9": {
+   "rounds": [
+    {
+     "entry_ms": 1342.2633000300266,
+     "exit_ms": 4077.1088000037707,
+     "round_ms": 5419.372100033797,
+     "entry_bytes": 11973344,
+     "exit_bytes": 14335145,
+     "masked_ct_bytes": 1315808,
+     "fresh_ct_bytes": 1315421,
+     "entry_flip_rate": 0.44769287109375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1372.684100002516,
+     "exit_ms": 4077.417000022251,
+     "round_ms": 5450.101100024767,
+     "entry_bytes": 11977835,
+     "exit_bytes": 14333733,
+     "masked_ct_bytes": 1316307,
+     "fresh_ct_bytes": 1315368,
+     "entry_flip_rate": 0.47113037109375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1356.3466999912634,
+     "exit_ms": 4051.467999990564,
+     "round_ms": 5407.814699981827,
+     "entry_bytes": 11970239,
+     "exit_bytes": 14340660,
+     "masked_ct_bytes": 1315463,
+     "fresh_ct_bytes": 1315365,
+     "entry_flip_rate": 0.45977783203125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 5425.762633346797,
+    "p50": 5419.372100033797,
+    "max": 5450.101100024767,
+    "min": 5407.814699981827
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1357.0980333412688,
+    "p50": 1356.3466999912634,
+    "max": 1372.684100002516,
+    "min": 1342.2633000300266
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 4068.6646000055284,
+    "p50": 4077.1088000037707,
+    "max": 4077.417000022251,
+    "min": 4051.467999990564
+   },
+   "entry_bytes": 11973344,
+   "exit_bytes": 14335145,
+   "bytes_per_round": 26308489,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.45953369140625,
+   "exit_flip_rate": 0.0
+  },
+  "10": {
+   "rounds": [
+    {
+     "entry_ms": 1494.307100016158,
+     "exit_ms": 4467.458600003738,
+     "round_ms": 5961.765700019896,
+     "entry_bytes": 13292122,
+     "exit_bytes": 15785872,
+     "masked_ct_bytes": 1316105,
+     "fresh_ct_bytes": 1315372,
+     "entry_flip_rate": 0.45892333984375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1426.395699963905,
+     "exit_ms": 4624.975799990352,
+     "round_ms": 6051.371499954257,
+     "entry_bytes": 13287132,
+     "exit_bytes": 15787981,
+     "masked_ct_bytes": 1315606,
+     "fresh_ct_bytes": 1316021,
+     "entry_flip_rate": 0.43951416015625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1465.8835000009276,
+     "exit_ms": 4583.756499981973,
+     "round_ms": 6049.639999982901,
+     "entry_bytes": 13284272,
+     "exit_bytes": 15789364,
+     "masked_ct_bytes": 1315320,
+     "fresh_ct_bytes": 1316204,
+     "entry_flip_rate": 0.45867919921875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 6020.925733319018,
+    "p50": 6049.639999982901,
+    "max": 6051.371499954257,
+    "min": 5961.765700019896
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1462.1954333269969,
+    "p50": 1465.8835000009276,
+    "max": 1494.307100016158,
+    "min": 1426.395699963905
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 4558.730299992021,
+    "p50": 4583.756499981973,
+    "max": 4624.975799990352,
+    "min": 4467.458600003738
+   },
+   "entry_bytes": 13292122,
+   "exit_bytes": 15785872,
+   "bytes_per_round": 29077994,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.4523722330729167,
+   "exit_flip_rate": 0.0
+  },
+  "11": {
+   "rounds": [
+    {
+     "entry_ms": 1603.5931999795139,
+     "exit_ms": 5011.994300002698,
+     "round_ms": 6615.587499982212,
+     "entry_bytes": 14611241,
+     "exit_bytes": 17234343,
+     "masked_ct_bytes": 1316379,
+     "fresh_ct_bytes": 1315462,
+     "entry_flip_rate": 0.46282958984375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1635.4663000092842,
+     "exit_ms": 4787.106400006451,
+     "round_ms": 6422.572700015735,
+     "entry_bytes": 14603090,
+     "exit_bytes": 17232610,
+     "masked_ct_bytes": 1315638,
+     "fresh_ct_bytes": 1315379,
+     "entry_flip_rate": 0.46697998046875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1291.196600010153,
+     "exit_ms": 4760.972300020512,
+     "round_ms": 6052.168900030665,
+     "entry_bytes": 14600142,
+     "exit_bytes": 17235537,
+     "masked_ct_bytes": 1315370,
+     "fresh_ct_bytes": 1316260,
+     "entry_flip_rate": 0.43634033203125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 6363.443033342871,
+    "p50": 6422.572700015735,
+    "max": 6615.587499982212,
+    "min": 6052.168900030665
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1510.085366666317,
+    "p50": 1603.5931999795139,
+    "max": 1635.4663000092842,
+    "min": 1291.196600010153
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 4853.357666676554,
+    "p50": 4787.106400006451,
+    "max": 5011.994300002698,
+    "min": 4760.972300020512
+   },
+   "entry_bytes": 14611241,
+   "exit_bytes": 17234343,
+   "bytes_per_round": 31845584,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.45538330078125,
+   "exit_flip_rate": 0.0
+  },
+  "12": {
+   "rounds": [
+    {
+     "entry_ms": 1728.5297999624163,
+     "exit_ms": 5447.1923999954015,
+     "round_ms": 7175.722199957818,
+     "entry_bytes": 15926720,
+     "exit_bytes": 18682087,
+     "masked_ct_bytes": 1316304,
+     "fresh_ct_bytes": 1315879,
+     "entry_flip_rate": 0.46466064453125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1725.4716999595985,
+     "exit_ms": 5412.749299954157,
+     "round_ms": 7138.220999913756,
+     "entry_bytes": 15918404,
+     "exit_bytes": 18673287,
+     "masked_ct_bytes": 1315611,
+     "fresh_ct_bytes": 1315803,
+     "entry_flip_rate": 0.46600341796875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1687.6612000050955,
+     "exit_ms": 5404.044500028249,
+     "round_ms": 7091.705700033344,
+     "entry_bytes": 15926684,
+     "exit_bytes": 18672435,
+     "masked_ct_bytes": 1316301,
+     "fresh_ct_bytes": 1315503,
+     "entry_flip_rate": 0.4910888671875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 7135.216299968306,
+    "p50": 7138.220999913756,
+    "max": 7175.722199957818,
+    "min": 7091.705700033344
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1713.88756664237,
+    "p50": 1725.4716999595985,
+    "max": 1728.5297999624163,
+    "min": 1687.6612000050955
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 5421.328733325936,
+    "p50": 5412.749299954157,
+    "max": 5447.1923999954015,
+    "min": 5404.044500028249
+   },
+   "entry_bytes": 15926720,
+   "exit_bytes": 18682087,
+   "bytes_per_round": 34608807,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.4739176432291667,
+   "exit_flip_rate": 0.0
+  },
+  "13": {
+   "rounds": [
+    {
+     "entry_ms": 1832.9147000331432,
+     "exit_ms": 5717.435300000943,
+     "round_ms": 7550.350000034086,
+     "entry_bytes": 17235406,
+     "exit_bytes": 20120946,
+     "masked_ct_bytes": 1315718,
+     "fresh_ct_bytes": 1316329,
+     "entry_flip_rate": 0.44927978515625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1889.090100012254,
+     "exit_ms": 5899.021099961828,
+     "round_ms": 7788.111199974082,
+     "entry_bytes": 17236615,
+     "exit_bytes": 20121548,
+     "masked_ct_bytes": 1315811,
+     "fresh_ct_bytes": 1315371,
+     "entry_flip_rate": 0.4952392578125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1850.439900008496,
+     "exit_ms": 5908.102100016549,
+     "round_ms": 7758.542000025045,
+     "entry_bytes": 17241451,
+     "exit_bytes": 20126257,
+     "masked_ct_bytes": 1316183,
+     "fresh_ct_bytes": 1316310,
+     "entry_flip_rate": 0.46319580078125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 7699.001066677738,
+    "p50": 7758.542000025045,
+    "max": 7788.111199974082,
+    "min": 7550.350000034086
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1857.481566684631,
+    "p50": 1850.439900008496,
+    "max": 1889.090100012254,
+    "min": 1832.9147000331432
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 5841.519499993107,
+    "p50": 5899.021099961828,
+    "max": 5908.102100016549,
+    "min": 5717.435300000943
+   },
+   "entry_bytes": 17235406,
+   "exit_bytes": 20120946,
+   "bytes_per_round": 37356352,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.46923828125,
+   "exit_flip_rate": 0.0
+  },
+  "14": {
+   "rounds": [
+    {
+     "entry_ms": 1949.0457000210881,
+     "exit_ms": 6422.486600000411,
+     "round_ms": 8371.5323000215,
+     "entry_bytes": 18552888,
+     "exit_bytes": 21567482,
+     "masked_ct_bytes": 1315844,
+     "fresh_ct_bytes": 1315586,
+     "entry_flip_rate": 0.4376220703125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 1932.5369999860413,
+     "exit_ms": 6375.668700027745,
+     "round_ms": 8308.205700013787,
+     "entry_bytes": 18550046,
+     "exit_bytes": 21567824,
+     "masked_ct_bytes": 1315641,
+     "fresh_ct_bytes": 1316040,
+     "entry_flip_rate": 0.4755859375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 2046.9286000006832,
+     "exit_ms": 6365.259199985303,
+     "round_ms": 8412.187799985986,
+     "entry_bytes": 18545146,
+     "exit_bytes": 21565365,
+     "masked_ct_bytes": 1315291,
+     "fresh_ct_bytes": 1316171,
+     "entry_flip_rate": 0.4427490234375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 8363.975266673757,
+    "p50": 8371.5323000215,
+    "max": 8412.187799985986,
+    "min": 8308.205700013787
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 1976.1704333359376,
+    "p50": 1949.0457000210881,
+    "max": 2046.9286000006832,
+    "min": 1932.5369999860413
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 6387.80483333782,
+    "p50": 6375.668700027745,
+    "max": 6422.486600000411,
+    "min": 6365.259199985303
+   },
+   "entry_bytes": 18552888,
+   "exit_bytes": 21567482,
+   "bytes_per_round": 40120370,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.4519856770833333,
+   "exit_flip_rate": 0.0
+  },
+  "15": {
+   "rounds": [
+    {
+     "entry_ms": 2141.887899953872,
+     "exit_ms": 6700.41329995729,
+     "round_ms": 8842.301199911162,
+     "entry_bytes": 19866632,
+     "exit_bytes": 23026994,
+     "masked_ct_bytes": 1315704,
+     "fresh_ct_bytes": 1315349,
+     "entry_flip_rate": 0.47808837890625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 2005.4785999818705,
+     "exit_ms": 6760.537999973167,
+     "round_ms": 8766.016599955037,
+     "entry_bytes": 19861607,
+     "exit_bytes": 23022451,
+     "masked_ct_bytes": 1315369,
+     "fresh_ct_bytes": 1315456,
+     "entry_flip_rate": 0.440185546875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 2076.447299972642,
+     "exit_ms": 4776.872799964622,
+     "round_ms": 6853.320099937264,
+     "entry_bytes": 19862672,
+     "exit_bytes": 23025076,
+     "masked_ct_bytes": 1315440,
+     "fresh_ct_bytes": 1316056,
+     "entry_flip_rate": 0.4998779296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 8153.879299934488,
+    "p50": 8766.016599955037,
+    "max": 8842.301199911162,
+    "min": 6853.320099937264
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 2074.6045999694616,
+    "p50": 2076.447299972642,
+    "max": 2141.887899953872,
+    "min": 2005.4785999818705
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 6079.274699965026,
+    "p50": 6700.41329995729,
+    "max": 6760.537999973167,
+    "min": 4776.872799964622
+   },
+   "entry_bytes": 19866632,
+   "exit_bytes": 23026994,
+   "bytes_per_round": 42893626,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.47271728515625,
+   "exit_flip_rate": 0.0
+  }
+ },
+ "stability": {
+  "m": 3,
+  "rounds_done": 3,
+  "ulp_ok": true,
+  "redline": 4,
+  "note": "偏差红线 4 ulp（P4 δ≤5 口径内）；环算术相对 y₁ 精确"
+ },
+ "timestamp_utc": "2026-10-02T01:28:49.867818+00:00"
+}

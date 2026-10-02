@@ -11,9 +11,9 @@
       "seq_tokens": 8,
       "note": "\u622a\u65ad\u6f14\u793a\u7ba1\u7ebf\uff08\u7cbe\u5ea6\u4e3b\u5f20\u4ee5\u6ee1\u914d\u53e3\u5f84\u4e3a\u51c6\uff0cdocs/04 \u00a76\uff1b\u6807\u7b7e\u5bf9\u622a\u65ad\u6a21\u578b\u7684\u53ef\u4fe1\u5ea6\u89c1 docs/04 \u00a72 \u6ce8\u8bb0\uff09"
     },
-    "port": 13001,
-    "elapsed_s": 690.7,
-    "polls": 124
+    "port": 16894,
+    "elapsed_s": 1315.4,
+    "polls": 237
   },
   "environment": {
     "python": "3.10.4",
@@ -31,11 +31,11 @@
     "wall_stats": {
       "n": 10,
       "unit": "ms",
-      "mean": 66714.56047999818,
-      "p50": 58681.01854999986,
-      "p95": 106340.10731500317,
-      "min": 54021.3531999907,
-      "max": 141630.35620001028
+      "mean": 127268.81785000442,
+      "p50": 126836.65604999987,
+      "p95": 168456.55039999404,
+      "min": 80580.97750000888,
+      "max": 194518.28509999905
     },
     "segment_stats_keys": [
       "compute_linear",
@@ -47,26 +47,61 @@
       "threshold_decrypt"
     ],
     "traffic": {
-      "bytes_sent": 346472232,
+      "bytes_sent": 346473445,
       "bytes_recv": 0,
       "channel_bytes_sent": 11137,
       "channel_bytes_recv": 11137
     },
     "memory": {
-      "peak_delta_bytes_p50": 2748798976,
-      "peak_delta_bytes_max": 5880291328,
+      "peak_delta_bytes_p50": 2850080768,
+      "peak_delta_bytes_max": 5405618176,
       "rounds": 10
     },
     "stalls_over_1s": [
       {
+        "path": "/api/health",
+        "ms": 1047,
+        "phase": null
+      },
+      {
         "path": "/api/status",
-        "ms": 2395,
+        "ms": 3131,
         "phase": "PROVISION"
       },
       {
         "path": "/api/status",
-        "poll": 104,
+        "ms": 1065,
+        "phase": "INFERRING"
+      },
+      {
+        "path": "/api/status",
+        "ms": 1211,
+        "phase": "INFERRING"
+      },
+      {
+        "path": "/api/status",
+        "ms": 1058,
+        "phase": "INFERRING"
+      },
+      {
+        "path": "/api/status",
+        "ms": 1203,
+        "phase": "INFERRING"
+      },
+      {
+        "path": "/api/status",
+        "poll": 151,
         "err": "TimeoutError"
+      },
+      {
+        "path": "/api/status",
+        "ms": 30360,
+        "phase": "INFERRING"
+      },
+      {
+        "path": "/api/status",
+        "ms": 1354,
+        "phase": "INFERRING"
       }
     ]
   },
@@ -74,122 +109,122 @@
     {
       "round": 1,
       "label": "\u8d1f\u9762",
-      "prob": 0.6164,
-      "wall_ms": 63207.6,
+      "prob": 0.5021,
+      "wall_ms": 106388.2,
       "conversions": 20,
       "mpc_gates": 563904,
-      "peak_rss_delta_bytes": 5880291328,
+      "peak_rss_delta_bytes": 5405618176,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 63.5
+      "elapsed_s": 106.9
     },
     {
       "round": 2,
       "label": "\u8d1f\u9762",
-      "prob": 0.5697,
-      "wall_ms": 57749.5,
+      "prob": 0.5561,
+      "wall_ms": 128812.2,
       "conversions": 40,
       "mpc_gates": 1127808,
-      "peak_rss_delta_bytes": 3823013888,
+      "peak_rss_delta_bytes": 4298854400,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 58.2
+      "elapsed_s": 129.9
     },
     {
       "round": 3,
       "label": "\u8d1f\u9762",
-      "prob": 0.5106,
-      "wall_ms": 57628.7,
+      "prob": 0.6078,
+      "wall_ms": 131728.1,
       "conversions": 60,
       "mpc_gates": 1691712,
-      "peak_rss_delta_bytes": 3825422336,
+      "peak_rss_delta_bytes": 4007116800,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 58.4
+      "elapsed_s": 133.4
     },
     {
       "round": 4,
       "label": "\u8d1f\u9762",
-      "prob": 0.5244,
-      "wall_ms": 55025.0,
+      "prob": 0.6211,
+      "wall_ms": 119097.0,
       "conversions": 80,
       "mpc_gates": 2255616,
-      "peak_rss_delta_bytes": 1927106560,
+      "peak_rss_delta_bytes": 770375680,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 56.0
+      "elapsed_s": 121.1
     },
     {
       "round": 5,
-      "label": "\u6b63\u9762",
-      "prob": 0.5124,
-      "wall_ms": 57475.7,
+      "label": "\u8d1f\u9762",
+      "prob": 0.6065,
+      "wall_ms": 125051.0,
       "conversions": 100,
       "mpc_gates": 2819520,
-      "peak_rss_delta_bytes": 2397671424,
+      "peak_rss_delta_bytes": 619425792,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 58.7
+      "elapsed_s": 127.5
     },
     {
       "round": 6,
       "label": "\u8d1f\u9762",
-      "prob": 0.571,
-      "wall_ms": 54021.4,
+      "prob": 0.6264,
+      "wall_ms": 128622.3,
       "conversions": 120,
       "mpc_gates": 3383424,
-      "peak_rss_delta_bytes": 981614592,
+      "peak_rss_delta_bytes": 2795180032,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 55.4
+      "elapsed_s": 131.9
     },
     {
       "round": 7,
       "label": "\u8d1f\u9762",
-      "prob": 0.6154,
-      "wall_ms": 61169.0,
+      "prob": 0.5674,
+      "wall_ms": 194518.3,
       "conversions": 140,
       "mpc_gates": 3947328,
-      "peak_rss_delta_bytes": 2159136768,
+      "peak_rss_delta_bytes": 286855168,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 62.8
+      "elapsed_s": 196.4
     },
     {
       "round": 8,
       "label": "\u8d1f\u9762",
-      "prob": 0.6158,
-      "wall_ms": 59612.6,
+      "prob": 0.6466,
+      "wall_ms": 80581.0,
       "conversions": 160,
       "mpc_gates": 4511232,
-      "peak_rss_delta_bytes": 3099926528,
+      "peak_rss_delta_bytes": 3824484352,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 61.5
+      "elapsed_s": 84.4
     },
     {
       "round": 9,
       "label": "\u8d1f\u9762",
-      "prob": 0.6164,
-      "wall_ms": 141630.4,
+      "prob": 0.5507,
+      "wall_ms": 121286.8,
       "conversions": 180,
       "mpc_gates": 5075136,
-      "peak_rss_delta_bytes": 1356619776,
+      "peak_rss_delta_bytes": 2904981504,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 143.8
+      "elapsed_s": 126.9
     },
     {
       "round": 10,
-      "label": "\u6b63\u9762",
-      "prob": 0.5029,
-      "wall_ms": 59625.9,
+      "label": "\u8d1f\u9762",
+      "prob": 0.6086,
+      "wall_ms": 136603.3,
       "conversions": 200,
       "mpc_gates": 5639040,
-      "peak_rss_delta_bytes": 4779110400,
+      "peak_rss_delta_bytes": 910716928,
       "final_decrypt_ok": true,
       "plaintext_ok": true,
-      "elapsed_s": 62.0
+      "elapsed_s": 141.9
     }
   ]
 }

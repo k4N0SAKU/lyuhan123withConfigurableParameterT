@@ -107,8 +107,11 @@ def main(argv=None) -> int:
         sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--rounds", type=int, default=ROUNDS)
+    ap.add_argument("--m-min", type=int, default=2)
+    ap.add_argument("--m-max", type=int, default=5)
     ap.add_argument("--out", default=None, help="输出 JSON（默认 results 固定名）")
     args = ap.parse_args(argv)
+    m_list = list(range(args.m_min, args.m_max + 1))
 
     keys_dir = tempfile.mkdtemp(prefix="a122_bench_keys_")   # 系统临时目录——不入仓库
     full = CKKSContext(PARAMS_MODE_B)
@@ -121,7 +124,7 @@ def main(argv=None) -> int:
     slots = pub.slot_count
 
     results = {}
-    for m in M_LIST:
+    for m in m_list:
         check_m(policy, m)
         parties = [ComputePartyRole(pub, index=i + 1, m=m, is_anchor=(i == 0))
                    for i in range(m)]
@@ -150,7 +153,7 @@ def main(argv=None) -> int:
         "kind": "mparty-cost-curve",
         "workload": "conversion-round-trip (entry chain + exit compose)",
         "config": {"params": PARAMS_MODE_B.name, "slots": slots,
-                   "rounds_per_m": args.rounds, "m_list": list(M_LIST),
+                   "rounds_per_m": args.rounds, "m_list": m_list,
                    "policy": policy.name,
                    "entry_window": f"[0, {policy.entry_mask_hi})",
                    "exit_window": f"[{policy.exit_mask_lo}, {policy.exit_mask_hi})",
@@ -159,8 +162,8 @@ def main(argv=None) -> int:
                         "platform": sys.platform,
                         "note": "CPU-only；fresh 掩码/密文每轮独立；逐轮精确断言"},
         "results": results,
-        "stability": {"m": 3, "rounds_done": args.rounds,
-                      "ulp_ok": results["3"]["ulp_ok_all"],
+        "stability": {"m": 3 if 3 in m_list else m_list[0], "rounds_done": args.rounds if 3 in m_list else 0,
+                      "ulp_ok": results["3"]["ulp_ok_all"] if 3 in m_list else None,
                       "redline": ULP_REDLINE,
                       "note": "偏差红线 4 ulp（P4 δ≤5 口径内）；环算术相对 y₁ 精确"},
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),

@@ -34,3 +34,14 @@ def test_pipeline_m_equivalent_to_legacy():
             f"m={m} 概率超出 ±1 ulp 等价窗：{got['prob']} vs {ref['prob']}"
         # 转换数与门数：m 方转换数公式不变（10n/层 口径的管线计数）
         assert got["conversions"] == ref["conversions"]
+
+
+def test_m15_boundary_classify():
+    """m=15（mode-b 上限，t=14）边界：全管线 classify 与原管线 label 一致。"""
+    plain = BertSentimentPipeline()
+    ref = ModeBPipeline(plain, PipelineConfig(n_layer=1, seq_tokens=2)).classify(TEXT)
+    pipe = ModeBPipelineM(plain,
+                          PipelineConfigM(n_layer=1, seq_tokens=2, n_compute=15))
+    got = pipe.classify(TEXT)
+    assert got["label"] == ref["label"], "m=15 边界标签漂移"
+    assert abs(got["prob"] - ref["prob"]) <= 1e-4
