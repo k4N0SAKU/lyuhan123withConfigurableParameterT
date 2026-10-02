@@ -24,8 +24,10 @@ def test_lifecycle_m(tmp_path, m):
 
     rep = run_lifecycle_m(prov, m=m, params=PARAMS_P4_TOY,
                           log_dir=str(tmp_path / "logs"))
-    # 协议正确性：常数乘后端到端精确（环算术 + 白名单② 精确回读）
-    assert rep["phases"]["inference"]["max_abs_err"] == 0.0
+    # 协议正确性：常数乘后端到端在 ±ulp 窗内（conversion.py 申报 e_ckks ≤1
+    # ulp，常数乘线性放大——环算术相对 y₁ 精确；红线 4 ulp 同 bench）
+    from src.protocol.conversion import FIXED_ONE
+    assert rep["phases"]["inference"]["max_abs_err"] <= 4 / FIXED_ONE
     assert rep["phases"]["inference"]["mask_chain_hops"] == m
     # 控制面不变式：全部链路认证+协商成功
     assert len(rep["phases"]["establish"]) == m + 1
