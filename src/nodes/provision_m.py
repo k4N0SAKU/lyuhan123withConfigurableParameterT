@@ -72,3 +72,32 @@ def provision_demo_m(dir_path: str, m: int = 3,
     (root / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     return manifest
+
+
+def main(argv: list | None = None) -> int:
+    import argparse
+    import sys
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dir", required=True, help="供给产物目录")
+    parser.add_argument("--m", type=int, default=3,
+                        help="计算方数量（t = m−1；mode-b 上限 15）")
+    parser.add_argument("--toy", action="store_true",
+                        help="玩具 CKKS 参数（测试/演示提速：2^12，链 [30,30,40]）")
+    args = parser.parse_args(argv)
+    params = PARAMS_MODE_B
+    if args.toy:
+        from src.crypto.ckks_ops import CKKSParams
+        params = CKKSParams(name="p4-toy", poly_modulus_degree=1 << 12,
+                            coeff_mod_bit_sizes=(30, 30, 40), scale_log2=30,
+                            slots=1 << 11,
+                            note="P4 协议演示/测试玩具参数（非推理配置）")
+    manifest = provision_demo_m(args.dir, m=args.m, ckks_params=params)
+    print(f"provisioned (m={args.m}, t={args.m - 1}) -> {args.dir}")
+    print(f"  nodes: {list(manifest['nodes'])}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
