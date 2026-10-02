@@ -18,7 +18,7 @@ def _rand_triple() -> BeaverTriple:
     return BeaverTriple(gate_id=0, a=a, b=b, c=(a * b) % DEFAULT_MODULUS)
 
 
-@pytest.mark.parametrize("n", [2, 3, 4, 5])
+@pytest.mark.parametrize("n", list(range(2, 16)))
 def test_split_triple_n_sums_to_full(n):
     t = _rand_triple()
     shares = split_triple_n(t, n)
@@ -28,9 +28,9 @@ def test_split_triple_n_sums_to_full(n):
     assert sum(s.c for s in shares) % DEFAULT_MODULUS == t.c
 
 
-@pytest.mark.parametrize("n", [2, 3, 4, 5])
+@pytest.mark.parametrize("n", list(range(2, 16)))
 def test_beaver_multiply_n_identity(n):
-    for _ in range(200):
+    for _ in range(200 if n <= 5 else 60):
         t = _rand_triple()
         shares = split_triple_n(t, n)
         xs = [_rand64() for _ in range(n)]
