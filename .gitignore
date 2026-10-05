@@ -14,3 +14,4 @@ data/models/
 
 # 运行产物（results/ 中的正式报告保留，临时文件忽略）
 benchmarks/results/*.tmp.json
+build/ ===
