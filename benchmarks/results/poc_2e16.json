@@ -1,0 +1,38 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "poc-2e16",
+ "config": {
+  "params": "mode-b-2e16-REVIEW-PATH",
+  "poly": 65536,
+  "chain": [
+   60,
+   40,
+   40,
+   60
+  ],
+  "scale_log2": 40,
+  "slots": 32768,
+  "sec_level": "NONE",
+  "galois_keys": false,
+  "security_provenance": "lattice-estimator C≈2^130.2≥128（docs/01 §5.3 登记值）"
+ },
+ "results": {
+  "seal_accepted": true,
+  "keygen_ms_no_galois": 977.1853000856936,
+  "ct_size_bytes": 2631808,
+  "ct_size_mib": 2.5098876953125,
+  "encrypt_ms": 36.11300000920892,
+  "homomorphic_add_ms": 1.694599981419742,
+  "decrypt_ms": 8.35909997113049,
+  "roundtrip_ulp_ok": true,
+  "roundtrip_max_dev": 1,
+  "roundtrip_flip_rate": 0.001068115234375,
+  "conversions_note": "L=16 单密文 ⇒ 每层域转换 96 次（mode-b 主线 192 次的一半，docs/01 §5.3）"
+ },
+ "baseline_mode_b": {
+  "slots": 16384,
+  "ct_size_mib": 1.64,
+  "conversions_per_layer_at_L16": 192
+ },
+ "timestamp_utc": "2026-10-05T07:32:26.231085+00:00"
+}

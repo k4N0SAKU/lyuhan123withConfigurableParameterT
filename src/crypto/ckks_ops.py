@@ -45,6 +45,14 @@ PARAMS_MODE_B = CKKSParams(
     coeff_mod_bit_sizes=(60, 40, 40, 60), scale_log2=40, slots=1 << 14,
     note="模式 B 主线：段内深度 2；密文 1.64MB；L=16 需 2 密文（10+6 块）")
 
+# 2^16 评审路径 PoC（P9-1b）：SEC_LEVEL_TYPE.NONE 下 SEAL 接受 n=2^16；
+# 安全性由 lattice-estimator 承载（docs/01 §5.3 决策记录，C≈2^130.2≥128）。
+# 单密文 3.3MB 装 L=16 全序列 ⇒ 转换次数 96（较 2^15 主线减半）。非提交主线。
+PARAMS_MODE_B_2E16 = CKKSParams(
+    name="mode-b-2e16-REVIEW-PATH", poly_modulus_degree=1 << 16,
+    coeff_mod_bit_sizes=(60, 40, 40, 60), scale_log2=40, slots=1 << 15,
+    note="2^16 评审路径 PoC（需 sec_level='NONE' 构造）；密文 3.28MB；转换减半")
+
 # 深链变体（仅用于 S5 精度回归与噪声曲线：19 层 = 本栈最大深度 880bit@2^15）
 PARAMS_DEEP19 = CKKSParams(
     name="deep19-regression", poly_modulus_degree=1 << 15,
@@ -80,7 +88,13 @@ class CKKSContext:
 
     def __init__(self, params: CKKSParams = PARAMS_MODE_B,
                  public_only: bool = False,
-                 keys_dir: Optional[str] = None) -> None:
+                 keys_dir: Optional[str] = None,
+                 sec_level: str = "TC128",
+                 galois: bool = True) -> None:
+        """sec_level：TC128（默认）/NONE——NONE 仅供 2^16 评审路径 PoC
+        （SEAL 校验表止于 N=32768；安全性改由 lattice-estimator 数据承载，
+        docs/01 §5.3 决策记录）。galois=False 跳过 Galois 密钥生成
+        （2^16 全集 keygen ≈45min；PoC 只验参数接受性/加解密，不做旋转）。"""
         self.params = params
         self.public_only = public_only
         n = params.poly_modulus_degree
@@ -88,7 +102,8 @@ class CKKSContext:
         self._parms = sealapi.EncryptionParameters(sealapi.SCHEME_TYPE.CKKS)
         self._parms.set_poly_modulus_degree(n)
         self._parms.set_coeff_modulus(sealapi.CoeffModulus.Create(n, bits))
-        self._ctx = sealapi.SEALContext(self._parms, True, sealapi.SEC_LEVEL_TYPE.TC128)
+        _lvl = getattr(sealapi.SEC_LEVEL_TYPE, sec_level)
+        self._ctx = sealapi.SEALContext(self._parms, True, _lvl)
         if not self._ctx.first_context_data().qualifiers().parameters_set():
             raise ValueError(f"CKKS 参数未通过 SEAL 校验: {params}")
         self._encoder = sealapi.CKKSEncoder(self._ctx)
@@ -105,8 +120,9 @@ class CKKSContext:
             self._pk = sealapi.PublicKey()
             kg.create_public_key(self._pk)
             self._sk = kg.secret_key()
-        if kg is not None:
+        if kg is not None and galois:
             kg.create_galois_keys(self._galois)
+        if kg is not None:
             self._relin = sealapi.RelinKeys()
             kg.create_relin_keys(self._relin)
         self._encryptor = sealapi.Encryptor(self._ctx, self._pk)
