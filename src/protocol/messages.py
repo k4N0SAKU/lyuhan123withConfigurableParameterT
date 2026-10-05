@@ -13,6 +13,26 @@ import enum
 from dataclasses import dataclass, field
 
 PROTOCOL_VERSION = 1
+PROTOCOL_VERSION_BINARY = 2        # v2：数据面大载荷走信封级 blob（原始二进制，免 hex 2× 膨胀）
+
+# 数据面载荷中迁移到 blob 的 bytes 字段（按声明序在 blob 内 4B 长度前缀拼接）
+BINARY_FIELDS = {
+    "InferRequestPayload": ["ciphertext"],
+    "InferResultPayload": ["ciphertext"],
+    "ConvertMaskedCtPayload": ["masked_ct"],
+    "ConvertSharePayload": ["share"],
+    "RecryptSharesPayload": ["enc_mask", "masked_share_ints"],
+}
+
+
+def sm3_hex(data: bytes) -> str:
+    """SM3 摘要（hex）：优先 OpenSSL C 实现，回退 gmssl 参考实现。"""
+    import hashlib
+    try:
+        return hashlib.new("sm3", data).hexdigest()
+    except Exception:
+        from gmssl import sm3 as _sm3
+        return _sm3.sm3_hash(list(data))
 
 # 端口约定（docs/01 §2；IANA 未注册段 17400-17449）
 PORT_KEYNODE = 17401     # P1 密钥服务节点（认证 + 密钥管理 + 门限解密参与）
@@ -101,6 +121,7 @@ class MessageEnvelope:
     payload: dict = field(default_factory=dict)    # 载荷的规范化字典
     auth_kind: int = AuthKind.AEAD_TAG.value
     auth_value: bytes = b""                  # tag / 签名
+    blob: bytes = b""                        # v2：数据面大载荷原始二进制（JSON 外）
 
 
 # ---- 控制面载荷 ----
@@ -314,6 +335,25 @@ def _decode_json_value(v):
     return v
 
 
+def build_data_plane_envelope(msg_type, payload: dict,
+                              payload_type: str) -> MessageEnvelope:
+    """数据面信封工厂（v2）：大字段迁 blob，小 JSON 含 SM3+长度绑定，
+    header.version=2。INFER_RESULT 的 sig 字段保留在小 JSON——SM2 签名
+    覆盖段=重建后完整载荷的 JSON，签发/验证两侧字节一致。"""
+    fields = BINARY_FIELDS.get(payload_type, [])
+    small, parts = dict(payload), []
+    for f in fields:
+        raw = small.pop(f)
+        small[f + "_len"] = len(raw)
+        small[f + "_sm3"] = sm3_hex(raw)
+        parts.append(len(raw).to_bytes(4, "big") + raw)
+    return MessageEnvelope(
+        header=CommonHeader(msg_type=int(msg_type),
+                            version=PROTOCOL_VERSION_BINARY,
+                            payload_len=len(payload_to_json(small))),
+        payload_type=payload_type, payload=small, blob=b"".join(parts))
+
+
 def payload_to_json(payload: dict) -> bytes:
     """载荷字典 → 规范 JSON 字节（sort_keys + 紧凑分隔符；bytes 用 hex 标记包）。"""
     import json
@@ -351,21 +391,31 @@ def canonical_bytes(envelope: MessageEnvelope) -> bytes:
 
 
 def serialize_envelope(envelope: MessageEnvelope) -> bytes:
-    """线格式：canonical_bytes ‖ auth_kind u8 ‖ auth_value_len u32 ‖ auth_value。"""
+    """线格式：canonical_bytes ‖ auth_kind u8 ‖ auth_value_len u32 ‖ auth_value。
+
+    v2（header.version=2 且含 blob）：canonical_bytes 中的 payload 为剥离
+    大字段后的小 JSON（含 SM3+长度绑定），blob 原始二进制以 8B 长度前缀
+    追加其后——数据面大载荷免 hex 2× 膨胀。"""
     if envelope.auth_kind not in (k.value for k in AuthKind):
         raise SerializationError(f"未知 auth_kind {envelope.auth_kind}")
-    return (canonical_bytes(envelope)
+    wire = canonical_bytes(envelope)
+    if envelope.blob:
+        wire += len(envelope.blob).to_bytes(8, "big") + envelope.blob
+    return (wire
             + int(envelope.auth_kind).to_bytes(1, "big")
             + len(envelope.auth_value).to_bytes(4, "big")
             + envelope.auth_value)
 
 
 def deserialize_envelope(data: bytes) -> MessageEnvelope:
-    """线格式逆变换；结构不合法抛 SerializationError（通道层转 INTERNAL）。"""
+    """线格式逆变换（v1/v2 按 header.version 门控）；结构不合法抛
+    SerializationError（通道层转 INTERNAL）；v2 blob 的 SM3/长度绑定不符
+    同样抛 SerializationError。"""
     if len(data) < 39 + 2 + 5:
         raise SerializationError("信封过短")
+    version = data[0]
     header = CommonHeader(
-        version=data[0],
+        version=version,
         msg_type=int.from_bytes(data[1:3], "big"),
         session_id=data[3:19],
         seq=int.from_bytes(data[19:27], "big"),
@@ -384,6 +434,34 @@ def deserialize_envelope(data: bytes) -> MessageEnvelope:
         raise SerializationError("payload_len 越界")
     payload = payload_from_json(data[pos:payload_end])
     pos = payload_end
+    blob = b""
+    if version == 2:
+        if pos + 8 > len(data):
+            raise SerializationError("v2 blob 长度段缺失")
+        blob_len = int.from_bytes(data[pos:pos + 8], "big")
+        pos += 8
+        if pos + blob_len > len(data):
+            raise SerializationError("v2 blob 越界")
+        blob = data[pos:pos + blob_len]
+        pos += blob_len
+        fields = BINARY_FIELDS.get(payload_type, [])
+        cur = 0
+        for f in fields:
+            flen = int.from_bytes(blob[cur:cur + 4], "big")
+            raw = blob[cur + 4:cur + 4 + flen]
+            if len(raw) != flen:
+                raise SerializationError(f"v2 blob 字段 {f} 截断")
+            cur += 4 + flen
+            if payload.get(f + "_len") != flen:
+                raise SerializationError(f"v2 blob 字段 {f} 长度绑定不符")
+            if payload.get(f + "_sm3") != sm3_hex(raw):
+                raise SerializationError(f"v2 blob 字段 {f} SM3 校验失败")
+            payload[f] = raw
+        for f in fields:
+            payload.pop(f + "_len", None)
+            payload.pop(f + "_sm3", None)
+        if cur != blob_len:
+            raise SerializationError("v2 blob 长度与字段声明不一致")
     if pos + 5 > len(data):
         raise SerializationError("auth 段缺失")
     auth_kind = data[pos]
@@ -395,4 +473,4 @@ def deserialize_envelope(data: bytes) -> MessageEnvelope:
     auth_value = data[pos:pos + av_len]
     return MessageEnvelope(header=header, payload_type=payload_type,
                            payload=payload, auth_kind=auth_kind,
-                           auth_value=auth_value)
+                           auth_value=auth_value, blob=blob)
