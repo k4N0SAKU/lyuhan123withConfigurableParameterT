@@ -49,7 +49,7 @@ def _stats(samples):
             "max": s[-1], "min": s[0]}
 
 
-def run_round(pub, sec, client, parties, m):
+def run_round(pub, sec, client, parties, m, mask_store=None):
     slots = pub.slot_count
     vals = [(int.from_bytes(os.urandom(4), "big") / 2**32) * 8 - 4.0
             for _ in range(slots)]
@@ -79,9 +79,17 @@ def run_round(pub, sec, client, parties, m):
     result = share_vector_n(fixed, m)
     request_id = os.urandom(16)
     pieces = []
-    for p, a in zip(parties, result):
-        p.set_result_share(request_id, a)
-        pieces.append(p.exit_piece(request_id))
+    if mask_store is None:
+        for p, a in zip(parties, result):
+            p.set_result_share(request_id, a)
+            pieces.append(p.exit_piece(request_id))
+    else:
+        # 3a：Enc(sᵢ) 来自离线库存——在线只发 z 向量，不传密文（D7 延伸）
+        encs = mask_store["composer"].fetch_next()
+        for p, a, st in zip(parties, result, mask_store["parties"]):
+            p.set_result_share(request_id, a)
+            s_i = st.fetch_next()
+            pieces.append(p.exit_piece_stored(request_id, s_i, encs[p.index - 1]))
     ct = exit_compose_m(pub, pieces)
     dec = sec.decrypt(ct)
     got = [int(round(v * FIXED_ONE)) % (1 << 64) for v in dec]
@@ -91,8 +99,11 @@ def run_round(pub, sec, client, parties, m):
     exit_ms = (time.perf_counter() - t1) * 1000.0
 
     entry_bytes = m * masked_bytes + slots * 8          # 链 m 跳 + y 分发
-    exit_bytes = (m * (slots * 8 + pub.encrypt_vector([0.0]).size_bytes)
-                  + ct.size_bytes)                      # m×(z+Enc(s)) + fresh ct
+    if mask_store is None:
+        exit_bytes = (m * (slots * 8 + pub.encrypt_vector([0.0]).size_bytes)
+                      + ct.size_bytes)                  # m×(z+Enc(s)) + fresh ct
+    else:
+        exit_bytes = m * slots * 8 + ct.size_bytes      # 3a：只剩 m×z + fresh ct
     return {"entry_ms": entry_ms, "exit_ms": exit_ms,
             "round_ms": entry_ms + exit_ms,
             "entry_bytes": entry_bytes, "exit_bytes": exit_bytes,
@@ -109,6 +120,8 @@ def main(argv=None) -> int:
     ap.add_argument("--rounds", type=int, default=ROUNDS)
     ap.add_argument("--m-min", type=int, default=2)
     ap.add_argument("--m-max", type=int, default=5)
+    ap.add_argument("--mask-store", action="store_true",
+                    help="3a：出口掩码离线预生成库存（在线出口不传 Enc(sᵢ)）")
     ap.add_argument("--out", default=None, help="输出 JSON（默认 results 固定名）")
     args = ap.parse_args(argv)
     m_list = list(range(args.m_min, args.m_max + 1))
@@ -124,13 +137,30 @@ def main(argv=None) -> int:
     slots = pub.slot_count
 
     results = {}
+    store_root = tempfile.mkdtemp(prefix="a122_mask_store_") if args.mask_store else None
     for m in m_list:
         check_m(policy, m)
         parties = [ComputePartyRole(pub, index=i + 1, m=m, is_anchor=(i == 0))
                    for i in range(m)]
+        mask_store = None
+        pregen_ms = None
+        if args.mask_store:
+            # 离线阶段（D7 延伸）：预生成 Enc(sᵢ) 库存——单独计时，不计入在线
+            from src.nodes.offline_mask_gen import (ComposerExitMaskStore,
+                                                    PartyExitMaskStore,
+                                                    generate_exit_mask_inventory)
+            sdir = os.path.join(store_root, f"m{m}")
+            t_p = time.perf_counter()
+            generate_exit_mask_inventory(pub, sdir, m, args.rounds)
+            pregen_ms = (time.perf_counter() - t_p) * 1000.0
+            mask_store = {
+                "parties": [PartyExitMaskStore(os.path.join(sdir, f"party_{i}_store.json"))
+                            for i in range(1, m + 1)],
+                "composer": ComposerExitMaskStore(os.path.join(sdir, "composer_store.json")),
+            }
         rounds = []
         for _ in range(args.rounds):
-            rounds.append(run_round(pub, sec, client, parties, m))
+            rounds.append(run_round(pub, sec, client, parties, m, mask_store))
         results[str(m)] = {
             "rounds": rounds,
             "round_ms": _stats([r["round_ms"] for r in rounds]),
@@ -143,10 +173,13 @@ def main(argv=None) -> int:
             "max_dev": max(r["max_abs_dev"] for r in rounds),
             "entry_flip_rate": sum(r["entry_flip_rate"] for r in rounds) / len(rounds),
             "exit_flip_rate": sum(r["exit_flip_rate"] for r in rounds) / len(rounds),
+            "mask_store": bool(args.mask_store),
+            "offline_pregen_ms": pregen_ms,
         }
         print(f"m={m}: round p50={results[str(m)]['round_ms']['p50']:.1f}ms "
               f"bytes={results[str(m)]['bytes_per_round']/(1<<20):.1f}MiB "
-              f"ulp_ok={results[str(m)]['ulp_ok_all']} flip={results[str(m)]['entry_flip_rate']:.1%}/{results[str(m)]['exit_flip_rate']:.1%}")
+              f"ulp_ok={results[str(m)]['ulp_ok_all']} flip={results[str(m)]['entry_flip_rate']:.1%}/{results[str(m)]['exit_flip_rate']:.1%}"
+              + (f" pregen={pregen_ms:.0f}ms" if pregen_ms is not None else ""))
 
     out = {
         "schema": "a122-perf/1",
@@ -154,6 +187,7 @@ def main(argv=None) -> int:
         "workload": "conversion-round-trip (entry chain + exit compose)",
         "config": {"params": PARAMS_MODE_B.name, "slots": slots,
                    "rounds_per_m": args.rounds, "m_list": m_list,
+                   "mask_store": bool(args.mask_store),
                    "policy": policy.name,
                    "entry_window": f"[0, {policy.entry_mask_hi})",
                    "exit_window": f"[{policy.exit_mask_lo}, {policy.exit_mask_hi})",

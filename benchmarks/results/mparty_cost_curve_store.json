@@ -1,0 +1,340 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "mparty-cost-curve",
+ "workload": "conversion-round-trip (entry chain + exit compose)",
+ "config": {
+  "params": "mode-b-segment",
+  "slots": 16384,
+  "rounds_per_m": 3,
+  "m_list": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "mask_store": true,
+  "policy": "mode-b-segment",
+  "entry_window": "[0, 562949953421312)",
+  "exit_window": "[33554432, 68719476736)",
+  "m_cap": 15
+ },
+ "environment": {
+  "python": "3.10.4",
+  "platform": "win32",
+  "note": "CPU-only；fresh 掩码/密文每轮独立；逐轮精确断言"
+ },
+ "results": {
+  "2": {
+   "rounds": [
+    {
+     "entry_ms": 182.6929000671953,
+     "exit_ms": 306.4102999633178,
+     "round_ms": 489.1032000305131,
+     "entry_bytes": 2761544,
+     "exit_bytes": 1578447,
+     "masked_ct_bytes": 1315236,
+     "fresh_ct_bytes": 1316303,
+     "entry_flip_rate": 0.10992431640625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 184.78659994434565,
+     "exit_ms": 244.38120005652308,
+     "round_ms": 429.16780000086874,
+     "entry_bytes": 2761760,
+     "exit_bytes": 1577574,
+     "masked_ct_bytes": 1315344,
+     "fresh_ct_bytes": 1315430,
+     "entry_flip_rate": 0.10882568359375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 193.90740001108497,
+     "exit_ms": 295.3957000281662,
+     "round_ms": 489.30310003925115,
+     "entry_bytes": 2763490,
+     "exit_bytes": 1578443,
+     "masked_ct_bytes": 1316209,
+     "fresh_ct_bytes": 1316299,
+     "entry_flip_rate": 0.10455322265625,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 469.191366690211,
+    "p50": 489.1032000305131,
+    "max": 489.30310003925115,
+    "min": 429.16780000086874
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 187.12896667420864,
+    "p50": 184.78659994434565,
+    "max": 193.90740001108497,
+    "min": 182.6929000671953
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 282.06240001600236,
+    "p50": 295.3957000281662,
+    "max": 306.4102999633178,
+    "min": 244.38120005652308
+   },
+   "entry_bytes": 2761544,
+   "exit_bytes": 1578447,
+   "bytes_per_round": 4339991,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.10776774088541667,
+   "exit_flip_rate": 0.0,
+   "mask_store": true,
+   "offline_pregen_ms": 1500.2971000503749
+  },
+  "3": {
+   "rounds": [
+    {
+     "entry_ms": 262.2556999558583,
+     "exit_ms": 349.71119998954237,
+     "round_ms": 611.9668999454007,
+     "entry_bytes": 4077551,
+     "exit_bytes": 1708680,
+     "masked_ct_bytes": 1315493,
+     "fresh_ct_bytes": 1315464,
+     "entry_flip_rate": 0.1458740234375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 236.15230002906173,
+     "exit_ms": 367.91060003452003,
+     "round_ms": 604.0629000635818,
+     "entry_bytes": 4077455,
+     "exit_bytes": 1709390,
+     "masked_ct_bytes": 1315461,
+     "fresh_ct_bytes": 1316174,
+     "entry_flip_rate": 0.1405029296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 269.25119990482926,
+     "exit_ms": 351.6093000071123,
+     "round_ms": 620.8604999119416,
+     "entry_bytes": 4080521,
+     "exit_bytes": 1709315,
+     "masked_ct_bytes": 1316483,
+     "fresh_ct_bytes": 1316099,
+     "entry_flip_rate": 0.1405029296875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 612.296766640308,
+    "p50": 611.9668999454007,
+    "max": 620.8604999119416,
+    "min": 604.0629000635818
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 255.88639996324977,
+    "p50": 262.2556999558583,
+    "max": 269.25119990482926,
+    "min": 236.15230002906173
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 356.4103666770582,
+    "p50": 351.6093000071123,
+    "max": 367.91060003452003,
+    "min": 349.71119998954237
+   },
+   "entry_bytes": 4077551,
+   "exit_bytes": 1708680,
+   "bytes_per_round": 5786231,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.14229329427083334,
+   "exit_flip_rate": 0.0,
+   "mask_store": true,
+   "offline_pregen_ms": 2159.015499986708
+  },
+  "4": {
+   "rounds": [
+    {
+     "entry_ms": 309.5579999499023,
+     "exit_ms": 426.55269999522716,
+     "round_ms": 736.1106999451295,
+     "entry_bytes": 5394548,
+     "exit_bytes": 1839727,
+     "masked_ct_bytes": 1315869,
+     "fresh_ct_bytes": 1315439,
+     "entry_flip_rate": 0.18353271484375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 358.98909997195005,
+     "exit_ms": 479.09579996485263,
+     "round_ms": 838.0848999368027,
+     "entry_bytes": 5392704,
+     "exit_bytes": 1839013,
+     "masked_ct_bytes": 1315408,
+     "fresh_ct_bytes": 1314725,
+     "entry_flip_rate": 0.18841552734375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 322.63730000704527,
+     "exit_ms": 484.6906999591738,
+     "round_ms": 807.3279999662191,
+     "entry_bytes": 5391696,
+     "exit_bytes": 1839547,
+     "masked_ct_bytes": 1315156,
+     "fresh_ct_bytes": 1315259,
+     "entry_flip_rate": 0.18975830078125,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 793.8411999493837,
+    "p50": 807.3279999662191,
+    "max": 838.0848999368027,
+    "min": 736.1106999451295
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 330.3947999762992,
+    "p50": 322.63730000704527,
+    "max": 358.98909997195005,
+    "min": 309.5579999499023
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 463.4463999730845,
+    "p50": 479.09579996485263,
+    "max": 484.6906999591738,
+    "min": 426.55269999522716
+   },
+   "entry_bytes": 5394548,
+   "exit_bytes": 1839727,
+   "bytes_per_round": 7234275,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.18723551432291666,
+   "exit_flip_rate": 0.0,
+   "mask_store": true,
+   "offline_pregen_ms": 2738.359099952504
+  },
+  "5": {
+   "rounds": [
+    {
+     "entry_ms": 401.22610004618764,
+     "exit_ms": 530.0069999648258,
+     "round_ms": 931.2331000110134,
+     "entry_bytes": 6711947,
+     "exit_bytes": 1971486,
+     "masked_ct_bytes": 1316175,
+     "fresh_ct_bytes": 1316126,
+     "entry_flip_rate": 0.25067138671875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 429.6392999822274,
+     "exit_ms": 608.2567000994459,
+     "round_ms": 1037.8960000816733,
+     "entry_bytes": 6710692,
+     "exit_bytes": 1971555,
+     "masked_ct_bytes": 1315924,
+     "fresh_ct_bytes": 1316195,
+     "entry_flip_rate": 0.255859375,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    },
+    {
+     "entry_ms": 348.94259995780885,
+     "exit_ms": 592.9250000044703,
+     "round_ms": 941.8675999622792,
+     "entry_bytes": 6708197,
+     "exit_bytes": 1971501,
+     "masked_ct_bytes": 1315425,
+     "fresh_ct_bytes": 1316141,
+     "entry_flip_rate": 0.27020263671875,
+     "exit_flip_rate": 0.0,
+     "max_abs_dev": 0,
+     "exact": true
+    }
+   ],
+   "round_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 970.3322333516553,
+    "p50": 941.8675999622792,
+    "max": 1037.8960000816733,
+    "min": 931.2331000110134
+   },
+   "entry_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 393.2693333287413,
+    "p50": 401.22610004618764,
+    "max": 429.6392999822274,
+    "min": 348.94259995780885
+   },
+   "exit_ms": {
+    "n": 3,
+    "unit": "ms",
+    "mean": 577.062900022914,
+    "p50": 592.9250000044703,
+    "max": 608.2567000994459,
+    "min": 530.0069999648258
+   },
+   "entry_bytes": 6711947,
+   "exit_bytes": 1971486,
+   "bytes_per_round": 8683433,
+   "ulp_ok_all": true,
+   "max_dev": 0,
+   "entry_flip_rate": 0.2589111328125,
+   "exit_flip_rate": 0.0,
+   "mask_store": true,
+   "offline_pregen_ms": 3504.9990999978036
+  }
+ },
+ "stability": {
+  "m": 3,
+  "rounds_done": 3,
+  "ulp_ok": true,
+  "redline": 4,
+  "note": "偏差红线 4 ulp（P4 δ≤5 口径内）；环算术相对 y₁ 精确"
+ },
+ "timestamp_utc": "2026-10-05T07:21:43.636154+00:00"
+}

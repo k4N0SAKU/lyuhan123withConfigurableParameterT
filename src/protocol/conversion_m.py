@@ -170,3 +170,23 @@ class ComputePartyRole:
         self._emit("MPARTY_EXIT_PIECE", {"request_id": request_id.hex(),
                                          "index": self.index})
         return z, self.ctx.serialize_ct_bytes(enc_s)
+
+    def exit_piece_stored(self, request_id: bytes, s_i: List[int],
+                          enc_s_bytes: bytes) -> Tuple[List[int], bytes]:
+        """库存版出口片（P9 优化 3a）：sᵢ 与 Enc(sᵢ) 来自离线预生成库存
+        （offline_mask_gen，D7 延伸），在线不采样、不加密、**不传 Enc(sᵢ)**。
+
+        安全语义与在线版等价：sᵢ 仍为一次性均匀掩码片（离线采样、本方独持），
+        size-(m−1) 合谋仍恰缺一片；在线出口通信只剩 z 向量（8B/槽）。"""
+        if request_id not in self._result_shares:
+            raise ConversionError(10, f"P{self.index} 无结果分享"
+                                     "（MPC 结果份额未设置）")
+        a = self._result_shares.pop(request_id)
+        if len(s_i) < len(a):
+            raise ConversionError(10, "库存掩码片短于结果分享——库存与管线槽位不匹配")
+        if len(s_i) > len(a):
+            s_i = s_i[:len(a)]      # 均匀随机向量的前缀截取仍均匀（OTP 性质保持）
+        z = [(ai + si) % DEFAULT_MODULUS for ai, si in zip(a, s_i)]
+        self._emit("MPARTY_EXIT_PIECE_STORED", {"request_id": request_id.hex(),
+                                                "index": self.index})
+        return z, enc_s_bytes
