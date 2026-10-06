@@ -1,0 +1,58 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "compare-datasets-inventory",
+ "chnsenticorp": {
+  "source": "huggingface lansinuote/ChnSentiCorp (via hf-mirror)",
+  "splits": {
+   "train": 9600,
+   "validation": 1200,
+   "test": 1200
+  },
+  "label_dist": {
+   "train": {
+    "0": 4801,
+    "1": 4799
+   },
+   "validation": {
+    "0": 607,
+    "1": 593
+   },
+   "test": {
+    "0": 592,
+    "1": 608
+   }
+  },
+  "fields": [
+   "text",
+   "label"
+  ],
+  "text_len_chars": {
+   "min": 4,
+   "max": 1992,
+   "mean": 108.6
+  }
+ },
+ "sst2": {
+  "source": "huggingface nyu-mll/glue sst2 (via hf-mirror)",
+  "splits": {
+   "train": 67349,
+   "validation": 872,
+   "test": 1821
+  },
+  "label_dist": {
+   "train": {
+    "0": 29780,
+    "1": 37569
+   },
+   "validation": {
+    "0": 428,
+    "1": 444
+   },
+   "test": {
+    "-1": 1821
+   }
+  },
+  "note": "test split 无公开标签，评测一律报 validation 切分"
+ },
+ "timestamp_utc": "2026-10-06T06:32:16.964676+00:00"
+}

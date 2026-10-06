@@ -1,0 +1,10 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "compare-eval-crossdomain",
+ "checkpoint": "data/models/bert-base-chinese-sentiment",
+ "eval_set": "ChnSentiCorp test (n=1200)",
+ "accuracy": 0.8158333333333333,
+ "seconds": 88.03124529996421,
+ "note": "自建域→公开域跨域迁移：模型未在 ChnSentiCorp 训练",
+ "timestamp_utc": "2026-10-06T06:38:57.878711+00:00"
+}
