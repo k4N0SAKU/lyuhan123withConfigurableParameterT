@@ -1,0 +1,18 @@
+{
+ "schema": "a122-perf/1",
+ "kind": "compare-eval-calibers",
+ "checkpoint": "data/models/bert-base-chinese-sentiment-chn",
+ "eval_set": "ChnSentiCorp test",
+ "caliber_A_fp32_full_accuracy": 0.9283333333333333,
+ "caliber_A_seconds": 52.8,
+ "caliber_B_int8_accuracy": 0.9283333333333333,
+ "caliber_C": {
+  "subset": 20,
+  "n_layer": 2,
+  "seq_tokens": 8,
+  "cipher_vs_plain_trunc_consistency": 0.95,
+  "cipher_vs_full_label_agree": 0.55,
+  "note": "截断层精度随机水平为 P3 诚实发现（容量事实）；本口径只主张密文与明文截断参考的一致性"
+ },
+ "timestamp_utc": "2026-10-06T08:17:49.480572+00:00"
+}

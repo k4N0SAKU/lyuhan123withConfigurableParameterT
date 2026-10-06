@@ -75,58 +75,52 @@ def truncated_model(model, n_layer):
 
 def phase_calibers(ckpt, subset=20, seed=42):
     """三口径：FP32 全模型 / INT8 量化 / 密文管线标签一致率（截断层口径）。"""
-    from src.model.loader import BertSentimentPipeline
+    import copy
+    import torch
+    from src.model.loader import BertSentimentPipeline, LABEL_MAP
     from src.model.pipeline import ModeBPipeline, PipelineConfig
+    from src.model.quantize import FixedPointQuantizer
     texts, labels = load_chn_test()
-    pipe = BertSentimentPipeline(model_path=ckpt)
+    lab2idx = {v: k for k, v in LABEL_MAP.items()}
+
     # 口径 A：FP32 全模型（len 128）
     t0 = time.perf_counter()
-    model = pipe.model
+    pipe = BertSentimentPipeline(model_path=ckpt)
     tok = pipe.tokenizer
-    a_acc, _ = bert_accuracy(model, tok, texts, labels)
+    a_acc, _ = bert_accuracy(pipe.model, pipe.tokenizer, texts, labels)
     a_sec = time.perf_counter() - t0
-    # 口径 B：INT8 量化（同管线量化器）
-    import torch
+
+    # 口径 B：INT8 权重量化（同管线量化器）
     qpipe = BertSentimentPipeline(model_path=ckpt,
-                                  quantizer=__import__("src.model.quantize", fromlist=["FixedPointQuantizer"]).FixedPointQuantizer())
+                                  quantizer=FixedPointQuantizer())
     b_acc, _ = bert_accuracy(qpipe.model, qpipe.tokenizer, texts, labels)
-    b_sec = time.perf_counter() - t0 if False else None
+    del qpipe
+    import gc; gc.collect()
+
     # 口径 C：密文管线标签一致率（截断 2 层 8 token；对照明文截断参考）
     g = torch.Generator().manual_seed(seed)
     idx = torch.randperm(len(texts), generator=g)[:subset].tolist()
     sub_texts = [texts[i] for i in idx]
     sub_labels = [labels[i] for i in idx]
-    # 明文截断参考（torch 截断模型）
-    import copy
-    tmodel = truncated_model(copy.deepcopy(model), 2)
-    ref_labels, _ = bert_accuracy(tmodel, tok, sub_texts, sub_labels, max_length=8) if False else (None, None)
-    # 用 bert_accuracy 拿 preds 而非 acc：直接调用
-    tmodel.eval()
+    tmodel = truncated_model(copy.deepcopy(pipe.model), 2)
     ref_preds = []
     with torch.no_grad():
         for i in range(0, len(sub_texts), 8):
             enc = tok(sub_texts[i:i+8], truncation=True, max_length=8,
                       padding=True, return_tensors="pt")
             ref_preds += tmodel(**enc).logits.argmax(-1).tolist()
-    # 密文管线（截断 2 层 8 token）
-    cfg = PipelineConfig(n_layer=2, seq_tokens=8)
-    cpipe = ModeBPipeline(pipe, cfg)
-    cipher_labels = []
-    for t in sub_texts:
-        cipher_labels.append(cpipe.classify(t)["label_idx"] if "label_idx" in cpipe.classify(t)
-                             else None)
-    # 上面的 classify 返回 dict（label/prob）——统一取 label 文本转索引
-    from src.model.loader import LABEL_MAP
-    lab2idx = {v: k for k, v in LABEL_MAP.items()}
-    cipher_labels = [lab2idx.get(l, -1) for l in cipher_labels]
-    plain_trunc_labels = [lab2idx.get(l, -1) for l in
-                          (ref_preds and [ "负面" if x == 0 else "正面" for x in ref_preds])]
-    consist = sum(int(c == p) for c, p in
-                  zip(cipher_labels, plain_trunc_labels)) / len(cipher_labels)
-    full_agree = sum(int(c == l) for c, l in zip(cipher_labels, sub_labels)) / len(cipher_labels)
+    ref_labels = ["负面" if x == 0 else "正面" for x in ref_preds]
+    import gc as _gc; _gc.collect()
+    cpipe = ModeBPipeline(pipe, PipelineConfig(n_layer=2, seq_tokens=8))
+    cipher_labels = [lab2idx.get(cpipe.classify(t)["label"], -1) for t in sub_texts]
+    plain_labels = [lab2idx.get(l, -1) for l in ref_labels]
+    consist = sum(int(c == pl) for c, pl in
+                  zip(cipher_labels, plain_labels)) / len(cipher_labels)
+    full_agree = sum(int(c == l) for c, l in
+                     zip(cipher_labels, sub_labels)) / len(cipher_labels)
     out = {"schema": "a122-perf/1", "kind": "compare-eval-calibers",
            "checkpoint": ckpt, "eval_set": "ChnSentiCorp test",
-           "caliber_A_fp32_full_accuracy": a_acc, "caliber_A_seconds": a_sec,
+           "caliber_A_fp32_full_accuracy": a_acc, "caliber_A_seconds": round(a_sec, 1),
            "caliber_B_int8_accuracy": b_acc,
            "caliber_C": {"subset": subset, "n_layer": 2, "seq_tokens": 8,
                          "cipher_vs_plain_trunc_consistency": consist,
@@ -135,42 +129,62 @@ def phase_calibers(ckpt, subset=20, seed=42):
            "timestamp_utc": now()}
     write_json("benchmarks/results/compare_eval_calibers.json", out)
 
-def phase_sst2(ckpt_dir=None, subset=20, seed=42):
-    """SST-2 验证集：FP32/INT8 准确率 + 密文一致性子集。"""
-    from src.model.loader import BertSentimentPipeline
+def phase_sst2(ckpt_dir, subset=20, seed=42):
+    """SST-2 验证集（n=872）：FP32/INT8 准确率 + 密文管线一致性子集。"""
+    import copy
+    import torch
+    from datasets import load_dataset as ld
+    if not os.path.exists(os.path.join(ckpt_dir, "config.json")):
+        os.makedirs(ckpt_dir, exist_ok=True)
+        m = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-SST-2")
+        t = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-SST-2")
+        m.save_pretrained(ckpt_dir); t.save_pretrained(ckpt_dir)
+    from src.model.loader import BertSentimentPipeline, LABEL_MAP
     from src.model.pipeline import ModeBPipeline, PipelineConfig
-    texts, labels = load_sst2_val()
+    from src.model.quantize import FixedPointQuantizer, quantize_model_weights
+    texts = ld("nyu-mll/glue", "sst2")["validation"]["sentence"]
+    labels = ld("nyu-mll/glue", "sst2")["validation"]["label"]
     tok = AutoTokenizer.from_pretrained(ckpt_dir)
     model = AutoModelForSequenceClassification.from_pretrained(ckpt_dir).to(DEV)
     t0 = time.perf_counter()
     a_acc, _ = bert_accuracy(model, tok, texts, labels)
     a_sec = time.perf_counter() - t0
-    from src.model.quantize import FixedPointQuantizer
     qmodel = AutoModelForSequenceClassification.from_pretrained(ckpt_dir).to(DEV)
-    from src.model.quantize import quantize_model_weights
     quantize_model_weights(qmodel, linear_scheme="int8", embedding_scheme="int8")
     b_acc, _ = bert_accuracy(qmodel, tok, texts, labels)
-    # 密文一致性子集（截断 2 层 8 token，对照明文截断参考）
-    g = torch.Generator().manual_seed(seed)
-    idx = torch.randperm(len(texts), generator=g)[:subset].tolist()
+    lab2idx = {v: k for k, v in LABEL_MAP.items()}
+    pipe = BertSentimentPipeline(model_path=ckpt_dir)
+    tmodel = truncated_model(copy.deepcopy(pipe.model), 2)
+    import random
+    rnd = random.Random(seed)
+    # 密文管线不做 padding：筛选分词后 ≥ seq_tokens 的样例（隐含约束如实执行）
+    tok0 = AutoTokenizer.from_pretrained(ckpt_dir)
+    eligible = [i for i in range(len(texts))
+                if len(tok0(texts[i], truncation=True, max_length=64)["input_ids"]) >= 8]
+    rnd.shuffle(eligible)
+    idx = eligible[:subset]
     sub_texts = [texts[i] for i in idx]
-    pipe = BertSentimentPipeline(model_path=ckpt_dir) if os.path.exists(
-        os.path.join(ckpt_dir, "config.json")) else None
-    cpipe = ModeBPipeline(_wrap(ckpt_dir), PipelineConfig(n_layer=2, seq_tokens=8))
-    cipher = [cpipe.classify(t)["prob"] for t in sub_texts]
+    tmodel.eval()
+    ref_preds = []
+    with torch.no_grad():
+        for i in range(0, len(sub_texts), 8):
+            enc = tok(sub_texts[i:i+8], truncation=True, max_length=8,
+                      padding=True, return_tensors="pt")
+            ref_preds += tmodel(**enc).logits.argmax(-1).tolist()
+    cpipe = ModeBPipeline(pipe, PipelineConfig(n_layer=2, seq_tokens=8))
+    cipher_labels = [lab2idx.get(cpipe.classify(t)["label"], -1) for t in sub_texts]
+    plain_labels = [lab2idx.get("负面" if x == 0 else "正面", -1) for x in ref_preds]
+    consist = sum(int(c == pl) for c, pl in
+                  zip(cipher_labels, plain_labels)) / len(cipher_labels)
     out = {"schema": "a122-perf/1", "kind": "compare-eval-sst2",
            "checkpoint": ckpt_dir, "eval_set": "SST-2 validation (n=872)",
            "caliber_fp32_accuracy": a_acc, "caliber_int8_accuracy": b_acc,
-           "cipher_subset": {"n": subset, "labels_consistent_with_plain_trunc": None,
-                             "note": "密文一致性明细同 ChnSentiCorp 口径"},
+           "caliber_cipher": {"subset": subset, "n_layer": 2, "seq_tokens": 8,
+                              "cipher_vs_plain_trunc_consistency": consist},
            "literature_ref": {"EncFormer_SST2_acc": 0.9178, "EncFormer_plain_acc": 0.9243,
                               "source": "arXiv:2604.09975（已核验）"},
            "timestamp_utc": now()}
     write_json("benchmarks/results/compare_eval_sst2.json", out)
-
-def _wrap(ckpt_dir):
-    from src.model.loader import BertSentimentPipeline
-    return BertSentimentPipeline(model_path=ckpt_dir)
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
@@ -185,7 +199,8 @@ def main():
     elif args.phase == "calibers":
         phase_calibers(args.ckpt, subset=args.subset)
     elif args.phase == "sst2":
-        phase_sst2(args.ckpt, subset=args.subset)
+        phase_sst2(os.path.join("data", "models", "bert-base-uncased-sst2"),
+                   subset=args.subset)
 
 if __name__ == "__main__":
     main()
